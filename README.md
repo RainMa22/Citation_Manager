@@ -1,10 +1,10 @@
-# My Personal Project
+# Citation Generator!!!!
 
-## A subtitle
+## A WIP
 
-A *bulleted* list:
-- item 1
-- item 2
-- item 3
-
-An example of text with **bold** and *italic* fonts.  
+A *TODO* list:
+- Citation Selector
+- Citation Template
+- User Input(CUI)!!
+- Pain and Suffering
+- use **bold** and *italic* fonts in the project description!(done)  
