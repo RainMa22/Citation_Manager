@@ -12,10 +12,10 @@ public class Field<T> {
     // constructs a field
     // EFFECT: Field is created with the given name and given template;
     public Field(String name, String toStringTemplate, boolean optional) {
-        this.name = name;
-        this.toStringTemplate = toStringTemplate;
-        info = null;
-        this.optional = optional;
+        this.setName(name);
+        this.setToStringTemplate(toStringTemplate);
+        this.setInfo(null);
+        this.setOptional(optional);
     }
 
     // getter for optional
