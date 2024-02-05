@@ -70,8 +70,8 @@ public class Field<T> {
     // EFFECTS: Outputs the name and the data, formatted with the template. returns an empty String if info is null
     @Override
     public String toString() {
-        if (info != null) {
-            return String.format(toStringTemplate, name, info);
+        if (getInfo() != null) {
+            return String.format(toStringTemplate, name, getInfo());
         }
         return "";
     }
