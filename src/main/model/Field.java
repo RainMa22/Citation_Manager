@@ -7,19 +7,27 @@ public class Field<T> {
     private T info;
     private String name;
     private String toStringTemplate;
+    private boolean optional;
 
     // constructs a field
     // EFFECT: Field is created with the given name and given template;
-    public Field(String name, String toStringTemplate) {
+    public Field(String name, String toStringTemplate, boolean optional) {
         this.name = name;
         this.toStringTemplate = toStringTemplate;
         info = null;
+        this.optional = optional;
     }
 
-    // constructs a field
-    // EFFECT: Field is created with the given name and "" as its template;
-    public Field(String name) {
-        this(name, "");
+    // getter for optional
+    public boolean isOptional() {
+        return optional;
+    }
+
+    // setter for optional
+    // MODIFIES: this
+    // EFFECTS: sets optional to the given boolean
+    public void setOptional(boolean optional) {
+        this.optional = optional;
     }
 
     // getter for info
@@ -59,12 +67,12 @@ public class Field<T> {
     }
 
     // Requires: toStringTemplate has 2 % formatters
-    // EFFECTS: Outputs the name and the data, formatted with the template. returns null if info is null
+    // EFFECTS: Outputs the name and the data, formatted with the template. returns an empty String if info is null
     @Override
     public String toString() {
         if (info != null) {
             return String.format(toStringTemplate, name, info);
         }
-        return null;
+        return "";
     }
 }
