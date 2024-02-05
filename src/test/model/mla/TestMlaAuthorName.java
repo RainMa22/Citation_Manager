@@ -30,4 +30,12 @@ public class TestMlaAuthorName {
         assertEquals('R', threeName.getMiddleName());
         assertEquals("Martin", threeName.getLastName());
     }
+    @Test
+    public void testToStringInverted(){
+        assertEquals("Jeebs, Stove", twoName.toString());
+    }
+    @Test
+    public void testToStringNormal(){
+        assertEquals("George R. Martin", threeName.toString());
+    }
 }
