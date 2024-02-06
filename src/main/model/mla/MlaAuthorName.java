@@ -8,6 +8,7 @@ public class MlaAuthorName extends AuthorName {
             + "and %2$s as lastname.";
     public static final String INVERTED_TEMPLATE = "%3$s, %1$s %2$s";
     public static final String NORMAL_TEMPLATE = "%1$s %2$s %3$s";
+    public static final String ERROR = "[ERROR] Typed name has only one word! Did you put in the full name?";
     private String firstName;
     private Character middleName;
     private String lastName;
@@ -73,7 +74,7 @@ public class MlaAuthorName extends AuthorName {
     protected void processName(String rawString) throws InvalidFormatException {
         String[] words = rawString.split(" ");
         if (words.length <= 1) {
-            throw new InvalidFormatException("Typed name has only one word! Did you put in the full name?");
+            throw new InvalidFormatException(ERROR);
         } else if (words.length == 2) {
             this.firstName = words[0];
             this.lastName = words[1];
