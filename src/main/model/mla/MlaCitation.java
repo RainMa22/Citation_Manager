@@ -1,9 +1,11 @@
 package model.mla;
 
+import model.AuthorNameList;
 import model.Citable;
 import model.Field;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /*
@@ -17,8 +19,16 @@ public class MlaCitation implements Citable {
     // EFFECTS: creates a MLACitation with a predefined List of fields, according to the MLA format
     public MlaCitation() {
         fields = new ArrayList<>();
-        fields.add(new Field<MlaAuthorNameList>("Author Full Name(s)", "%2$s", false));
-        //fields.add()
+        fields.add(new Field<AuthorNameList>("Author Full Name(s), delimited by comma: ",
+                "%2$s", true));
+        fields.add(new Field<String>("Name of Work: ", "%2$s.", false));
+        fields.add(new Field<String>("Name of Collection(if applicable)(YYYY-MM-DD): ",
+                "%2$s.", true));
+        fields.add(new Field<Date>("Publishing Date(if accessible) ", "%2$t", true));
+        fields.add(new Field<String>("Publisher/Organization(if different from Author): ",
+                "%2$s.", true));
+        fields.add(new Field<Date>("Access Date(Recommended)(YYYY-MM-DD) ",
+                "%2$t", true));
         //...
     }
 
