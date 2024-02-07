@@ -20,6 +20,13 @@ public class MlaAuthorNameTest {
         threeName = new MlaAuthorName("George r. Martin", false);
     }
     @Test
+    public void testConstructorOneName(){
+        assertEquals("Joe", oneName.getFirstName());
+        assertNull(oneName.getMiddleName());
+        assertNull(oneName.getLastName());
+        assertTrue(oneName.isInverted());
+    }
+    @Test
     public void testConstructorTwoName(){
         assertEquals("Stove", twoName.getFirstName());
         assertNull(twoName.getMiddleName());
@@ -49,6 +56,10 @@ public class MlaAuthorNameTest {
         assertEquals('B', fourname.getMiddleName());
         assertEquals("D", fourname.getLastName());
         assertNotNull(outputCaptor.toString().trim());
+    }
+    @Test
+    public void testToStringOneName(){
+        assertEquals("Joe", oneName.toString());
     }
     @Test
     public void testToStringInverted(){

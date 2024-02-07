@@ -46,6 +46,9 @@ public class MlaAuthorName extends AuthorName {
     //          if only firstName is defined: return firstName
     @Override
     public String toString() {
+        if (middleName == null && lastName == null) {
+            return firstName;
+        }
         String firstAndMid;
         if (middleName != null) {
             firstAndMid = String.format("%s %c.", firstName, middleName);
@@ -71,7 +74,7 @@ public class MlaAuthorName extends AuthorName {
         this.firstName = words.get(0);
         if (words.size() == 2) {
             this.lastName = words.get(1);
-        } else {
+        } else if (words.size() > 2) {
             this.middleName = words.get(1).toUpperCase().charAt(0);
             this.lastName = words.get(words.size() - 1);
         }
