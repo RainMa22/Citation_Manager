@@ -1,7 +1,5 @@
 package model;
 
-import java.util.Date;
-
 /*
  * An interface that represent a citable object, capable of converting filled-in
  * Field information in a citation String.
@@ -12,10 +10,11 @@ public abstract class Citation {
     protected String collection;
     protected Integer volume;
     protected Integer pubNum;
-    protected Date pubDate;
+    protected CitationDate pubDate;
     protected String publisher;
-    protected Date accessDate;
+    protected CitationDate accessDate;
     protected String location;
+
 
     public Integer getVolume() {
         return volume;
@@ -57,11 +56,11 @@ public abstract class Citation {
         this.collection = collection;
     }
 
-    public Date getPubDate() {
+    public CitationDate getPubDate() {
         return pubDate;
     }
 
-    public void setPubDate(Date pubDate) {
+    public void setPubDate(CitationDate pubDate) {
         this.pubDate = pubDate;
     }
 
@@ -73,11 +72,11 @@ public abstract class Citation {
         this.publisher = publisher;
     }
 
-    public Date getAccessDate() {
+    public CitationDate getAccessDate() {
         return accessDate;
     }
 
-    public void setAccessDate(Date accessDate) {
+    public void setAccessDate(CitationDate accessDate) {
         this.accessDate = accessDate;
     }
 

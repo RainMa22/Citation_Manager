@@ -68,6 +68,6 @@ public class MlaAuthorNameList implements AuthorNameList {
                 out = String.join(", and ", names.get(0).toString(), names.get(1).toString());
             }
         }
-        return StringSanitizer.removeDupTailing(out + ".", ".");
+        return StringSanitizer.removeDuplicate(out + ".", ".");
     }
 }

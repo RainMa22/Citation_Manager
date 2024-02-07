@@ -17,8 +17,8 @@ public class StringSanitizerTest {
     }
     @Test
     public void testRemoveDupTailing(){
-        assertEquals("apple.", StringSanitizer.removeDupTailing("apple.................", "."));
-        assertEquals("bana", StringSanitizer.removeDupTailing("banana", "na"));
-        assertEquals("banana.", StringSanitizer.removeDupTailing("banana.", "."));
+        assertEquals("apple.", StringSanitizer.removeDuplicate("apple.................", "."));
+        assertEquals("bana", StringSanitizer.removeDuplicate("banana", "na"));
+        assertEquals("banana.", StringSanitizer.removeDuplicate("banana.", "."));
     }
 }
