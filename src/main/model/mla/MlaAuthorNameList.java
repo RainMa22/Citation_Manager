@@ -30,24 +30,21 @@ public class MlaAuthorNameList implements AuthorNameList {
     //          if rawString is empty, return null;
     @Override
     public List<AuthorName> parseString(String rawString) {
-        if (rawString.trim().isEmpty()) {
+        rawString = StringSanitizer.sanitizeString(rawString);
+        if (rawString.isEmpty()) {
             return new ArrayList<>(0);
         }
         String[] stringNames = rawString.split(",");
         int target = Math.min(stringNames.length, 3);
         List<AuthorName> result = new ArrayList<>(target);
         int i = 0;
-        int padding = 0;
         while (i < target) {
-            int index = i - padding;
-            boolean inverted = (index == 0);
-            if (index == 2) {
+            if (i == 2) {
                 result.set(1, new MlaAuthorName("et al", false));
             } else {
-                result.add(new MlaAuthorName(stringNames[i], inverted));
+                result.add(new MlaAuthorName(stringNames[i], i == 0));
             }
             i++;
-
         }
         return result;
     }
