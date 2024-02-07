@@ -1,6 +1,5 @@
 package model.mla;
 
-import model.InvalidFormatException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,17 +9,15 @@ import java.io.PrintStream;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MlaAuthorNameTest {
+    MlaAuthorName oneName;
     MlaAuthorName twoName;
     MlaAuthorName threeName;
 
     @BeforeEach
     public void setup(){
-        try{
-            twoName = new MlaAuthorName("Stove  Jeebs", true);
-            threeName = new MlaAuthorName("George r. Martin", false);
-        } catch (InvalidFormatException ife){
-            fail(ife);
-        }
+        oneName = new MlaAuthorName("Joe", true);
+        twoName = new MlaAuthorName("Stove  Jeebs", true);
+        threeName = new MlaAuthorName("George r. Martin", false);
     }
     @Test
     public void testConstructorTwoName(){
@@ -43,12 +40,8 @@ public class MlaAuthorNameTest {
         PrintStream stdout = System.out;
 
         System.setOut(new PrintStream(outputCaptor));
-        try {
-            fourname = new MlaAuthorName("A B C D", false);
-            assertFalse(fourname.isInverted());
-        } catch (InvalidFormatException ife){
-            fail(ife);
-        }
+        fourname = new MlaAuthorName("A B C D", false);
+        assertFalse(fourname.isInverted());
 
         System.setOut(stdout);
 

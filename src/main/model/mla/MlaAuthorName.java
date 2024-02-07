@@ -1,14 +1,12 @@
 package model.mla;
 
 import model.AuthorName;
-import model.InvalidFormatException;
 import util.StringSanitizer;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class MlaAuthorName extends AuthorName {
-    public static final String ERROR = "[ERROR] Typed name has only one word! Did you put in the full name?";
     private String firstName;
     private Character middleName;
     private String lastName;
@@ -16,7 +14,7 @@ public class MlaAuthorName extends AuthorName {
 
     // constructs the MlaAuthorName class
     // EFFECTS: creates a MlaAuthorName with the given name, with inverted as given;
-    public MlaAuthorName(String rawString, boolean inverted) throws InvalidFormatException {
+    public MlaAuthorName(String rawString, boolean inverted) {
         processName(rawString);
         this.inverted = inverted;
     }
@@ -45,6 +43,7 @@ public class MlaAuthorName extends AuthorName {
     //                                      otherwise, returns "[firstName] [middleName]. [lastName]"
     //          if middle name is null : [lastName], [firstName] if inverted,
     //                                   [firstName] [lastName] otherwise
+    //          if only firstName is defined: return firstName
     @Override
     public String toString() {
         String firstAndMid;
@@ -60,24 +59,21 @@ public class MlaAuthorName extends AuthorName {
         }
     }
 
+    // Requires: rawString contains more than just space
     // EFFECTS: splits the given name by space,
     //          if length of the list is 2, set list[0] to firstName, and list[1] to lastName,
     //          if length is >= 3, set uppercase of list[1].charAt(0) to middleName, and list[list.length-1]
     //          to lastName,
     //          throws InvalidFormatException if rawString is empty or is length 1,
     @Override
-    protected void processName(String rawString) throws InvalidFormatException {
+    protected void processName(String rawString) {
         List<String> words = Arrays.asList(StringSanitizer.sanitizeString(rawString).split(" "));
-        if (words.size() <= 1) {
-            throw new InvalidFormatException(ERROR);
+        this.firstName = words.get(0);
+        if (words.size() == 2) {
+            this.lastName = words.get(1);
         } else {
-            this.firstName = words.get(0);
-            if (words.size() == 2) {
-                this.lastName = words.get(1);
-            } else {
-                this.middleName = words.get(1).toUpperCase().charAt(0);
-                this.lastName = words.get(words.size() - 1);
-            }
+            this.middleName = words.get(1).toUpperCase().charAt(0);
+            this.lastName = words.get(words.size() - 1);
         }
     }
 }

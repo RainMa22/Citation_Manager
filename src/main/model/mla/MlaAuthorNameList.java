@@ -2,7 +2,6 @@ package model.mla;
 
 import model.AuthorName;
 import model.AuthorNameList;
-import model.InvalidFormatException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +14,7 @@ public class MlaAuthorNameList implements AuthorNameList {
     private List<AuthorName> names;
 
     //Constructor for Mla AuthorNameList
-    public MlaAuthorNameList(String rawString) throws InvalidFormatException {
+    public MlaAuthorNameList(String rawString) {
         names = parseString(rawString);
     }
 
@@ -36,26 +35,21 @@ public class MlaAuthorNameList implements AuthorNameList {
         int i = 0;
         int padding = 0;
         while (i < target) {
-            try {
-                int index = i - padding;
-                boolean inverted = (index == 0);
-                if (index == 2) {
-                    result.set(1, new MlaAuthorName("et al", false));
-                } else {
-                    result.add(new MlaAuthorName(stringNames[i], inverted));
-                }
-            } catch (InvalidFormatException ife) {
-                padding++;
-                target = Math.min(stringNames.length, target + 1);
-            } finally {
-                i++;
+            int index = i - padding;
+            boolean inverted = (index == 0);
+            if (index == 2) {
+                result.set(1, new MlaAuthorName("et al", false));
+            } else {
+                result.add(new MlaAuthorName(stringNames[i], inverted));
             }
+            i++;
+
         }
         return result;
     }
 
     // EFFECTS: create the citation string for Author block with MLA format
-    //
+    //          if no names stored, returns an empty String
     @Override
     public String toString() {
         return super.toString();

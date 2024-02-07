@@ -1,7 +1,6 @@
 package model.mla;
 
 import model.AuthorName;
-import model.InvalidFormatException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,15 +12,17 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class MlaAuthorNameListTest {
     MlaAuthorNameList manl1;
     MlaAuthorNameList manl2;
+    MlaAuthorNameList manl3;
+    MlaAuthorNameList manl4;
+    MlaAuthorNameList manl5;
 
     @BeforeEach
     public void setup() {
-        try {
-            manl1 = new MlaAuthorNameList("Stove Jeebs, Steve Jobs, Stovo Nouveau Jebs");
-            manl2 = new MlaAuthorNameList("Gregor middleName Kiczales, George R. Martin");
-        } catch (InvalidFormatException ife) {
-            fail(ife);
-        }
+        manl1 = new MlaAuthorNameList("Stove Jeebs, Steve Jobs, Stovo Nouveau Jebs");
+        manl2 = new MlaAuthorNameList("Gregor middleName Kiczales, George R. R. Martin");
+        manl3 = new MlaAuthorNameList("Stove Jeebs, et al.");
+        manl4 = new MlaAuthorNameList("four four");
+        manl5 = new MlaAuthorNameList("");
     }
 
     @Test
@@ -33,19 +34,9 @@ public class MlaAuthorNameListTest {
 
     @Test
     public void testConstructorTwoItems() {
-        MlaAuthorName an1;
-        MlaAuthorName an2;
-        try {
-            an1 = new MlaAuthorName("Gregor middleName Kiczales", true);
-            an2 = new MlaAuthorName("George R. Martin", false);
-            AuthorName[] loan = new AuthorName[]{an1, an2};
-            List<AuthorName> ans = manl2.getNames();
-            for (int i = 0; i < 2; i++) {
-                assertEquals(loan[i].toString(), ans.get(i).toString());
-            }
-        } catch (InvalidFormatException ife) {
-            fail(ife);
-        }
+        List<AuthorName> ans = manl2.getNames();
+        assertEquals("Kiczales, Gregor M.", ans.get(0).toString());
+        assertEquals("George R. Martin", ans.get(1).toString());
     }
 
     public void TestToStringThreeItems() {
