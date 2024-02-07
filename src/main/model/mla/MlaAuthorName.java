@@ -65,9 +65,10 @@ public class MlaAuthorName extends AuthorName {
 
     // EFFECTS: if middle name is defined: returns "[lastName], [firstName] [middleName]." if inverted,
     //                                      otherwise, returns "[firstName] [middleName]. [lastName]"
-    //          if middle name is null : [lastName], [firstName] if inverted,
+    //          if middle name is empty : [lastName], [firstName] if inverted,
     //                                   [firstName] [lastName] otherwise
     //          if only firstName is defined: return firstName
+    //          if all is empty: returns an empty String.
     @Override
     public String toString() {
         if (mode == INACTIVE) {
