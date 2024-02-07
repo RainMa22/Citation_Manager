@@ -15,8 +15,8 @@ public class StringSanitizer {
     //EFFECTS: remove duplicating pattern of specified tailing string
     public static String removeDuplicate(String original, String toRemove) {
         String out = original;
-        while (out.contains(toRemove + toRemove)) {
-            out = out.replace(toRemove + toRemove, toRemove);
+        while (out.contains(toRemove.repeat(2))) {
+            out = out.replace(toRemove.repeat(2), toRemove);
         }
         return out;
     }

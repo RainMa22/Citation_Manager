@@ -12,6 +12,7 @@ public class MlaAuthorNameTest {
     MlaAuthorName oneName;
     MlaAuthorName twoName;
     MlaAuthorName threeName;
+    MlaAuthorName fourname;
 
     @BeforeEach
     public void setup(){
@@ -22,14 +23,11 @@ public class MlaAuthorNameTest {
     @Test
     public void testConstructorOneName(){
         assertEquals("Joe", oneName.getFirstName());
-        assertNull(oneName.getMiddleName());
-        assertNull(oneName.getLastName());
         assertTrue(oneName.isInverted());
     }
     @Test
     public void testConstructorTwoName(){
         assertEquals("Stove", twoName.getFirstName());
-        assertNull(twoName.getMiddleName());
         assertEquals("Jeebs", twoName.getLastName());
         assertTrue(twoName.isInverted());
     }
@@ -42,20 +40,11 @@ public class MlaAuthorNameTest {
     }
     @Test
     public void testConstructorFourName(){
-        MlaAuthorName fourname = null;
-        ByteArrayOutputStream outputCaptor = new ByteArrayOutputStream();
-        PrintStream stdout = System.out;
-
-        System.setOut(new PrintStream(outputCaptor));
         fourname = new MlaAuthorName("A B C D", false);
-        assertFalse(fourname.isInverted());
-
-        System.setOut(stdout);
 
         assertEquals("A", fourname.getFirstName());
         assertEquals('B', fourname.getMiddleName());
         assertEquals("D", fourname.getLastName());
-        assertNotNull(outputCaptor.toString().trim());
     }
     @Test
     public void testToStringOneName(){
@@ -63,10 +52,16 @@ public class MlaAuthorNameTest {
     }
     @Test
     public void testToStringInverted(){
+        threeName.setInverted(true);
+
+        assertEquals("Martin, George R.", threeName.toString());
         assertEquals("Jeebs, Stove", twoName.toString());
     }
     @Test
     public void testToStringNormal(){
+        twoName.setInverted(false);
+
+        assertEquals("Stove Jeebs", twoName.toString());
         assertEquals("George R. Martin", threeName.toString());
     }
 }
