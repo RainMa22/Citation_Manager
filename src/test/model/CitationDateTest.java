@@ -14,12 +14,19 @@ public class CitationDateTest {
     CitationDate yearOnly;
     CitationDate yearAndMonth;
     CitationDate yearMonthAndDay;
+    CitationDate invalid;
 
     @BeforeEach
     public void setup() {
+        invalid = new MockCitationDate("My birthday!");
         yearOnly = new MockCitationDate("2024");
         yearAndMonth = new MockCitationDate("2024-03");
         yearMonthAndDay = new MockCitationDate("2024-03-26");
+    }
+
+    @Test
+    public void testConstructorInvalid(){
+        assertEquals(CitationDate.INACTIVE, invalid.getMode());
     }
 
     @Test
