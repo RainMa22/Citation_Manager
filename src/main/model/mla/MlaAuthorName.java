@@ -3,9 +3,10 @@ package model.mla;
 import model.AuthorName;
 import model.InvalidFormatException;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class MlaAuthorName extends AuthorName {
-    public static final String WARNING = "[WARNING] More than three names detected! Using %1$s as the middle name, "
-            + "and %2$s as lastname.";
     public static final String INVERTED_TEMPLATE = "%3$s, %1$s %2$s";
     public static final String NORMAL_TEMPLATE = "%1$s %2$s %3$s";
     public static final String ERROR = "[ERROR] Typed name has only one word! Did you put in the full name?";
@@ -17,7 +18,7 @@ public class MlaAuthorName extends AuthorName {
     // constructs the MlaAuthorName class
     // EFFECTS: creates a MlaAuthorName with the given name, with inverted as given;
     public MlaAuthorName(String rawString, boolean inverted) throws InvalidFormatException {
-        super(rawString);
+        processName(rawString);
         this.inverted = inverted;
     }
 
@@ -69,24 +70,19 @@ public class MlaAuthorName extends AuthorName {
     //          if length is >= 3, set uppercase of list[1].charAt(0) to middleName, and list[list.length-1]
     //          to lastName,
     //          throws InvalidFormatException if rawString is empty or is length 1,
-    //          and prints out warning, if it is length > 3.
     @Override
     protected void processName(String rawString) throws InvalidFormatException {
-        String[] words = rawString.split(" ");
-        if (words.length <= 1) {
+        List<String> words = Arrays.asList(rawString.trim().split(" "));
+        if (words.size() <= 1) {
             throw new InvalidFormatException(ERROR);
-        } else if (words.length == 2) {
-            this.firstName = words[0];
-            this.lastName = words[1];
-        } else if (words.length == 3) {
-            this.firstName = words[0];
-            this.middleName = words[1].toUpperCase().charAt(0);
-            this.lastName = words[2];
         } else {
-            this.firstName = words[0];
-            this.middleName = words[1].toUpperCase().charAt(0);
-            this.lastName = words[words.length - 1];
-            System.out.println(String.format(WARNING, middleName, lastName));
+            this.firstName = words.get(0);
+            if (words.size() == 2) {
+                this.lastName = words.get(1);
+            } else {
+                this.middleName = words.get(1).toUpperCase().charAt(0);
+                this.lastName = words.get(words.size() - 1);
+            }
         }
     }
 }

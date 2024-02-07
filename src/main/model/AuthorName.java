@@ -1,12 +1,12 @@
 package model;
 
 public abstract class AuthorName {
-    //Constructor for AuthorName
-    protected AuthorName(String rawString) throws InvalidFormatException {
-        processName(rawString);
-    }
 
     // EFFECTS: converts name to the citation String according to the citation format
+    public String cite() {
+        return this.toString();
+    }
+
     @Override
     public abstract String toString();
 

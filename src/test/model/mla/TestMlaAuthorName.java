@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestMlaAuthorName {
     MlaAuthorName twoName;
     MlaAuthorName threeName;
-    MlaAuthorName fourname;
+
     @BeforeEach
     public void setup(){
         try{
