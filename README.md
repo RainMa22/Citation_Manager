@@ -4,8 +4,8 @@
 
 A *TODO* list:
 - Citation Template
-    - MLA 
-    - APA
+    - MLA(W.I.P)
+    - APA(Maybe)
     - Chicago(maybe)
 - User Input(CUI)!!
   - *Can be done after implementing one format*
