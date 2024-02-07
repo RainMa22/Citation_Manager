@@ -9,7 +9,7 @@ public class StringSanitizer {
     public static String sanitizeString(String str) {
         String out = str.trim();
         while (out.contains("  ")) {
-            out.replaceAll("  ", " ");
+            out = out.replaceAll("  ", " ");
         }
         return out;
     }

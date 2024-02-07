@@ -2,13 +2,12 @@ package model.mla;
 
 import model.AuthorName;
 import model.InvalidFormatException;
+import util.StringSanitizer;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class MlaAuthorName extends AuthorName {
-    public static final String INVERTED_TEMPLATE = "%3$s, %1$s %2$s";
-    public static final String NORMAL_TEMPLATE = "%1$s %2$s %3$s";
     public static final String ERROR = "[ERROR] Typed name has only one word! Did you put in the full name?";
     private String firstName;
     private Character middleName;
@@ -48,21 +47,17 @@ public class MlaAuthorName extends AuthorName {
     //                                   [firstName] [lastName] otherwise
     @Override
     public String toString() {
-        String output;
-        String middleClause;
-
-        if (middleName == null) {
-            middleClause = "";
+        String firstAndMid;
+        if (middleName != null) {
+            firstAndMid = String.format("%s %c.", firstName, middleName);
         } else {
-            middleClause = middleName + ".";
+            firstAndMid = firstName;
         }
-
-        if (this.isInverted()) {
-            output = String.format(INVERTED_TEMPLATE, firstName, middleClause, lastName);
+        if (isInverted()) {
+            return String.format("%2$s, %1$s", firstAndMid, lastName);
         } else {
-            output = String.format(NORMAL_TEMPLATE, firstName, middleClause, lastName);
+            return String.join(" ", firstAndMid, lastName);
         }
-        return output.trim();
     }
 
     // EFFECTS: splits the given name by space,
@@ -72,7 +67,7 @@ public class MlaAuthorName extends AuthorName {
     //          throws InvalidFormatException if rawString is empty or is length 1,
     @Override
     protected void processName(String rawString) throws InvalidFormatException {
-        List<String> words = Arrays.asList(rawString.trim().split(" "));
+        List<String> words = Arrays.asList(StringSanitizer.sanitizeString(rawString).split(" "));
         if (words.size() <= 1) {
             throw new InvalidFormatException(ERROR);
         } else {

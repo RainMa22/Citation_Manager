@@ -10,7 +10,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class TestMlaAuthorNameList {
+public class MlaAuthorNameListTest {
     MlaAuthorNameList manl1;
     MlaAuthorNameList manl2;
 
@@ -26,21 +26,9 @@ public class TestMlaAuthorNameList {
 
     @Test
     public void testConstructorThreeItems() {
-        MlaAuthorName an1;
-        MlaAuthorName an2;
-        MlaAuthorName an3;
-        try {
-            an1 = new MlaAuthorName("Stove Jeebs", true);
-            an2 = new MlaAuthorName("Steve Jobs", false);
-            an3 = new MlaAuthorName("et al.", false);
-            AuthorName[] loan = new AuthorName[]{an1, an2, an3};
-            List<AuthorName> ans = manl1.getNames();
-            for (int i = 0; i < 3; i++) {
-                assertEquals(loan[i].toString(), ans.get(i).toString());
-            }
-        } catch (InvalidFormatException ife) {
-            fail(ife);
-        }
+        List<AuthorName> ans = manl1.getNames();
+        assertEquals("Jeebs, Stove", ans.get(0).toString());
+        assertEquals("et al", ans.get(1).toString());
     }
 
     @Test
@@ -58,5 +46,10 @@ public class TestMlaAuthorNameList {
         } catch (InvalidFormatException ife) {
             fail(ife);
         }
+    }
+
+    public void TestToStringThreeItems() {
+        assertEquals("Jeebs, Stove, et al.", manl1.toString());
+        assertEquals("Kiczales, Gregor M., and George R. Martin", manl2.toString());
     }
 }

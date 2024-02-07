@@ -9,14 +9,14 @@ import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TestMlaAuthorName {
+public class MlaAuthorNameTest {
     MlaAuthorName twoName;
     MlaAuthorName threeName;
 
     @BeforeEach
     public void setup(){
         try{
-            twoName = new MlaAuthorName("Stove Jeebs", true);
+            twoName = new MlaAuthorName("Stove  Jeebs", true);
             threeName = new MlaAuthorName("George r. Martin", false);
         } catch (InvalidFormatException ife){
             fail(ife);

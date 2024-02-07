@@ -12,9 +12,6 @@ import java.util.List;
  */
 
 public class MlaAuthorNameList implements AuthorNameList {
-    public static final String ERROR = "[ERROR] No names detected! Did you type anything?";
-    public static final String WARNING_INVALID_NAME = "[WARNING] Name %s is invalid! Did you type it correctly?";
-    public static final String WARNING_NO_NAME = "[WARNING] No name stored, skipping author part in citation";
     private List<AuthorName> names;
 
     //Constructor for Mla AuthorNameList
@@ -30,7 +27,7 @@ public class MlaAuthorNameList implements AuthorNameList {
 
     // EFFECTS: returns list of author name by splitting rawString by comma, create new AuthorName by each split String
     //          then add each AuthorName to the List; following the MLA format;
-    //          creates warning if AuthorName throws invalid format exception.
+    //          skips the current AuthorName if AuthorName throws invalid format exception.
     @Override
     public List<AuthorName> parseString(String rawString) {
         String[] stringNames = rawString.split(",");
@@ -42,21 +39,17 @@ public class MlaAuthorNameList implements AuthorNameList {
             try {
                 int index = i - padding;
                 boolean inverted = (index == 0);
-                if (index == 3) {
-                    result.add(new MlaAuthorName("et al.", false));
+                if (index == 2) {
+                    result.set(1, new MlaAuthorName("et al", false));
                 } else {
                     result.add(new MlaAuthorName(stringNames[i], inverted));
                 }
             } catch (InvalidFormatException ife) {
-                System.out.println(String.format(WARNING_INVALID_NAME, stringNames[i]));
                 padding++;
                 target = Math.min(stringNames.length, target + 1);
             } finally {
                 i++;
             }
-        }
-        if ((i + padding) > stringNames.length) {
-            System.out.println(WARNING_NO_NAME);
         }
         return result;
     }
