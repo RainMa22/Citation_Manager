@@ -6,8 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MlaAuthorNameListTest {
     MlaAuthorNameList manl1;
@@ -21,7 +20,7 @@ public class MlaAuthorNameListTest {
         manl1 = new MlaAuthorNameList("Stove Jeebs, Steve Jobs, Stovo Nouveau Jebs");
         manl2 = new MlaAuthorNameList("Gregor middleName Kiczales, George R. R. Martin");
         manl3 = new MlaAuthorNameList("Stove Jeebs, et al.");
-        manl4 = new MlaAuthorNameList("four four");
+        manl4 = new MlaAuthorNameList("Four Three");
         manl5 = new MlaAuthorNameList("");
     }
 
@@ -38,9 +37,34 @@ public class MlaAuthorNameListTest {
         assertEquals("Kiczales, Gregor M.", ans.get(0).toString());
         assertEquals("George R. Martin", ans.get(1).toString());
     }
-
+    @Test
+    public void testConstructorOneItem() {
+        List<AuthorName> ans = manl4.getNames();
+        assertEquals("Three, Four", ans.get(0).toString());
+    }
+    @Test
+    public void testConstructorNoItem() {
+        List<AuthorName> ans = manl5.getNames();
+        assertEquals(0, ans.size());
+    }
+    @Test
     public void TestToStringThreeItems() {
         assertEquals("Jeebs, Stove, et al.", manl1.toString());
-        assertEquals("Kiczales, Gregor M., and George R. Martin", manl2.toString());
+    }
+    @Test
+    public void TestToStringTwoItems(){
+        assertEquals("Kiczales, Gregor M., and George R. Martin.", manl2.toString());
+    }
+    @Test
+    public void TestToStringOneItem(){
+        assertEquals("Three, Four.", manl4.toString());
+    }
+    @Test
+    public void TestToStringPlantedNoItem(){
+        assertEquals("", manl5.toString());
+    }
+    @Test
+    public void TestToStringPlantedEtAl(){
+        assertEquals("Jeebs, Stove, et al.", manl3.toString());
     }
 }

@@ -1,6 +1,5 @@
 package model.mla;
 
-import model.AuthorName;
 import model.Citable;
 import model.Field;
 
@@ -18,7 +17,8 @@ public class MlaCitation implements Citable {
     // EFFECTS: creates a MLACitation with a predefined List of fields, according to the MLA format
     public MlaCitation() {
         fields = new ArrayList<>();
-        fields.add(new Field<AuthorName>("Author Full Name(s)", "%2$s", false));
+        fields.add(new Field<MlaAuthorNameList>("Author Full Name(s)", "%2$s", false));
+        //fields.add()
         //...
     }
 
