@@ -12,7 +12,7 @@ public abstract class CitationDate {
     public static final int YEAR_MONTH_AND_DAY = 2;
     public static final int INACTIVE = -1;
     protected static final String[] INPUT_TEMPLATE = {"yyyy", "yyyy-MM", "yyyy-MM-dd"};
-    private int mode;
+    protected int mode;
     protected Date date;
 
     // constructor for CitationDate

@@ -9,7 +9,7 @@ public abstract class Citation {
     protected String title;
     protected String collection;
     protected Integer volume;
-    protected Integer pubNum;
+    protected String issueName;
     protected CitationDate pubDate;
     protected String publisher;
     protected CitationDate accessDate;
@@ -24,12 +24,12 @@ public abstract class Citation {
         this.volume = volume;
     }
 
-    public Integer getPubNum() {
-        return pubNum;
+    public String getIssueName() {
+        return issueName;
     }
 
-    public void setPubNum(Integer pubNum) {
-        this.pubNum = pubNum;
+    public void setIssueName(String issueName) {
+        this.issueName = issueName;
     }
 
     public AuthorNameList getAuthorNames() {
