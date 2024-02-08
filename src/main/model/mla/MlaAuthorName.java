@@ -1,7 +1,7 @@
 package model.mla;
 
 import model.AuthorName;
-import util.StringSanitizer;
+import util.StringUtils;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -88,7 +88,7 @@ public class MlaAuthorName extends AuthorName {
     //          to lastName,
     @Override
     protected void processName(String rawString) {
-        List<String> words = Arrays.asList(StringSanitizer.sanitizeString(rawString).split(" "));
+        List<String> words = Arrays.asList(StringUtils.sanitizeString(rawString).split(" "));
         if (words.isEmpty()) {
             return;
         }

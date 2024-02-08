@@ -1,7 +1,7 @@
 package model.mla;
 
 import model.CitationTitle;
-import util.StringSanitizer;
+import util.StringUtils;
 
 public class MlaCitationTitle extends CitationTitle {
     public static final int ACTIVE = 0;
@@ -18,7 +18,7 @@ public class MlaCitationTitle extends CitationTitle {
     public MlaCitationTitle(String title, boolean minor) {
         super(title);
         if (title != null) {
-            title = StringSanitizer.sanitizeString(title);
+            title = StringUtils.sanitizeString(title);
             if (!title.isEmpty()) {
                 setMode(ACTIVE);
             }

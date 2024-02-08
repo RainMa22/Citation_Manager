@@ -3,7 +3,7 @@ package model.mla;
 import model.AuthorName;
 import model.AuthorNameList;
 import model.CitationComponent;
-import util.StringSanitizer;
+import util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +39,7 @@ public class MlaAuthorNameList extends CitationComponent implements AuthorNameLi
         if (rawString == null) {
             return null;
         }
-        rawString = StringSanitizer.sanitizeString(rawString);
+        rawString = StringUtils.sanitizeString(rawString);
         if (rawString.isEmpty()) {
             return null;
         }
@@ -78,6 +78,6 @@ public class MlaAuthorNameList extends CitationComponent implements AuthorNameLi
                 out = String.join(", ", names.get(0).toString(), names.get(1).toString());
                 break;
         }
-        return StringSanitizer.removeTailing(out, ".");
+        return StringUtils.removeTailing(out, ".");
     }
 }
