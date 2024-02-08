@@ -8,27 +8,27 @@ public abstract class Citation extends CitationComponent {
     protected AuthorNameList authorNames;
     protected CitationTitle title;
     protected CitationTitle collection;
-    protected Integer volume;
-    protected String issueName;
+    protected SimpleCitationComponent volume;
+    protected SimpleCitationComponent issueName;
     protected CitationDate pubDate;
-    protected String publisher;
+    protected SimpleCitationComponent publisher;
     protected CitationDate accessDate;
-    protected String location;
+    protected SimpleCitationComponent location;
 
 
-    public Integer getVolume() {
+    public SimpleCitationComponent getVolume() {
         return volume;
     }
 
-    public void setVolume(Integer volume) {
+    public void setVolume(SimpleCitationComponent volume) {
         this.volume = volume;
     }
 
-    public String getIssueName() {
+    public SimpleCitationComponent getIssueName() {
         return issueName;
     }
 
-    public void setIssueName(String issueName) {
+    public void setIssueName(SimpleCitationComponent issueName) {
         this.issueName = issueName;
     }
 
@@ -64,11 +64,11 @@ public abstract class Citation extends CitationComponent {
         this.pubDate = pubDate;
     }
 
-    public String getPublisher() {
+    public SimpleCitationComponent getPublisher() {
         return publisher;
     }
 
-    public void setPublisher(String publisher) {
+    public void setPublisher(SimpleCitationComponent publisher) {
         this.publisher = publisher;
     }
 
@@ -80,11 +80,11 @@ public abstract class Citation extends CitationComponent {
         this.accessDate = accessDate;
     }
 
-    public String getLocation() {
+    public SimpleCitationComponent getLocation() {
         return location;
     }
 
-    public void setLocation(String location) {
+    public void setLocation(SimpleCitationComponent location) {
         this.location = location;
     }
 }

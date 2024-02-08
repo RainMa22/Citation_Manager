@@ -12,7 +12,6 @@ public abstract class CitationDate extends CitationComponent {
     public static final int YEAR_MONTH_AND_DAY = 2;
     protected String[] inputTemplate;
     protected String[] outputTemplate;
-    protected int mode;
     protected Date date;
 
     // constructor for CitationDate
@@ -25,22 +24,20 @@ public abstract class CitationDate extends CitationComponent {
         head = "";
         tail = "";
         outputTemplate = new String[0];
-        mode = INACTIVE;
+        setMode(INACTIVE);
         inputTemplate = new String[]{"yyyy", "yyyy-MM", "yyyy-MM-dd"};
         for (int i = 2; i >= 0; i -= 1) {
             try {
                 SimpleDateFormat dateFormat = new SimpleDateFormat(inputTemplate[i]);
                 this.date = dateFormat.parse(dateString);
-                mode = i;
+                setMode(i);
                 break;
             } catch (ParseException ignored) {
                 //continue
+            } catch (NullPointerException npe) {
+                break;
             }
         }
-    }
-
-    public int getMode() {
-        return mode;
     }
 
     public Date getDate() {
@@ -50,7 +47,7 @@ public abstract class CitationDate extends CitationComponent {
     // EFFECTS: converts the Date to a citation String;
     @Override
     protected String createBody() {
-        if (mode == INACTIVE) {
+        if (mode == INACTIVE || mode >= outputTemplate.length) {
             return "";
         }
         SimpleDateFormat dateFormat = new SimpleDateFormat(outputTemplate[mode]);

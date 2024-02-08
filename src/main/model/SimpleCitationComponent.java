@@ -20,7 +20,7 @@ public final class SimpleCitationComponent extends CitationComponent {
     // EFFECTS: creates a SimpleCitationComponent with the given body, head and tail
     public SimpleCitationComponent(Object body, String head, String tail) {
         super();
-        if (body != null) {
+        if (body != null && !body.toString().isEmpty()) {
             this.body = body;
             this.setMode(ACTIVE);
             this.setHead(head);

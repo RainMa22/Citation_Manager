@@ -8,11 +8,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class SimpleCitationComponentTest {
     SimpleCitationComponent stringSCC;
     SimpleCitationComponent intSCC;
+    SimpleCitationComponent inactiveSCC;
 
     @BeforeEach
     public void setup() {
         stringSCC = new SimpleCitationComponent("ello", "h", ", world!");
         intSCC = new SimpleCitationComponent(0xFFFFFF, "the color is: ", ", which is white.");
+        inactiveSCC = new SimpleCitationComponent("", "whatever", "whatever");
     }
 
     @Test
@@ -24,6 +26,8 @@ public class SimpleCitationComponentTest {
         assertEquals(0xFFFFFF, intSCC.getBody());
         assertEquals("the color is: ", intSCC.getHead());
         assertEquals(", which is white.", intSCC.getTail());
+
+        assertEquals(SimpleCitationComponent.INACTIVE, inactiveSCC.getMode());
     }
 
     @Test
@@ -34,5 +38,6 @@ public class SimpleCitationComponentTest {
 
         assertEquals(stringSCCOut, stringSCC.toString());
         assertEquals(intSCCOut, intSCC.toString());
+        assertEquals("", inactiveSCC.toString());
     }
 }

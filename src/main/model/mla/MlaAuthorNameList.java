@@ -36,6 +36,9 @@ public class MlaAuthorNameList extends CitationComponent implements AuthorNameLi
     //          if rawString is empty, return null;
     @Override
     public List<AuthorName> parseString(String rawString) {
+        if (rawString == null) {
+            return null;
+        }
         rawString = StringSanitizer.sanitizeString(rawString);
         if (rawString.isEmpty()) {
             return null;
