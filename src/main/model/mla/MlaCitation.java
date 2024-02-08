@@ -36,7 +36,8 @@ public class MlaCitation extends Citation {
         this.minorWork = minorWork;
     }
 
-    // [authorName]. [title]. [collection] []
+    //EFFECTS: generates the following string
+    //          [authorName]. [title]. [collection], vol.[50], [issueName], [pubdate], [location]. [accessDate].
     @Override
     public String cite() {
         return null;
