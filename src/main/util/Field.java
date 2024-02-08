@@ -1,4 +1,4 @@
-package model;
+package util;
 
 /*
  * Represents a Field to be filled of information.

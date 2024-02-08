@@ -6,7 +6,7 @@ package model;
  */
 public abstract class Citation {
     protected AuthorNameList authorNames;
-    protected String title;
+    protected CitationTitle title;
     protected String collection;
     protected Integer volume;
     protected String issueName;
@@ -40,11 +40,11 @@ public abstract class Citation {
         this.authorNames = authorNames;
     }
 
-    public String getTitle() {
+    public CitationTitle getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(CitationTitle title) {
         this.title = title;
     }
 

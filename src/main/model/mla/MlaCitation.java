@@ -19,7 +19,7 @@ public class MlaCitation extends Citation {
                        String issueName, String pubDate, String publisher, String accessDate,
                        String location) {
         setAuthorNames(new MlaAuthorNameList(authorNames));
-        setTitle(title);
+        setTitle(new MlaCitationTitle(title));
         this.minorWork = minorWork;
         setCollection(collection);
         setVolume(volume);
