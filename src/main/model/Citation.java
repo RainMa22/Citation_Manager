@@ -88,7 +88,6 @@ public abstract class Citation {
         this.location = location;
     }
 
-    // REQUIRE: Citable.isValid()
     // EFFECTS: Condense all the Fields into a valid citation string and outputs it.
-    public abstract String cite();
+    public abstract String toString();
 }

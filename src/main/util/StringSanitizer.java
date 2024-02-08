@@ -12,11 +12,20 @@ public class StringSanitizer {
         return out;
     }
 
-    //EFFECTS: remove duplicating pattern of specified tailing string
+    //EFFECTS: remove duplicating pattern of specified string
     public static String removeDuplicate(String original, String toRemove) {
         String out = original;
         while (out.contains(toRemove.repeat(2))) {
             out = out.replace(toRemove.repeat(2), toRemove);
+        }
+        return out;
+    }
+
+    //EFFECTS: remove tailing pattern of specified string
+    public static String removeTailing(String original, String toRemove) {
+        String out = original;
+        while (out.endsWith(toRemove)) {
+            out = out.substring(0, out.length() - 2);
         }
         return out;
     }

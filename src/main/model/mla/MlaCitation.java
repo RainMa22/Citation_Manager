@@ -2,12 +2,14 @@ package model.mla;
 
 import model.Citation;
 
+
 /*
  * A citation by MLA format
  */
 
 public class MlaCitation extends Citation {
 
+    private static final String Template = "%1$s %2$s %3$s %4$s %5$s %6$s %7$s %8$s";
     private boolean minorWork;
 
     // Constructor for MlaCitation
@@ -36,10 +38,10 @@ public class MlaCitation extends Citation {
         this.minorWork = minorWork;
     }
 
-    //EFFECTS: generates the following string
-    //          [authorName]. [title]. [collection], vol.[50], [issueName], [pubdate], [location]. [accessDate].
+    //EFFECTS: generates MLA-formatted citation String based on defined variables.
     @Override
-    public String cite() {
+    public String toString() {
+
         return null;
     }
 }
