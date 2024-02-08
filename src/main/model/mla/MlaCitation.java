@@ -19,11 +19,7 @@ public class MlaCitation extends Citation {
         setAuthorNames(new MlaAuthorNameList(authorNames));
         setTitle(new MlaCitationTitle(title, minorWork));
         this.minorWork = minorWork;
-        if (minorWork) {
-            setCollection(new MlaCitationTitle(collection, false));
-        } else {
-            setCollection(new MlaCitationTitle(""));
-        }
+        setCollection(new MlaCitationCollection(collection));
         setVolume(volume);
         setIssueName(issueName);
         setPubDate(new MlaCitationDate(pubDate));
@@ -40,6 +36,7 @@ public class MlaCitation extends Citation {
         this.minorWork = minorWork;
     }
 
+    // [authorName]. [title]. [collection] []
     @Override
     public String cite() {
         return null;
