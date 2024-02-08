@@ -10,7 +10,7 @@ public class MlaCitationDate extends CitationDate {
         super(dateString);
         if (getDate() != null) {
             super.outputTemplate = new String[]{"yyyy", "MMM yyyy", "dd MMM yyyy"};
-            super.tail = ",";
+            super.tail = ", ";
         }
     }
 

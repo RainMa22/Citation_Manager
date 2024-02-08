@@ -15,6 +15,6 @@ public class MlaCitationCollectionTest {
 
     @Test
     public void testToStringMajor() {
-        assertEquals("<i>asdda</i>,", major.toString());
+        assertEquals("<i>asdda</i>, ", major.toString());
     }
 }

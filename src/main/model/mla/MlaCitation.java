@@ -12,9 +12,7 @@ public class MlaCitation extends Citation {
 
     public static final int MINOR = 0;
     public static final int MAJOR = 1;
-    private static final String[] TEMPLATES = {
-            "%1$s %2$s %3$s %4$s %5$s %6$s %7$s %8$s",
-            "%1$s %2$s %4$s %5$s %6$s %7$s %8$s"};
+    private static final String TEMPLATE = "%1$s%2$s%3$s%4$s%5$s%6$s%7$s%8$s%9$s";
     private boolean minorWork;
 
     // Constructor for MlaCitation
@@ -27,11 +25,11 @@ public class MlaCitation extends Citation {
         setTitle(new MlaCitationTitle(title, minorWork));
         setMinorWork(minorWork);
         setCollection(new MlaCitationCollection(collection));
-        setVolume(new SimpleCitationComponent(volume, "vol. ", ","));
-        setIssueName(new SimpleCitationComponent(issueName, "", ","));
+        setVolume(new SimpleCitationComponent(volume, "vol.", ", "));
+        setIssueName(new SimpleCitationComponent(issueName, "", ", "));
         setPubDate(new MlaCitationDate(pubDate));
-        setPublisher(new SimpleCitationComponent(publisher, "", ","));
-        setLocation(new SimpleCitationComponent(location, "", "."));
+        setPublisher(new SimpleCitationComponent(publisher, "", ", "));
+        setLocation(new SimpleCitationComponent(location, "", ". "));
         setAccessDate(new MlaAccessDate(accessDate));
 
     }
@@ -56,7 +54,7 @@ public class MlaCitation extends Citation {
         if (mode == INACTIVE) {
             return "";
         }
-        return String.format(TEMPLATES[mode], authorNames, title, collection, volume, issueName, pubDate,
-                publisher, location, accessDate);
+        return String.format(TEMPLATE, authorNames, title, collection, volume, issueName, pubDate,
+                publisher, location, accessDate).trim();
     }
 }

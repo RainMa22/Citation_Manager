@@ -26,16 +26,16 @@ public class MlaAccessDateTest {
 
     @Test
     public void testToStringYear() {
-        assertEquals("Accessed 2024.", yearOnly.toString());
+        assertEquals("Accessed 2024. ", yearOnly.toString());
     }
 
     @Test
     public void testToStringYearMonth() {
-        assertEquals("Accessed Mar. 2024.", yearMonth.toString());
+        assertEquals("Accessed Mar. 2024. ", yearMonth.toString());
     }
 
     @Test
     void testToStringYearMonthDay() {
-        assertEquals("Accessed 26 Mar. 2024.", yearMonthDay.toString());
+        assertEquals("Accessed 26 Mar. 2024. ", yearMonthDay.toString());
     }
 }

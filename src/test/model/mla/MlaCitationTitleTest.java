@@ -24,11 +24,11 @@ public class MlaCitationTitleTest {
 
     @Test
     public void testToStringMajor() {
-        assertEquals("<i>asdda</i>.", major.toString());
+        assertEquals("<i>asdda</i>. ", major.toString());
     }
 
     @Test
     public void testToStringMinor() {
-        assertEquals("\"sad.\"", minor.toString());
+        assertEquals("\"sad.\" ", minor.toString());
     }
 }

@@ -26,16 +26,16 @@ public class MlaCitationDateTest {
 
     @Test
     public void testToStringYear() {
-        assertEquals("2024,", yearOnly.toString());
+        assertEquals("2024, ", yearOnly.toString());
     }
 
     @Test
     public void testToStringYearMonth() {
-        assertEquals("Mar. 2024,", yearMonth.toString());
+        assertEquals("Mar. 2024, ", yearMonth.toString());
     }
 
     @Test
     void testToStringYearMonthDay() {
-        assertEquals("26 Mar. 2024,", yearMonthDay.toString());
+        assertEquals("26 Mar. 2024, ", yearMonthDay.toString());
     }
 }

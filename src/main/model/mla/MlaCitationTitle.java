@@ -34,10 +34,10 @@ public class MlaCitationTitle extends CitationTitle {
         this.minor = minor;
         if (minor) {
             setHead("\"");
-            setTail(".\"");
+            setTail(".\" ");
         } else {
             setHead("<i>");
-            setTail("</i>.");
+            setTail("</i>. ");
         }
     }
 

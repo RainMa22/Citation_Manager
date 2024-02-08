@@ -22,7 +22,7 @@ public class MlaAuthorNameList extends CitationComponent implements AuthorNameLi
     public MlaAuthorNameList(String rawString) {
         super();
         names = parseString(rawString);
-        super.setTail(".");
+        super.setTail(". ");
     }
 
     //getter for names

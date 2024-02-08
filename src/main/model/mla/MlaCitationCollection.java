@@ -6,7 +6,7 @@ public class MlaCitationCollection extends MlaCitationTitle {
     // EFFECTS: creates a MlaCitationTitle with minor set to false
     public MlaCitationCollection(String title) {
         super(title);
-        setTail("</i>,");
+        setTail("</i>, ");
     }
 
 

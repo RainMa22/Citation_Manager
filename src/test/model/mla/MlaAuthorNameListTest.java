@@ -51,17 +51,17 @@ public class MlaAuthorNameListTest {
 
     @Test
     public void TestToStringThreeItems() {
-        assertEquals("Jeebs, Stove, et al.", manl1.toString());
+        assertEquals("Jeebs, Stove, et al. ", manl1.toString());
     }
 
     @Test
     public void TestToStringTwoItems() {
-        assertEquals("Kiczales, Gregor M., and George R. Martin.", manl2.toString());
+        assertEquals("Kiczales, Gregor M., and George R. Martin. ", manl2.toString());
     }
 
     @Test
     public void TestToStringOneItem() {
-        assertEquals("Three, Four.", manl4.toString());
+        assertEquals("Three, Four. ", manl4.toString());
     }
 
     @Test
@@ -71,6 +71,6 @@ public class MlaAuthorNameListTest {
 
     @Test
     public void TestToStringPlantedEtAl() {
-        assertEquals("Jeebs, Stove, et al.", manl3.toString());
+        assertEquals("Jeebs, Stove, et al. ", manl3.toString());
     }
 }
