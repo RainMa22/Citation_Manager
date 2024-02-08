@@ -1,9 +1,9 @@
 package model;
 
-public abstract class AuthorName {
-
-    @Override
-    public abstract String toString();
+public abstract class AuthorName extends CitationComponent {
+    public AuthorName() {
+        super();
+    }
 
     // Requires: rawString contains more than just space
     // EFFECTS: process the given name, delimited by space, into a format according to the citation

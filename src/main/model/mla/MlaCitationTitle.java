@@ -1,9 +1,22 @@
 package model.mla;
 
 import model.CitationTitle;
+import util.StringSanitizer;
 
 public class MlaCitationTitle extends CitationTitle {
+    public static final int ACTIVE = 0;
     private boolean minor;
+
+    public void setMinor(boolean minor) {
+        this.minor = minor;
+        if (minor) {
+            setHead("\"");
+            setTail(".\"");
+        } else {
+            setHead("<i>");
+            setTail("</i>.");
+        }
+    }
 
     //constructor for MlaCitation
     // EFFECTS: creates a MlaCitationTitle with minor set to false
@@ -11,25 +24,25 @@ public class MlaCitationTitle extends CitationTitle {
         this(title, false);
     }
 
-    //constructor for MlaCitation
+    // constructor for MlaCitation
     // EFFECTS: creates a MlaCitationTitle with minor set to given minor
     public MlaCitationTitle(String title, boolean minor) {
         super(title);
-        this.minor = minor;
+        title = StringSanitizer.sanitizeString(title);
+        if (!title.isEmpty()) {
+            setMode(ACTIVE);
+        }
+        setMinor(minor);
     }
 
     public boolean isMinor() {
         return minor;
     }
 
-    // EFFECTS: return title+"." surronded by double quotation marks if minor is true, otherwise return
-    // "<i>"+title+"</i>."
+    // EFFECTS: returns title
     @Override
-    public String toString() {
-        if (this.minor) {
-            return String.join(title, "\"", ".\"");
-        }
-        return String.join(title, "<i>", "</i>.");
+    protected String createBody() {
+        return title;
     }
 
 }

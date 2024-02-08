@@ -74,6 +74,11 @@ public class CitationDateTest {
         public String toString() {
             return null;
         }
+
+        @Override
+        protected String createBody() {
+            return null;
+        }
     }
 
 

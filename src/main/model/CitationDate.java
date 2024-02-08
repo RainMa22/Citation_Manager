@@ -6,15 +6,12 @@ import java.util.Date;
 
 
 // construct a date following a citation format
-public abstract class CitationDate {
+public abstract class CitationDate extends CitationComponent {
     public static final int YEAR_ONLY = 0;
     public static final int YEAR_AND_MONTH = 1;
     public static final int YEAR_MONTH_AND_DAY = 2;
-    public static final int INACTIVE = -1;
     protected String[] inputTemplate;
     protected String[] outputTemplate;
-    protected String head;
-    protected String tail;
     protected int mode;
     protected Date date;
 
@@ -27,6 +24,7 @@ public abstract class CitationDate {
     public CitationDate(String dateString) {
         head = "";
         tail = "";
+        outputTemplate = new String[0];
         mode = INACTIVE;
         inputTemplate = new String[]{"yyyy", "yyyy-MM", "yyyy-MM-dd"};
         for (int i = 2; i >= 0; i -= 1) {
@@ -51,11 +49,11 @@ public abstract class CitationDate {
 
     // EFFECTS: converts the Date to a citation String;
     @Override
-    public String toString() {
+    protected String createBody() {
         if (mode == INACTIVE) {
             return "";
         }
         SimpleDateFormat dateFormat = new SimpleDateFormat(outputTemplate[mode]);
-        return head.concat(dateFormat.format(date)).concat(tail);
+        return dateFormat.format(date);
     }
 }

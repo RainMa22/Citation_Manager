@@ -2,6 +2,7 @@ package model.mla;
 
 import model.AuthorName;
 import model.AuthorNameList;
+import model.CitationComponent;
 import util.StringSanitizer;
 
 import java.util.ArrayList;
@@ -11,12 +12,17 @@ import java.util.List;
  * List of AuthorNames under MLA format
  */
 
-public class MlaAuthorNameList implements AuthorNameList {
+public class MlaAuthorNameList extends CitationComponent implements AuthorNameList {
+    public static final int ONE_NAME = 0;
+    public static final int TWO_NAME = 1;
+    public static final int ET_AL = 2;
     private List<AuthorName> names;
 
     //Constructor for Mla AuthorNameList
     public MlaAuthorNameList(String rawString) {
+        super();
         names = parseString(rawString);
+        super.setTail(".");
     }
 
     //getter for names
@@ -32,39 +38,43 @@ public class MlaAuthorNameList implements AuthorNameList {
     public List<AuthorName> parseString(String rawString) {
         rawString = StringSanitizer.sanitizeString(rawString);
         if (rawString.isEmpty()) {
-            return new ArrayList<>(0);
+            return null;
         }
+
+        List<AuthorName> result = new ArrayList<>(2);
+        setMode(ONE_NAME);
         String[] stringNames = rawString.split(",");
-        int target = Math.min(stringNames.length, 3);
-        List<AuthorName> result = new ArrayList<>(target);
-        int i = 0;
-        while (i < target) {
-            if (i == 2) {
-                result.set(1, new MlaAuthorName("et al", false));
-            } else {
-                result.add(new MlaAuthorName(stringNames[i], i == 0));
+        int target = stringNames.length;
+        result.add(new MlaAuthorName(stringNames[0], true));
+        if (target == 2) {
+            setMode(TWO_NAME);
+            if (stringNames[1].trim().startsWith("et")) {
+                setMode(ET_AL);
             }
-            i++;
+            result.add(new MlaAuthorName(stringNames[1], false));
+        } else if (target > 2) {
+            setMode(ET_AL);
+            result.add(new MlaAuthorName("et al", false));
         }
         return result;
     }
 
-    // EFFECTS: create the citation sentence(ends with a period) for Author block with MLA format
+    // EFFECTS: create the citation sentence(excluding period) for Author block with MLA format
     //          if no names stored, returns an empty String
     @Override
-    public String toString() {
-        String out;
-        if (names.isEmpty()) {
-            return "";
-        } else if (names.size() == 1) {
-            out = names.get(0).toString();
-        } else {
-            if (names.get(1).toString().startsWith("et")) {
-                out = String.join(", ", names.get(0).toString(), names.get(1).toString());
-            } else {
+    protected String createBody() {
+        String out = "";
+        switch (mode) {
+            case ONE_NAME:
+                out = names.get(0).toString();
+                break;
+            case TWO_NAME:
                 out = String.join(", and ", names.get(0).toString(), names.get(1).toString());
-            }
+                break;
+            case ET_AL:
+                out = String.join(", ", names.get(0).toString(), names.get(1).toString());
+                break;
         }
-        return StringSanitizer.removeDuplicate(out + ".", ".");
+        return StringSanitizer.removeTailing(out, ".");
     }
 }

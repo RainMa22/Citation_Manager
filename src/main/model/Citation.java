@@ -4,7 +4,7 @@ package model;
  * An interface that represent a citable object, capable of converting filled-in
  * Field information in a citation String.
  */
-public abstract class Citation {
+public abstract class Citation extends CitationComponent {
     protected AuthorNameList authorNames;
     protected CitationTitle title;
     protected CitationTitle collection;
@@ -87,7 +87,4 @@ public abstract class Citation {
     public void setLocation(String location) {
         this.location = location;
     }
-
-    // EFFECTS: Condense all the Fields into a valid citation string and outputs it.
-    public abstract String toString();
 }

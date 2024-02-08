@@ -36,12 +36,12 @@ public class MlaCitation extends Citation {
 
     public void setMinorWork(boolean minorWork) {
         this.minorWork = minorWork;
+        this.setTitle(new MlaCitationTitle(this.getTitle().getTitle(), this.minorWork));
     }
 
     //EFFECTS: generates MLA-formatted citation String based on defined variables.
     @Override
-    public String toString() {
-
+    protected String createBody() {
         return null;
     }
 }

@@ -25,7 +25,7 @@ public class StringSanitizer {
     public static String removeTailing(String original, String toRemove) {
         String out = original;
         while (out.endsWith(toRemove)) {
-            out = out.substring(0, out.length() - 2);
+            out = out.substring(0, out.length() - toRemove.length());
         }
         return out;
     }

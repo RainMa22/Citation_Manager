@@ -8,7 +8,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class MlaAuthorName extends AuthorName {
-    public static final int INACTIVE = -1;
     public static final int FIRSTNAME_ONLY = 0;
     public static final int FIRSTNAME_AND_LASTNAME = 1;
     public static final int FIRSTNAME_MIDDLENAME_AND_LASTNAME = 2;
@@ -23,11 +22,11 @@ public class MlaAuthorName extends AuthorName {
     private Character middleName;
     private String lastName;
     private boolean inverted;
-    private int mode;
 
     // constructs the MlaAuthorName class
     // EFFECTS: creates a MlaAuthorName with the given String, with inverted as given;
     public MlaAuthorName(String rawString, boolean inverted) {
+        super();
         this.firstName = "";
         this.middleName = '\0';
         this.lastName = "";
@@ -37,10 +36,6 @@ public class MlaAuthorName extends AuthorName {
 
     public void setInverted(boolean inverted) {
         this.inverted = inverted;
-    }
-
-    public int getMode() {
-        return mode;
     }
 
     // getter for inverted
@@ -70,7 +65,7 @@ public class MlaAuthorName extends AuthorName {
     //          if only firstName is defined: return firstName
     //          if all is empty: returns an empty String.
     @Override
-    public String toString() {
+    protected String createBody() {
         if (mode == INACTIVE) {
             return "";
         }
@@ -94,17 +89,16 @@ public class MlaAuthorName extends AuthorName {
     @Override
     protected void processName(String rawString) {
         List<String> words = Arrays.asList(StringSanitizer.sanitizeString(rawString).split(" "));
-        mode = INACTIVE;
         if (words.isEmpty()) {
             return;
         }
-        mode = FIRSTNAME_ONLY;
+        setMode(FIRSTNAME_ONLY);
         this.firstName = words.get(0);
         if (words.size() == 2) {
-            mode = FIRSTNAME_AND_LASTNAME;
+            setMode(FIRSTNAME_AND_LASTNAME);
             this.lastName = words.get(1);
         } else if (words.size() > 2) {
-            mode = FIRSTNAME_MIDDLENAME_AND_LASTNAME;
+            setMode(FIRSTNAME_MIDDLENAME_AND_LASTNAME);
             this.middleName = words.get(1).toUpperCase().charAt(0);
             this.lastName = words.get(words.size() - 1);
         }

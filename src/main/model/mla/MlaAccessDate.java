@@ -4,8 +4,8 @@ public class MlaAccessDate extends MlaCitationDate {
 
     public MlaAccessDate(String dateString) {
         super(dateString);
-        head = "Accessed ";
-        tail = ".";
+        setHead("Accessed ");
+        setTail(".");
     }
 
 }

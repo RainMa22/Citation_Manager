@@ -24,7 +24,7 @@ public class CitationTitleTest {
         }
 
         @Override
-        public String toString() {
+        protected String createBody() {
             return null;
         }
     }
