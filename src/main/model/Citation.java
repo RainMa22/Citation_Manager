@@ -7,7 +7,7 @@ package model;
 public abstract class Citation {
     protected AuthorNameList authorNames;
     protected CitationTitle title;
-    protected String collection;
+    protected CitationTitle collection;
     protected Integer volume;
     protected String issueName;
     protected CitationDate pubDate;
@@ -48,11 +48,11 @@ public abstract class Citation {
         this.title = title;
     }
 
-    public String getCollection() {
+    public CitationTitle getCollection() {
         return collection;
     }
 
-    public void setCollection(String collection) {
+    public void setCollection(CitationTitle collection) {
         this.collection = collection;
     }
 

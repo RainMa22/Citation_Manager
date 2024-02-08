@@ -1,8 +1,6 @@
 package model.mla;
 
-import model.AuthorNameList;
 import model.Citation;
-import model.CitationDate;
 
 /*
  * A citation by MLA format
@@ -19,9 +17,13 @@ public class MlaCitation extends Citation {
                        String issueName, String pubDate, String publisher, String accessDate,
                        String location) {
         setAuthorNames(new MlaAuthorNameList(authorNames));
-        setTitle(new MlaCitationTitle(title));
+        setTitle(new MlaCitationTitle(title, minorWork));
         this.minorWork = minorWork;
-        setCollection(collection);
+        if (minorWork) {
+            setCollection(new MlaCitationTitle(collection, false));
+        } else {
+            setCollection(new MlaCitationTitle(""));
+        }
         setVolume(volume);
         setIssueName(issueName);
         setPubDate(new MlaCitationDate(pubDate));
