@@ -25,7 +25,7 @@ public class IntegerCriteriaTest {
     }
 
     @Test
-    public void testIsSarisfiedByEdgeCases(){
+    public void testIsSatisfiedByEdgeCases(){
         assertTrue(noBounds.isSatisfiedBy(Integer.toString(Integer.MAX_VALUE)));
         assertTrue(noBounds.isSatisfiedBy(Integer.toString(Integer.MIN_VALUE)));
         assertTrue(yesBounds.isSatisfiedBy("0"));
