@@ -2,11 +2,6 @@ package model;
 
 public abstract class AuthorName {
 
-    // EFFECTS: converts name to the citation String according to the citation format
-    public String cite() {
-        return this.toString();
-    }
-
     @Override
     public abstract String toString();
 
