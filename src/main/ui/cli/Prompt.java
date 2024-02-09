@@ -10,6 +10,7 @@ import java.util.Scanner;
 public class Prompt {
     public static final int REPEAT_ON_FAIL = 0;
     public static final int NULL_ON_FAIL = 1;
+    public static final int FALSE_STRING_ON_FAIL = 2;
     private final IsSatisfiable criteria;
     private final int strategyOnFail;
     private final String question;
@@ -43,6 +44,9 @@ public class Prompt {
             } else if (strategyOnFail == NULL_ON_FAIL) {
                 System.out.println("\nInvalid Input! Skipping!");
                 return null;
+            } else if (strategyOnFail == FALSE_STRING_ON_FAIL) {
+                System.out.println("\nInvalid Input! Skipping!");
+                return "false";
             }
             System.out.println("\nInvalid Input! Please try again!");
         }
