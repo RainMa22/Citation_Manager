@@ -86,9 +86,6 @@ public class MlaAuthorName extends AuthorName {
     @Override
     protected void processName(String rawString) {
         List<String> words = Arrays.asList(StringUtils.sanitizeString(rawString).split(" "));
-        if (words.isEmpty()) {
-            return;
-        }
         setMode(FIRSTNAME_ONLY);
         this.firstName = words.get(0);
         if (words.size() == 2) {
