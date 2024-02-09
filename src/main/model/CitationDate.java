@@ -48,7 +48,7 @@ public abstract class CitationDate extends CitationComponent {
     // EFFECTS: converts the Date to a citation String;
     @Override
     protected String createBody() {
-        if (mode == INACTIVE || mode >= outputTemplate.length) {
+        if (mode >= outputTemplate.length) {
             return "";
         } else {
             SimpleDateFormat dateFormat = new SimpleDateFormat(outputTemplate[mode], Locale.CANADA);

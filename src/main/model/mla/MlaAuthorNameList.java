@@ -75,6 +75,7 @@ public class MlaAuthorNameList extends CitationComponent implements AuthorNameLi
                 out = String.join(", and ", names.get(0).toString(), names.get(1).toString());
                 break;
             case ET_AL:
+            default:
                 out = String.join(", ", names.get(0).toString(), names.get(1).toString());
                 break;
         }

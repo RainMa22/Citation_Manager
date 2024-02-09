@@ -9,6 +9,7 @@ import java.io.PrintStream;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MlaAuthorNameTest {
+    MlaAuthorName noName;
     MlaAuthorName oneName;
     MlaAuthorName twoName;
     MlaAuthorName threeName;
@@ -16,6 +17,7 @@ public class MlaAuthorNameTest {
 
     @BeforeEach
     public void setup(){
+        noName = new MlaAuthorName("", true);
         oneName = new MlaAuthorName("Joe", true);
         twoName = new MlaAuthorName("Stove  Jeebs", true);
         threeName = new MlaAuthorName("George r. Martin", false);
@@ -53,7 +55,7 @@ public class MlaAuthorNameTest {
     @Test
     public void testToStringInverted(){
         threeName.setInverted(true);
-
+        assertEquals("", noName.toString());
         assertEquals("Martin, George R.", threeName.toString());
         assertEquals("Jeebs, Stove", twoName.toString());
     }

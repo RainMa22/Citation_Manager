@@ -66,9 +66,6 @@ public class MlaAuthorName extends AuthorName {
     //          if all is empty: returns an empty String.
     @Override
     protected String createBody() {
-        if (mode == INACTIVE) {
-            return "";
-        }
         List<String> fragments = Arrays.asList(FORMAT_FRAGMENTS[mode].clone());
         String template;
         if (isInverted()) {
