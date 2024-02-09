@@ -22,7 +22,7 @@ public class CommandLineUI {
 
     private static final String WELCOME_MSG =
             "Welcome to the Citation Generator!\n"
-                    + "\t The avaliable format(s) is(are):\n"s
+                    + "\t The avaliable format(s) is(are):\n"
                     + "\t 1. MLA citation \n"
                     + "TIP: You can skip entering into a field by pressing Enter.";
     private TreeSet<Citation> sortedCitations;
@@ -80,9 +80,10 @@ public class CommandLineUI {
                             + "separated by \'.\': ", Prompt.NULL_ON_FAIL, new DummyCriteria()).ask();
                     String title = new Prompt("Please Enter the Title of the work, with proper capitalization: ",
                             Prompt.NULL_ON_FAIL, new DummyCriteria()).ask();
-                    boolean minor = BooleanUtils.fromString(new Prompt("Is the work a standalone work? "
+                    Boolean minor = BooleanUtils.fromString(new Prompt("Is the work a standalone work? "
                             + "(yes/no)(1/0)(true/false)(t/f)(y/n):", Prompt.FALSE_STRING_ON_FAIL,
                             new BooleanCriteria()).ask());
+                    minor = Boolean.TRUE.equals(minor); // avoids nullPointerException
                     String collection = null;
                     Integer volume = null;
                     String issueName = null;
