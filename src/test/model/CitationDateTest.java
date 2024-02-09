@@ -65,20 +65,19 @@ public class CitationDateTest {
         }
     }
 
+    @Test
+    public void testToStringNoOutputTemplate(){
+        assertEquals("", invalid.toString());
+        assertEquals("", yearOnly.toString());
+        assertEquals("", yearAndMonth.toString());
+        assertEquals("", yearMonthAndDay.toString());
+    }
+
     static class MockCitationDate extends CitationDate {
         public MockCitationDate(String dateString) {
             super(dateString);
         }
 
-        @Override
-        public String toString() {
-            return null;
-        }
-
-        @Override
-        protected String createBody() {
-            return null;
-        }
     }
 
 

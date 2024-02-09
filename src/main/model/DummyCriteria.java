@@ -1,4 +1,4 @@
-package util;
+package model;
 
 /*
  * A dummy IsSatisfiable, where isSatisfiedBy always return true

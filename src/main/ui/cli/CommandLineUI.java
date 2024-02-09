@@ -1,10 +1,10 @@
 package ui.cli;
 
 import model.Citation;
-import util.BooleanCriteria;
+import model.BooleanCriteria;
 import util.BooleanUtils;
-import util.DummyCriteria;
-import util.IntegerCriteria;
+import model.DummyCriteria;
+import model.IntegerCriteria;
 
 import java.util.Comparator;
 import java.util.TreeSet;

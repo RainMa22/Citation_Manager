@@ -3,6 +3,7 @@ package model;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 
 // construct a date following a citation format
@@ -50,7 +51,7 @@ public abstract class CitationDate extends CitationComponent {
         if (mode == INACTIVE || mode >= outputTemplate.length) {
             return "";
         }
-        SimpleDateFormat dateFormat = new SimpleDateFormat(outputTemplate[mode]);
+        SimpleDateFormat dateFormat = new SimpleDateFormat(outputTemplate[mode], Locale.CANADA);
         return dateFormat.format(date);
     }
 }

@@ -1,4 +1,6 @@
-package util;
+package model;
+
+import util.BooleanUtils;
 
 /*
  * tests if a String can be converted into an integer that is the element of [min, max]
