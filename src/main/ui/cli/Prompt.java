@@ -1,7 +1,7 @@
 package ui.cli;
 
 
-import util.IsSatisfiable;
+import model.IsSatisfiable;
 
 import java.util.Scanner;
 
