@@ -11,13 +11,13 @@ public class IntegerCriteriaTest {
     IntegerCriteria yesBounds;
 
     @BeforeEach
-    public void setup(){
+    public void setup() {
         noBounds = new IntegerCriteria();
         yesBounds = new IntegerCriteria(0, 5);
     }
 
     @Test
-    public void testIsSatisfiedByNormalNum(){
+    public void testIsSatisfiedByNormalNum() {
         assertTrue(noBounds.isSatisfiedBy("3"));
         assertFalse(yesBounds.isSatisfiedBy("9999"));
         assertFalse(yesBounds.isSatisfiedBy("-9999"));
@@ -25,11 +25,17 @@ public class IntegerCriteriaTest {
     }
 
     @Test
-    public void testIsSatisfiedByEdgeCases(){
+    public void testIsSatisfiedByEdgeCases() {
         assertTrue(noBounds.isSatisfiedBy(Integer.toString(Integer.MAX_VALUE)));
         assertTrue(noBounds.isSatisfiedBy(Integer.toString(Integer.MIN_VALUE)));
         assertTrue(yesBounds.isSatisfiedBy("0"));
         assertTrue(yesBounds.isSatisfiedBy("5"));
+    }
+
+    @Test
+    public void testIsSatisfiedByString() {
+        assertFalse(noBounds.isSatisfiedBy("asdjalkfsj"));
+        assertFalse(yesBounds.isSatisfiedBy("two"));
     }
 
 

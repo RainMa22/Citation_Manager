@@ -21,7 +21,7 @@ public final class SimpleCitationComponent extends CitationComponent {
     public SimpleCitationComponent(Object body, String head, String tail) {
         super();
         if (body != null && !body.toString().isEmpty()) {
-            this.body = body;
+            this.setBody(body);
             this.setMode(ACTIVE);
             this.setHead(head);
             this.setTail(tail);

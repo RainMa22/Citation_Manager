@@ -50,8 +50,9 @@ public abstract class CitationDate extends CitationComponent {
     protected String createBody() {
         if (mode == INACTIVE || mode >= outputTemplate.length) {
             return "";
+        } else {
+            SimpleDateFormat dateFormat = new SimpleDateFormat(outputTemplate[mode], Locale.CANADA);
+            return dateFormat.format(date);
         }
-        SimpleDateFormat dateFormat = new SimpleDateFormat(outputTemplate[mode], Locale.CANADA);
-        return dateFormat.format(date);
     }
 }

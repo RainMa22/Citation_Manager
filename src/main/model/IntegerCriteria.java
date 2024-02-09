@@ -20,6 +20,8 @@ public class IntegerCriteria implements IsSatisfiable {
         this.max = max;
     }
 
+    // EFFECTS: if Integer.parseInt(String) is within bounds, return true;
+    //          otherwise(including exception thrown) return false
     @Override
     public boolean isSatisfiedBy(String string) {
         try {
