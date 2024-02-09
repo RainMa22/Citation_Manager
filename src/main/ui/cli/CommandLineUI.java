@@ -65,6 +65,7 @@ public class CommandLineUI {
     //          if mode is CREATE_CITATIONS, prompt user to create citations
     //                  switch mode to EXPORT when user indicates done;
     //          if mdoe is EXPORT, print out the citation String, and set mode to EXIT
+    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     public void update() {
         switch (mode) {
             case SELECT_FORMAT:
