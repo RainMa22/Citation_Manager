@@ -67,6 +67,8 @@ public class MlaAuthorNameListTest {
     @Test
     public void TestToStringPlantedNoItem() {
         assertEquals("", manl5.toString());
+        manl5.setMode(MlaAuthorNameList.INACTIVE);
+        assertEquals("", manl5.toString());
     }
 
     @Test

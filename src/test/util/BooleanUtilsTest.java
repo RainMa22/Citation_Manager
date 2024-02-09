@@ -2,9 +2,18 @@ package util;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static util.BooleanUtils.*;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class BooleanUtilsTest {
+    BooleanUtils whyDoINeedThis;
+
+    @BeforeEach
+    public void setup(){
+        whyDoINeedThis = new BooleanUtils();
+    }
+
     @Test
     public void testFromString() {
         assertTrue(fromString("t"));

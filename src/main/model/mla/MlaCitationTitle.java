@@ -19,10 +19,12 @@ public class MlaCitationTitle extends CitationTitle {
         super(title);
         if (title != null) {
             title = StringUtils.sanitizeString(title);
+            setMinor(minor);
             if (!title.isEmpty()) {
                 setMode(ACTIVE);
+            } else {
+                setMode(INACTIVE);
             }
-            setMinor(minor);
         }
     }
 

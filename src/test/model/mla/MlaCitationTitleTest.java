@@ -8,11 +8,13 @@ import static org.junit.jupiter.api.Assertions.*;
 public class MlaCitationTitleTest {
     MlaCitationTitle major;
     MlaCitationTitle minor;
+    MlaCitationTitle inactive;
 
     @BeforeEach
     public void setup() {
         major = new MlaCitationTitle("asdda", false);
         minor = new MlaCitationTitle("sad", true);
+        inactive = new MlaCitationTitle("", true);
     }
 
     @Test
@@ -30,5 +32,10 @@ public class MlaCitationTitleTest {
     @Test
     public void testToStringMinor() {
         assertEquals("\"sad.\" ", minor.toString());
+    }
+
+    @Test
+    public void testToStringInactive() {
+        assertEquals("", inactive.toString());
     }
 }

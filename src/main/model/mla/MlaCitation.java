@@ -51,9 +51,6 @@ public class MlaCitation extends Citation {
     //EFFECTS: generates MLA-formatted citation String based on defined variables.
     @Override
     protected String createBody() {
-        if (mode == INACTIVE) {
-            return "";
-        }
         return String.format(TEMPLATE, authorNames, title, collection, volume, issueName, pubDate,
                 publisher, location, accessDate).trim();
     }
