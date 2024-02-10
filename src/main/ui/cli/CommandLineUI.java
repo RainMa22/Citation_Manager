@@ -1,10 +1,13 @@
 package ui.cli;
 
-import model.*;
+import model.BooleanCriteria;
+import model.Citation;
+import model.IntegerCriteria;
 import model.mla.MlaCitation;
 import util.BooleanUtils;
 
 import java.util.Comparator;
+import java.util.List;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
@@ -22,11 +25,13 @@ public class CommandLineUI {
     private static final String WELCOME_MSG =
             "Welcome to the Citation Generator!\n"
                     + "\t The avaliable format(s) is(are):\n"
-                    + "\t 1. MLA citation \n"
-                    + "TIP: You can skip entering into a field by pressing Enter.";
+                    + "\t 0. MLA citation \n"
+                    + "TIP: You can skip entering into a field by pressing Enter.\n\n"
+                    + "Please choose a format(0):";
     private TreeSet<Citation> sortedCitations;
     private int mode;
     private int format;
+    private CitationInquirer inquirer;
 
     //constructor for CommandLineUI
     // EFFECTS: creates a CommandLineUI with mode set to 0;
@@ -38,6 +43,7 @@ public class CommandLineUI {
             }
         });
         this.mode = 0;
+        inquirer = new CitationInquirer();
     }
 
     public static void main(String[] args) {
@@ -57,6 +63,17 @@ public class CommandLineUI {
         this.mode = mode;
     }
 
+    //EFFECTS: asks and generates a citation
+    public Citation inquireAndGenerate() {
+        List<String> result = inquirer.inquire();
+        if (format == USE_MLA) {
+            return new MlaCitation(result);
+        } else {
+            return null;
+        }
+    }
+
+
     // REQUIRES: mode is one of the defined constants
     // MODIFIES: this
     // EFFECTS: if mode is SELECT_FORMAT, prompt user to select format
@@ -64,55 +81,21 @@ public class CommandLineUI {
     //          if mode is CREATE_CITATIONS, prompt user to create citations
     //                  switch mode to EXPORT when user indicates done;
     //          if mode is EXPORT, print out the citation String, and set mode to EXIT
-    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     public void update() {
         switch (mode) {
             case SELECT_FORMAT:
-                System.out.println(WELCOME_MSG);
                 format = Integer.parseInt(
-                        new Prompt("Please choose a format[0]:", Prompt.REPEAT_ON_FAIL,
-                                new IntegerCriteria(USE_MLA, USE_MLA)).ask());
+                        new Prompt(WELCOME_MSG, Prompt.REPEAT_ON_FAIL, new IntegerCriteria(USE_MLA, USE_MLA)).ask());
                 mode = CREATE_CITATIONS;
                 break;
             case CREATE_CITATIONS:
-                if (format == USE_MLA) {
-                    String authorNames = new Prompt("Please Enter the Author Names, with proper capitalization, "
-                            + "separated by \'.\': ", Prompt.NULL_ON_FAIL, new DummyCriteria()).ask();
-                    String title = new Prompt("Please Enter the Title of the work, with proper capitalization: ",
-                            Prompt.NULL_ON_FAIL, new DummyCriteria()).ask();
-                    Boolean minor = BooleanUtils.fromString(new Prompt("Is the work a standalone work? "
-                            + "(yes/no)(1/0)(true/false)(t/f)(y/n):", Prompt.FALSE_STRING_ON_FAIL,
-                            new BooleanCriteria()).ask());
-                    minor = Boolean.FALSE.equals(minor); // avoids nullPointerException
-                    String collection = null;
-                    Integer volume = null;
-                    String issueName = null;
-                    if (minor) {
-                        collection = new Prompt("Please Enter the Collection this work belongs to: ",
-                                Prompt.NULL_ON_FAIL, new DummyCriteria()).ask();
-                        volume = Integer.parseInt(new Prompt("Please Enter the Volume the work belongs to (integer):",
-                                Prompt.NULL_ON_FAIL, new IntegerCriteria()).ask());
-                        issueName = new Prompt("Please Enter the name of the issue: ",
-                                Prompt.NULL_ON_FAIL, new DummyCriteria()).ask();
-                    }
-                    String pubDate = new Prompt("Please enter the publish date {yyyy[-mm(-dd)}"
-                            + "(e.g 2024 or 2024-01 or 2024-01-21):",
-                            Prompt.NULL_ON_FAIL, new DateCriteria()).ask();
-                    String publisher = new Prompt("Please enter the name of publisher with proper capitalization: ",
-                            Prompt.NULL_ON_FAIL, new DummyCriteria()).ask();
-                    String location = new Prompt("Please enter the URL/DOI/location of the work: ",
-                            Prompt.NULL_ON_FAIL, new DummyCriteria()).ask();
-                    String accessDate = new Prompt("Please enter the access date {yyyy[-mm(-dd)}"
-                            + "(e.g 2024 or 2024-01 or 2024-01-21):",
-                            Prompt.NULL_ON_FAIL, new DateCriteria()).ask();
-                    sortedCitations.add(new MlaCitation(authorNames, title, minor, collection, volume, issueName,
-                            pubDate, publisher, location, accessDate));
-                    Boolean addMore = BooleanUtils.fromString(new Prompt("Done! Do you want to add more citations? "
-                            + "(yes/no)(1/0)(true/false)(t/f)(y/n):", Prompt.FALSE_STRING_ON_FAIL,
-                            new BooleanCriteria()).ask());
-                    if (Boolean.FALSE.equals(addMore)) {
-                        setMode(EXPORT);
-                    }
+                Citation citation = inquireAndGenerate();
+                sortedCitations.add(citation);
+                Boolean addMore = BooleanUtils.fromString(new Prompt("Done! Do you want to add more citations? "
+                        + "(yes/no)(1/0)(true/false)(t/f)(y/n):", Prompt.FALSE_STRING_ON_FAIL,
+                        new BooleanCriteria()).ask());
+                if (Boolean.FALSE.equals(addMore)) {
+                    setMode(EXPORT);
                 }
                 break;
             case EXPORT:

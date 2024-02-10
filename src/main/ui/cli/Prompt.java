@@ -38,7 +38,7 @@ public class Prompt {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.print(question);
-            String answer = scanner.nextLine();
+            String answer = scanner.nextLine().trim();
             if (criteria.isSatisfiedBy(answer)) {
                 return answer;
             } else if (strategyOnFail == NULL_ON_FAIL) {

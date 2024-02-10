@@ -11,7 +11,7 @@ public class BooleanUtils {
     //          and "no","false", "0", "n","f" as false
     //          Null if string is not in the selection;
     public static Boolean fromString(String str) {
-        String lowerStr = str.toLowerCase();
+        String lowerStr = str.trim().toLowerCase();
         if (POSITIVE_VALUES.contains(lowerStr)) {
             return true;
         } else if (NEGATIVE_VALUES.contains(lowerStr)) {

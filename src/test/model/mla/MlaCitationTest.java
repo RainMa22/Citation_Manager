@@ -3,12 +3,17 @@ package model.mla;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MlaCitationTest {
 
     MlaCitation citationFull;
+    MlaCitation citationFullList;
     MlaCitation citationMajorWork;
+    MlaCitation citationMajorWorkList;
     MlaCitation citationOmitALot;
 
     @BeforeEach
@@ -18,9 +23,17 @@ public class MlaCitationTest {
                 28, "4es", "1996-12-01",
                 "Association for Computing Machinery",
                 "10.1145/242224.242420", "2024-02-07");
+        citationFullList = new MlaCitation(Arrays.asList("Gregor Kiczales, John Lamping, Anurag Mendhekar",
+                "Aspect-Oriented Programming", "true", "ACM Computing Surveys",
+                "28", "4es", "1996-12-01",
+                "Association for Computing Machinery",
+                "10.1145/242224.242420", "2024-02-07"));
         citationMajorWork = new MlaCitation("John Steinbeck", "Of Mice and Men", false,
                 null, null, null, "1937", "Covici Friede",
                 "Indigo Books & Music", "2024-02-08");
+        citationMajorWorkList = new MlaCitation(Arrays.asList("John Steinbeck", "Of Mice and Men", "false",
+                "", "", "", "1937", "Covici Friede",
+                "Indigo Books & Music", "2024-02-08"));
         citationOmitALot = new MlaCitation(null, "Hello World!", false,
                 null, null, null, null, null, "www.google.com",
                 "2024-02-08");
@@ -61,6 +74,41 @@ public class MlaCitationTest {
         assertEquals("", citationOmitALot.getPublisher().toString());
         assertEquals("www.google.com", citationOmitALot.getLocation().getBody());
         assertEquals(new MlaAccessDate("2024-02-08").toString(), citationOmitALot.getAccessDate().toString());
+    }
+
+    @Test
+    public void TestConstructorFromListNormal() {
+        assertTrue(citationFullList.isMinorWork());
+        assertEquals(new MlaAuthorNameList("Gregor Kiczales, John Lamping, Anurag Mendhekar").toString(),
+                citationFullList.getAuthorNames().toString());
+        assertEquals("Aspect-Oriented Programming", citationFullList.getTitle().getTitle());
+        assertEquals("ACM Computing Surveys", citationFullList.getCollection().getTitle());
+        assertEquals(28, citationFullList.getVolume().getBody());
+        assertEquals("4es", citationFullList.getIssueName().getBody());
+        assertEquals(new MlaCitationDate("1996-12-01").toString(), citationFullList.getPubDate().toString());
+        assertEquals("Association for Computing Machinery", citationFullList.getPublisher().getBody());
+        assertEquals("10.1145/242224.242420", citationFullList.getLocation().getBody());
+        assertEquals(new MlaAccessDate("2024-02-07").toString(), citationFullList.getAccessDate().toString());
+
+        assertFalse(citationMajorWorkList.isMinorWork());
+        assertEquals("Steinbeck, John. ", citationMajorWorkList.getAuthorNames().toString());
+        assertEquals("Of Mice and Men", citationMajorWorkList.getTitle().getTitle());
+        assertEquals("", citationMajorWorkList.getCollection().toString());
+        assertEquals("", citationMajorWorkList.getVolume().toString());
+        assertEquals("", citationMajorWorkList.getIssueName().toString());
+        assertEquals("1937, ", citationMajorWorkList.getPubDate().toString());
+        assertEquals("Covici Friede", citationMajorWorkList.getPublisher().getBody());
+        assertEquals("Indigo Books & Music", citationMajorWorkList.getLocation().getBody());
+        assertEquals(new MlaAccessDate("2024-02-08").toString(), citationMajorWorkList.getAccessDate().toString());
+    }
+
+    @Test
+    public void TestConstructorFromListException() {
+        try {
+            MlaCitation badCitation = new MlaCitation(new ArrayList<String>());
+        } catch (Exception e) {
+            assertInstanceOf(IllegalArgumentException.class, e);
+        }
     }
 
     @Test
