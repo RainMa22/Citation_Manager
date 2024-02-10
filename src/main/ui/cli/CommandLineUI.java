@@ -1,13 +1,12 @@
 package ui.cli;
 
-import model.Citation;
-import model.BooleanCriteria;
+import model.*;
+import model.mla.MlaCitation;
 import util.BooleanUtils;
-import model.DummyCriteria;
-import model.IntegerCriteria;
 
 import java.util.Comparator;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 
 /*
@@ -84,7 +83,7 @@ public class CommandLineUI {
                     Boolean minor = BooleanUtils.fromString(new Prompt("Is the work a standalone work? "
                             + "(yes/no)(1/0)(true/false)(t/f)(y/n):", Prompt.FALSE_STRING_ON_FAIL,
                             new BooleanCriteria()).ask());
-                    minor = Boolean.TRUE.equals(minor); // avoids nullPointerException
+                    minor = Boolean.FALSE.equals(minor); // avoids nullPointerException
                     String collection = null;
                     Integer volume = null;
                     String issueName = null;
@@ -96,10 +95,31 @@ public class CommandLineUI {
                         issueName = new Prompt("Please Enter the name of the issue: ",
                                 Prompt.NULL_ON_FAIL, new DummyCriteria()).ask();
                     }
-                    //pubDate, publisher, location, AccessDate, ways to switch mode to EXPORT;
-
+                    String pubDate = new Prompt("Please enter the publish date {yyyy[-mm(-dd)}"
+                            + "(e.g 2024 or 2024-01 or 2024-01-21):",
+                            Prompt.NULL_ON_FAIL, new DateCriteria()).ask();
+                    String publisher = new Prompt("Please enter the name of publisher with proper capitalization: ",
+                            Prompt.NULL_ON_FAIL, new DummyCriteria()).ask();
+                    String location = new Prompt("Please enter the URL/DOI/location of the work: ",
+                            Prompt.NULL_ON_FAIL, new DummyCriteria()).ask();
+                    String accessDate = new Prompt("Please enter the access date {yyyy[-mm(-dd)}"
+                            + "(e.g 2024 or 2024-01 or 2024-01-21):",
+                            Prompt.NULL_ON_FAIL, new DateCriteria()).ask();
+                    sortedCitations.add(new MlaCitation(authorNames, title, minor, collection, volume, issueName,
+                            pubDate, publisher, location, accessDate));
+                    Boolean addMore = BooleanUtils.fromString(new Prompt("Done! Do you want to add more citations? "
+                            + "(yes/no)(1/0)(true/false)(t/f)(y/n):", Prompt.FALSE_STRING_ON_FAIL,
+                            new BooleanCriteria()).ask());
+                    if (Boolean.FALSE.equals(addMore)) {
+                        setMode(EXPORT);
+                    }
                 }
-
+                break;
+            case EXPORT:
+                System.out.println(sortedCitations.stream().map((x) -> (x.toString()))
+                        .collect(Collectors.joining("\n")));
+                setMode(EXIT);
+                break;
         }
     }
 }
