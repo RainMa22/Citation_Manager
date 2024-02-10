@@ -10,7 +10,7 @@ import java.util.List;
 
 public class CitationInquirer {
     private static final Prompt[] PROMPTS = {new Prompt("Please Enter the Author Names, with proper capitalization, "
-            + "separated by \'.\': ", Prompt.NULL_ON_FAIL, new DummyCriteria()),
+            + "separated by \',\': ", Prompt.NULL_ON_FAIL, new DummyCriteria()),
             new Prompt("Please Enter the Title of the work, with proper capitalization: ",
                     Prompt.NULL_ON_FAIL, new DummyCriteria()),
             new Prompt("Is the work a standalone work? "

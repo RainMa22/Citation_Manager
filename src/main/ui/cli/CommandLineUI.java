@@ -31,7 +31,7 @@ public class CommandLineUI {
     private TreeSet<Citation> sortedCitations;
     private int mode;
     private int format;
-    private CitationInquirer inquirer;
+    private final CitationInquirer inquirer;
 
     //constructor for CommandLineUI
     // EFFECTS: creates a CommandLineUI with mode set to 0;
