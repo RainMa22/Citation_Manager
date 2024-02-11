@@ -5,7 +5,7 @@ import util.StringUtils;
 
 public class ApaCitationTitle extends CitationTitle {
     public static final int ACTIVE = 0;
-    private boolean minor;
+    private boolean academicArticle;
 
     //constructor for ApaCitation
     // EFFECTS: creates a ApaCitationTitle with minor set to false
@@ -15,11 +15,11 @@ public class ApaCitationTitle extends CitationTitle {
 
     // constructor for ApaCitation
     // EFFECTS: creates a ApaCitationTitle with minor set to given minor
-    public ApaCitationTitle(String title, boolean minor) {
+    public ApaCitationTitle(String title, boolean isAcademicArticle) {
         super(title);
         if (title != null) {
             title = StringUtils.sanitizeString(title);
-            setMinor(minor);
+            setAcademicArticle(isAcademicArticle);
             if (!title.isEmpty()) {
                 setMode(ACTIVE);
             } else {
@@ -28,15 +28,15 @@ public class ApaCitationTitle extends CitationTitle {
         }
     }
 
-    public boolean isMinor() {
-        return minor;
+    public boolean isAcademicArticle() {
+        return academicArticle;
     }
 
-    public void setMinor(boolean minor) {
-        this.minor = minor;
-        if (minor) {
-            setHead("\"");
-            setTail(".\" ");
+    public void setAcademicArticle(boolean academicArticle) {
+        this.academicArticle = academicArticle;
+        if (academicArticle) {
+            setHead("");
+            setTail(". ");
         } else {
             setHead("<i>");
             setTail("</i>. ");

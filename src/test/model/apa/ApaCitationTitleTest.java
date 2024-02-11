@@ -20,8 +20,8 @@ public class ApaCitationTitleTest {
     @Test
     public void testConstructor() {
         //title is tested in CitationTitleTest
-        assertFalse(major.isMinor());
-        assertTrue(minor.isMinor());
+        assertFalse(major.isAcademicArticle());
+        assertTrue(minor.isAcademicArticle());
     }
 
     @Test
@@ -31,7 +31,7 @@ public class ApaCitationTitleTest {
 
     @Test
     public void testToStringMinor() {
-        assertEquals("\"sad.\" ", minor.toString());
+        assertEquals("sad. ", minor.toString());
     }
 
     @Test
