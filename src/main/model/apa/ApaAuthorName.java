@@ -6,6 +6,7 @@ import util.StringUtils;
 import java.util.Arrays;
 import java.util.List;
 
+// represents an author name in APA format
 public class ApaAuthorName extends AuthorName {
     public static final int ONE_NAME = 0;
     public static final int LASTNAME_AND_FIRSTNAME = 1;

@@ -2,6 +2,7 @@ package model.mla;
 
 import model.CitationDate;
 
+// Represents a citation date in MLA format
 public class MlaCitationDate extends CitationDate {
 
     // constructor for CitationDate

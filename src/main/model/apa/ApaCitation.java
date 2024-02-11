@@ -8,7 +8,7 @@ import java.util.List;
 
 
 /*
- * A citation by MLA format
+ * A citation by APA format
  */
 
 public class ApaCitation extends Citation {
@@ -85,7 +85,7 @@ public class ApaCitation extends Citation {
         this.setTitle(new ApaCitationTitle(this.getTitle().getTitle(), isAcademicWork()));
     }
 
-    //EFFECTS: generates MLA-formatted citation String based on defined variables.
+    //EFFECTS: generates APA-formatted citation String based on defined variables.
     @Override
     protected String createBody() {
         return String.format(TEMPLATES[mode], authorNames, title, collection, volume, issueName, pubDate,

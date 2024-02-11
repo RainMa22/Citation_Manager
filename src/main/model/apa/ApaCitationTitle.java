@@ -3,6 +3,7 @@ package model.apa;
 import model.CitationTitle;
 import util.StringUtils;
 
+// represents a Citation title in APA format
 public class ApaCitationTitle extends CitationTitle {
     public static final int ACTIVE = 0;
     private boolean academicArticle;

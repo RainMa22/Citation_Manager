@@ -3,6 +3,7 @@ package model.mla;
 import model.CitationTitle;
 import util.StringUtils;
 
+// represents a title name in MLA format
 public class MlaCitationTitle extends CitationTitle {
     public static final int ACTIVE = 0;
     private boolean minor;

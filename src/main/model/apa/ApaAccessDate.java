@@ -2,7 +2,7 @@ package model.apa;
 
 import model.CitationDate;
 
-// Respresents An ApaAccessDate
+// Represents An ApaAccessDate
 public class ApaAccessDate extends CitationDate {
 
     // constructors for ApaAccessDate

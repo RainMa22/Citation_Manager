@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+// represents an Author's Name in MLA format
 public class MlaAuthorName extends AuthorName {
     public static final int FIRSTNAME_ONLY = 0;
     public static final int FIRSTNAME_AND_LASTNAME = 1;

@@ -51,7 +51,7 @@ public class MlaCitationTest {
         assertEquals(new MlaCitationDate("1996-12-01").toString(), citationFull.getPubDate().toString());
         assertEquals("Association for Computing Machinery", citationFull.getPublisher().getBody());
         assertEquals("10.1145/242224.242420", citationFull.getLocation().getBody());
-        assertEquals(new MlaAccessDate("2024-02-07").toString(), citationFull.getAccessDate().toString());
+        assertEquals("", citationFull.getAccessDate().toString());
 
         assertFalse(citationMajorWork.isMinorWork());
         assertEquals("Steinbeck, John. ", citationMajorWork.getAuthorNames().toString());
@@ -62,7 +62,7 @@ public class MlaCitationTest {
         assertEquals("1937, ", citationMajorWork.getPubDate().toString());
         assertEquals("Covici Friede", citationMajorWork.getPublisher().getBody());
         assertEquals("Indigo Books & Music", citationMajorWork.getLocation().getBody());
-        assertEquals(new MlaAccessDate("2024-02-08").toString(), citationMajorWork.getAccessDate().toString());
+        assertEquals("", citationMajorWork.getAccessDate().toString());
 
         assertFalse(citationOmitALot.isMinorWork());
         assertEquals("", citationOmitALot.getAuthorNames().toString());
@@ -88,7 +88,7 @@ public class MlaCitationTest {
         assertEquals(new MlaCitationDate("1996-12-01").toString(), citationFullList.getPubDate().toString());
         assertEquals("Association for Computing Machinery", citationFullList.getPublisher().getBody());
         assertEquals("10.1145/242224.242420", citationFullList.getLocation().getBody());
-        assertEquals(new MlaAccessDate("2024-02-07").toString(), citationFullList.getAccessDate().toString());
+        assertEquals("", citationFullList.getAccessDate().toString());
 
         assertFalse(citationMajorWorkList.isMinorWork());
         assertEquals("Steinbeck, John. ", citationMajorWorkList.getAuthorNames().toString());
@@ -99,13 +99,13 @@ public class MlaCitationTest {
         assertEquals("1937, ", citationMajorWorkList.getPubDate().toString());
         assertEquals("Covici Friede", citationMajorWorkList.getPublisher().getBody());
         assertEquals("Indigo Books & Music", citationMajorWorkList.getLocation().getBody());
-        assertEquals(new MlaAccessDate("2024-02-08").toString(), citationMajorWorkList.getAccessDate().toString());
+        assertEquals("", citationMajorWorkList.getAccessDate().toString());
     }
 
     @Test
     public void TestConstructorFromListException() {
         try {
-            MlaCitation badCitation = new MlaCitation(new ArrayList<String>());
+            MlaCitation badCitation = new MlaCitation(new ArrayList<>());
         } catch (Exception e) {
             assertInstanceOf(IllegalArgumentException.class, e);
         }
@@ -114,10 +114,10 @@ public class MlaCitationTest {
     @Test
     public void testToString() {
         assertEquals("Kiczales, Gregor, et al. \"Aspect-Oriented Programming.\" <i>ACM Computing Surveys</i>, " +
-                "vol.28, 4es, 01 Dec. 1996, Association for Computing Machinery, 10.1145/242224.242420. " +
-                "Accessed 07 Feb. 2024.", citationFull.toString());
+                "vol.28, 4es, 01 Dec. 1996, Association for Computing Machinery, 10.1145/242224.242420.",
+                citationFull.toString());
         assertEquals("Steinbeck, John. <i>Of Mice and Men</i>. " +
-                "1937, Covici Friede, Indigo Books & Music. " +
-                "Accessed 08 Feb. 2024.", citationMajorWork.toString());
+                "1937, Covici Friede, Indigo Books & Music." , citationMajorWork.toString());
+        assertEquals("<i>Hello World!</i>. www.google.com. Accessed 08 Feb. 2024.", citationOmitALot.toString());
     }
 }

@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /*
- * List of AuthorNames under MLA format
+ * List of AuthorNames under APA format
  */
 
 public class ApaAuthorNameList extends CitationComponent implements AuthorNameList {
@@ -67,7 +67,7 @@ public class ApaAuthorNameList extends CitationComponent implements AuthorNameLi
     //          if no names stored, returns an empty String
     @Override
     protected String createBody() {
-        String out = "";
+        String out;
         Stream<String> nameStrings;
         switch (mode) {
             case ONE_NAME:

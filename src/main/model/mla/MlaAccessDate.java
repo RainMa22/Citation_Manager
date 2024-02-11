@@ -1,7 +1,7 @@
 package model.mla;
 
 
-// Respresents An MlaAccessDate
+// Represents An Access Date in MLA format
 public class MlaAccessDate extends MlaCitationDate {
 
     // constructors for MlaAccessDate

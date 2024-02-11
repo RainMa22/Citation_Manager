@@ -37,10 +37,17 @@ public class MlaCitation extends Citation {
             setVolume(new SimpleCitationComponent(null, "vol.", ", "));
         }
         setIssueName(new SimpleCitationComponent(param.get(5), "", ", "));
-        setPubDate(new MlaCitationDate(param.get(6)));
+
+        MlaCitationDate pubDate = new MlaCitationDate(param.get(6));
+        MlaAccessDate accessDate = new MlaAccessDate(param.get(9));
+        if (pubDate.getDate() != null) {
+            accessDate.setMode(INACTIVE);
+        }
+
+        setPubDate(pubDate);
         setPublisher(new SimpleCitationComponent(param.get(7), "", ", "));
         setLocation(new SimpleCitationComponent(param.get(8), "", ". "));
-        setAccessDate(new MlaAccessDate(param.get(9)));
+        setAccessDate(accessDate);
     }
 
     // Constructor for MlaCitation
@@ -54,10 +61,15 @@ public class MlaCitation extends Citation {
         setCollection(new MlaCitationCollection(collection));
         setVolume(new SimpleCitationComponent(volume, "vol.", ", "));
         setIssueName(new SimpleCitationComponent(issueName, "", ", "));
-        setPubDate(new MlaCitationDate(pubDate));
+        MlaCitationDate pubDate1 = new MlaCitationDate(pubDate);
+        MlaAccessDate accessDate1 = new MlaAccessDate(accessDate);
+        if (pubDate1.getDate() != null) {
+            accessDate1.setMode(INACTIVE);
+        }
+        setPubDate(pubDate1);
         setPublisher(new SimpleCitationComponent(publisher, "", ", "));
         setLocation(new SimpleCitationComponent(location, "", ". "));
-        setAccessDate(new MlaAccessDate(accessDate));
+        setAccessDate(accessDate1);
     }
 
     public boolean isMinorWork() {

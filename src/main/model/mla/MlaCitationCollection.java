@@ -1,5 +1,6 @@
 package model.mla;
 
+// Represent a collection name in MLA format
 public class MlaCitationCollection extends MlaCitationTitle {
 
     //constructor for MlaCitation
