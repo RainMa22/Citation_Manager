@@ -15,6 +15,7 @@ public class MlaCitationTest {
     MlaCitation citationMajorWork;
     MlaCitation citationMajorWorkList;
     MlaCitation citationOmitALot;
+    MlaCitation citationOmitALotList;
 
     @BeforeEach
     public void setup() {
@@ -37,6 +38,9 @@ public class MlaCitationTest {
         citationOmitALot = new MlaCitation(null, "Hello World!", false,
                 null, null, null, null, null, "www.google.com",
                 "2024-02-08");
+        citationOmitALotList = new MlaCitation(Arrays.asList(null, "Hello World!", "false",
+                null, null, null, null, null, "www.google.com",
+                "2024-02-08"));
     }
 
     @Test
@@ -100,12 +104,24 @@ public class MlaCitationTest {
         assertEquals("Covici Friede", citationMajorWorkList.getPublisher().getBody());
         assertEquals("Indigo Books & Music", citationMajorWorkList.getLocation().getBody());
         assertEquals("", citationMajorWorkList.getAccessDate().toString());
+
+        assertFalse(citationOmitALotList.isMinorWork());
+        assertEquals("", citationOmitALotList.getAuthorNames().toString());
+        assertEquals("Hello World!", citationOmitALotList.getTitle().getTitle());
+        assertEquals("", citationOmitALotList.getCollection().toString());
+        assertEquals("", citationOmitALotList.getVolume().toString());
+        assertEquals("", citationOmitALotList.getIssueName().toString());
+        assertEquals("", citationOmitALotList.getPubDate().toString());
+        assertEquals("", citationOmitALotList.getPublisher().toString());
+        assertEquals("www.google.com", citationOmitALotList.getLocation().getBody());
+        assertEquals(new MlaAccessDate("2024-02-08").toString(), citationOmitALotList.getAccessDate().toString());
     }
 
     @Test
     public void TestConstructorFromListException() {
         try {
-            MlaCitation badCitation = new MlaCitation(new ArrayList<>());
+            new MlaCitation(new ArrayList<>());
+            fail();
         } catch (Exception e) {
             assertInstanceOf(IllegalArgumentException.class, e);
         }
@@ -114,10 +130,20 @@ public class MlaCitationTest {
     @Test
     public void testToString() {
         assertEquals("Kiczales, Gregor, et al. \"Aspect-Oriented Programming.\" <i>ACM Computing Surveys</i>, " +
-                "vol.28, 4es, 01 Dec. 1996, Association for Computing Machinery, 10.1145/242224.242420.",
+                        "vol.28, 4es, 01 Dec. 1996, Association for Computing Machinery, 10.1145/242224.242420.",
                 citationFull.toString());
         assertEquals("Steinbeck, John. <i>Of Mice and Men</i>. " +
-                "1937, Covici Friede, Indigo Books & Music." , citationMajorWork.toString());
+                "1937, Covici Friede, Indigo Books & Music.", citationMajorWork.toString());
         assertEquals("<i>Hello World!</i>. www.google.com. Accessed 08 Feb. 2024.", citationOmitALot.toString());
+    }
+
+    @Test
+    public void testToStringFromList() {
+        assertEquals("Kiczales, Gregor, et al. \"Aspect-Oriented Programming.\" <i>ACM Computing Surveys</i>, " +
+                        "vol.28, 4es, 01 Dec. 1996, Association for Computing Machinery, 10.1145/242224.242420.",
+                citationFullList.toString());
+        assertEquals("Steinbeck, John. <i>Of Mice and Men</i>. " +
+                "1937, Covici Friede, Indigo Books & Music.", citationMajorWorkList.toString());
+        assertEquals("<i>Hello World!</i>. www.google.com. Accessed 08 Feb. 2024.", citationOmitALotList.toString());
     }
 }
