@@ -26,16 +26,16 @@ public class ApaAccessDateTest {
 
     @Test
     public void testToStringYear() {
-        assertEquals("Retrieved 2024, ", yearOnly.toString());
+        assertEquals("Retrieved 2024, from ", yearOnly.toString());
     }
 
     @Test
     public void testToStringYearMonth() {
-        assertEquals("Retrieved March 2024, ", yearMonth.toString());
+        assertEquals("Retrieved March 2024, from ", yearMonth.toString());
     }
 
     @Test
     void testToStringYearMonthDay() {
-        assertEquals("Retrieved March 26, 2024, ", yearMonthDay.toString());
+        assertEquals("Retrieved March 26, 2024, from ", yearMonthDay.toString());
     }
 }

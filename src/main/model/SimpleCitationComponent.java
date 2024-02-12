@@ -4,7 +4,7 @@ package model;
  * A simple Citation component that joins head, tail with the toString function of the passed object
  * when toString is called.
  */
-public final class SimpleCitationComponent extends CitationComponent {
+public class SimpleCitationComponent extends CitationComponent {
     private static final int ACTIVE = 0;
     private Object body;
 

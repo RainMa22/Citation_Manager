@@ -27,6 +27,7 @@ public class BooleanUtilsTest {
         assertFalse(fromString("no"));
         assertFalse(fromString("n"));
         assertNull(fromString("asdsajdkh"));
+        assertNull(fromString(null));
     }
 
 }

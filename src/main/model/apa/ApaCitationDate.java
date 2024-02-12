@@ -24,11 +24,7 @@ public class ApaCitationDate extends CitationDate {
         super.tail = "). ";
 
     }
-
-    public boolean isAcademicWork() {
-        return academicWork;
-    }
-
+    
     // EFFECTS: if there is no date, returns "n.d."
     //          otherwise, returns super.createBody()
     @Override

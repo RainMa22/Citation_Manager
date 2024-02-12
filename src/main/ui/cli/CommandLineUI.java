@@ -3,6 +3,7 @@ package ui.cli;
 import model.BooleanCriteria;
 import model.Citation;
 import model.IntegerCriteria;
+import model.apa.ApaCitation;
 import model.mla.MlaCitation;
 import util.BooleanUtils;
 
@@ -21,17 +22,19 @@ public class CommandLineUI {
     public static final int EXPORT = 2;
     public static final int EXIT = -1;
     public static final int USE_MLA = 0;
+    public static final int USE_APA = 1;
 
     private static final String WELCOME_MSG =
             "Welcome to the Citation Generator!\n"
                     + "\t The avaliable format(s) is(are):\n"
-                    + "\t 0. MLA citation \n"
+                    + "\t 1. MLA citation \n"
+                    + "\t 2. APA citation \n"
                     + "TIP: You can skip entering into a field by pressing Enter.\n\n"
-                    + "Please choose a format(0):";
+                    + "Please choose a format(1 or 2): ";
+    private CitationInquirable inquirer;
     private TreeSet<Citation> sortedCitations;
     private int mode;
     private int format;
-    private final CitationInquirer inquirer;
 
     //constructor for CommandLineUI
     // EFFECTS: creates a CommandLineUI with mode set to 0;
@@ -43,7 +46,6 @@ public class CommandLineUI {
             }
         });
         this.mode = 0;
-        inquirer = new CitationInquirer();
     }
 
     public static void main(String[] args) {
@@ -68,9 +70,10 @@ public class CommandLineUI {
         List<String> result = inquirer.inquire();
         if (format == USE_MLA) {
             return new MlaCitation(result);
-        } else {
-            return null;
+        } else if (format == USE_APA) {
+            return new ApaCitation(result);
         }
+        return null;
     }
 
 
@@ -84,8 +87,9 @@ public class CommandLineUI {
     public void update() {
         switch (mode) {
             case SELECT_FORMAT:
-                format = Integer.parseInt(
-                        new Prompt(WELCOME_MSG, Prompt.REPEAT_ON_FAIL, new IntegerCriteria(USE_MLA, USE_MLA)).ask());
+                format = Integer.parseInt(new Prompt(WELCOME_MSG, Prompt.REPEAT_ON_FAIL,
+                        new IntegerCriteria(USE_MLA + 1, USE_APA + 1)).ask()) - 1;
+                inquirer = format == USE_MLA ? new MlaInquirer() : new ApaInquirer();
                 mode = CREATE_CITATIONS;
                 break;
             case CREATE_CITATIONS:

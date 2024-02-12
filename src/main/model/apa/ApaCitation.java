@@ -19,7 +19,7 @@ public class ApaCitation extends Citation {
     private static final String[] TEMPLATES = {
             "%1$s%6$s%2$s%3$s%4$s%5$s%8$s",
             "%1$s%6$s%2$s%7$s%8$s",
-            "%1$s%6$s%2$s%7$s%8$s%9$s"
+            "%1$s%6$s%2$s%7$s%9$s%8$s"
     };
 
     //[authorNames]. ([pubDate]). [title], [{[collection], [volume][IssueName]} if acdademicWork else [publisher]].
@@ -38,28 +38,30 @@ public class ApaCitation extends Citation {
         }
         setAuthorNames(new ApaAuthorNameList(param.get(0)));
         boolean acdemicWork = Boolean.TRUE.equals(BooleanUtils.fromString(param.get(2)));
-        boolean subjectToChange = Boolean.TRUE.equals(BooleanUtils.fromString(param.get(10)));
+        boolean subjectToChange = Boolean.TRUE.equals(BooleanUtils.fromString(param.get(3)));
         setTitle(new ApaCitationTitle(param.get(1), acdemicWork));
         setAcademicWork(acdemicWork, subjectToChange);
-        setCollection(new ApaCitationCollection(param.get(3)));
+        setCollection(new ApaCitationCollection(param.get(4)));
+        Integer volume;
         try {
-            setVolume(new SimpleCitationComponent(Integer.valueOf(param.get(4)), "vol.", ", "));
+            volume = Integer.valueOf(param.get(5));
         } catch (NumberFormatException nfe) {
-            setVolume(new SimpleCitationComponent(null, "vol.", ", "));
+            volume = null;
         }
-        setIssueName(new SimpleCitationComponent(param.get(5), "", ", "));
-        setPubDate(new ApaCitationDate(param.get(6), acdemicWork));
-        setPublisher(new SimpleCitationComponent(param.get(7), "", ", "));
-        setLocation(new SimpleCitationComponent(param.get(8), "", ". "));
-        setAccessDate(new ApaAccessDate(param.get(9)));
+        setVolume(new SimpleCitationComponent(volume, "", ""));
+        setIssueName(new SimpleCitationComponent(param.get(6), "(", "). "));
+        setPubDate(new ApaCitationDate(param.get(7), acdemicWork));
+        setPublisher(new SimpleCitationComponent(param.get(8), "", ", "));
+        setLocation(new SimpleCitationComponent(param.get(9), "", ""));
+        setAccessDate(new ApaAccessDate(param.get(10)));
     }
 
     // Constructor for ApaCitation
     // EFFECTS: Constructs a ApaCitation with given authorName, title, collection name, volume, issueName, pubDate,
     //          publisher, location, and access date
-    public ApaCitation(String authorNames, String title, boolean acdemicWork, String collection, Integer volume,
-                       String issueName, String pubDate, String publisher, String location, String accessDate,
-                       boolean subjectToChange) {
+    public ApaCitation(String authorNames, String title, boolean acdemicWork, boolean subjectToChange,
+                       String collection, Integer volume,
+                       String issueName, String pubDate, String publisher, String location, String accessDate) {
         setAuthorNames(new ApaAuthorNameList(authorNames));
         setTitle(new ApaCitationTitle(title, acdemicWork));
         setAcademicWork(acdemicWork, subjectToChange);

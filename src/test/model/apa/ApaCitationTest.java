@@ -15,30 +15,34 @@ public class ApaCitationTest {
     ApaCitation citationMajorWork;
     ApaCitation citationMajorWorkList;
     ApaCitation citationOmitALot;
+    ApaCitation citationOmitALotList;
 
     @BeforeEach
     public void setup() {
         citationFull = new ApaCitation("Gregor Kiczales, John Irwin, John Lamping, Jean-Marc Loingtier, " +
                 "Cristina Videria Lopes, Chris Maeda, and Anurag Mendhekar",
-                "Aspect-oriented programming", true, "ACM Computing Surveys",
+                "Aspect-oriented programming", true, false, "ACM Computing Surveys",
                 28, "4es", "1996-12-01",
                 "Association for Computing Machinery",
-                "https://doi.org/10.1145/242224.242420", "2024-02-07", false);
+                "https://doi.org/10.1145/242224.242420", "2024-02-07");
         citationFullList = new ApaCitation(Arrays.asList("Gregor Kiczales, John Irwin, John Lamping, Jean-Marc Loingtier, " +
                         "Cristina Videria Lopes, Chris Maeda, and Anurag Mendhekar",
-                "Aspect-oriented programming", "true", "ACM Computing Surveys",
+                "Aspect-oriented programming", "true", "false", "ACM Computing Surveys",
                 "28", "4es", "1996-12-01",
                 "Association for Computing Machinery",
-                "https://doi.org/10.1145/242224.242420", "2024-02-07", "false"));
-        citationMajorWork = new ApaCitation("John Steinbeck", "Of mice and men", false,
+                "https://doi.org/10.1145/242224.242420", "2024-02-07"));
+        citationMajorWork = new ApaCitation("John Steinbeck", "Of mice and men", false, false,
                 null, null, null, "1937", "Covici Friede",
-                "Indigo Books & Music", "2024-02-08", false);
-        citationMajorWorkList = new ApaCitation(Arrays.asList("John Steinbeck", "Of mice and men", "false",
-                "", "", "", "1937", "Covici Friede",
-                "Indigo Books & Music", "2024-02-08", "false"));
+                "Indigo Books & Music", "2024-02-08");
+        citationMajorWorkList = new ApaCitation(Arrays.asList("John Steinbeck", "Of mice and men", "false", "false",
+                null, null, null, "1937", "Covici Friede",
+                "Indigo Books & Music", "2024-02-08"));
         citationOmitALot = new ApaCitation(null, "Hello World!", false,
-                null, null, null, null, null, "www.google.com",
-                "2024-02-08", true);
+                true, null, null, null, null, null, "www.google.com",
+                "2024-02-08");
+        citationOmitALotList = new ApaCitation(Arrays.asList(null, "Hello World!", "false",
+                "true", null, null, null, null, null, "www.google.com",
+                "2024-02-08"));
     }
 
     @Test
@@ -104,6 +108,17 @@ public class ApaCitationTest {
         assertEquals("Covici Friede", citationMajorWorkList.getPublisher().getBody());
         assertEquals("Indigo Books & Music", citationMajorWorkList.getLocation().getBody());
         assertEquals(new ApaAccessDate("2024-02-08").toString(), citationMajorWorkList.getAccessDate().toString());
+
+        assertFalse(citationOmitALotList.isAcademicWork());
+        assertEquals("", citationOmitALotList.getAuthorNames().toString());
+        assertEquals("Hello World!", citationOmitALotList.getTitle().getTitle());
+        assertEquals("", citationOmitALotList.getCollection().toString());
+        assertEquals("", citationOmitALotList.getVolume().toString());
+        assertEquals("", citationOmitALotList.getIssueName().toString());
+        assertEquals("(n.d.). ", citationOmitALotList.getPubDate().toString());
+        assertEquals("", citationOmitALotList.getPublisher().toString());
+        assertEquals("www.google.com", citationOmitALotList.getLocation().getBody());
+        assertEquals(new ApaAccessDate("2024-02-08").toString(), citationOmitALotList.getAccessDate().toString());
     }
 
     @Test
@@ -122,5 +137,17 @@ public class ApaCitationTest {
                 "https://doi.org/10.1145/242224.242420", citationFull.toString());
         assertEquals("Steinbeck, J. (1937). <i>Of mice and men</i>. " +
                 "Covici Friede, Indigo Books & Music", citationMajorWork.toString());
+        assertEquals("(n.d.). <i>Hello World!</i>. Retrieved February 08, 2024, from www.google.com", citationOmitALot.toString());
+    }
+
+    @Test
+    public void testToStringFromList() {
+        assertEquals("Kiczales, G., Irwin, J., Lamping, J., Loingtier, J., Lopes, C. V., Maeda, C., " +
+                "& Mendhekar, A. A. (1996). Aspect-oriented programming. <i>ACM Computing Surveys</i>, 28(4es). " +
+                "https://doi.org/10.1145/242224.242420", citationFullList.toString());
+        assertEquals("Steinbeck, J. (1937). <i>Of mice and men</i>. " +
+                "Covici Friede, Indigo Books & Music", citationMajorWorkList.toString());
+        assertEquals("(n.d.). <i>Hello World!</i>. Retrieved February 08, 2024, from www.google.com",
+                citationOmitALotList.toString());
     }
 }

@@ -12,7 +12,7 @@ public class ApaAccessDate extends CitationDate {
         super.head = "Retrieved ";
         if (getDate() != null) {
             super.outputTemplate = new String[]{"yyyy", "MMMMMMM yyyy", "MMMMMMM dd',' yyyy"};
-            super.tail = ", ";
+            super.tail = ", from ";
         }
     }
 
