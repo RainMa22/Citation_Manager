@@ -3,12 +3,12 @@
 ## A WIP
 
 A *TODO* list:
-- Citation Template
-    - MLA(W.I.P)
-    - APA(Maybe)
-    - Chicago(maybe)
-- User Input(CUI)!!
-  - *Can be done after implementing one format*
-- Citation Selector
-- Pain and Suffering
+- Update README file
+- ***DONE*** ~~Citation Template~~
+    - ***DONE*** ~~MLA~~
+    - ***DONE*** ~~APA~~
+- ***DONE*** ~~User Input(CUI)!!~~
+  - ~~*Can be done after implementing one format*~~
+- ***DONE*** ~~Citation Selector~~
+- ***PAIN*** ~~Pain and Suffering~~
 - ~~use **bold** and *italic* fonts in the project description!~~
