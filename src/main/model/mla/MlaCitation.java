@@ -1,7 +1,6 @@
 package model.mla;
 
 import model.Citation;
-import model.SimpleCitationComponent;
 import util.BooleanUtils;
 
 import java.util.List;
@@ -24,7 +23,7 @@ public class MlaCitation extends Citation {
     //          throws an IllegalArgumentException when the strings passed has < 10 strings
     public MlaCitation(List<String> param) throws IllegalArgumentException {
         if (param.size() < 10) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Needs at least 10 Strings(including null) to create a MlaCitation!");
         }
         setAuthorNames(new MlaAuthorNameList(param.get(0)));
         boolean minorWork = Boolean.TRUE.equals(BooleanUtils.fromString(param.get(2)));
@@ -32,11 +31,11 @@ public class MlaCitation extends Citation {
         setMinorWork(minorWork);
         setCollection(new MlaCitationCollection(param.get(3)));
         try {
-            setVolume(new SimpleCitationComponent(Integer.valueOf(param.get(4)), "vol.", ", "));
+            setVolume(new MlaVolume(Integer.valueOf(param.get(4))));
         } catch (NumberFormatException nfe) {
-            setVolume(new SimpleCitationComponent(null, "vol.", ", "));
+            setVolume(new MlaVolume(null));
         }
-        setIssueName(new SimpleCitationComponent(param.get(5), "", ", "));
+        setIssueName(new MlaIssueName(param.get(5)));
 
         MlaCitationDate pubDate = new MlaCitationDate(param.get(6));
         MlaAccessDate accessDate = new MlaAccessDate(param.get(9));
@@ -45,8 +44,8 @@ public class MlaCitation extends Citation {
         }
 
         setPubDate(pubDate);
-        setPublisher(new SimpleCitationComponent(param.get(7), "", ", "));
-        setLocation(new SimpleCitationComponent(param.get(8), "", ". "));
+        setPublisher(new MlaPublisher(param.get(7)));
+        setLocation(new MlaLocation(param.get(8)));
         setAccessDate(accessDate);
     }
 
@@ -59,16 +58,16 @@ public class MlaCitation extends Citation {
         setTitle(new MlaCitationTitle(title, minorWork));
         setMinorWork(minorWork);
         setCollection(new MlaCitationCollection(collection));
-        setVolume(new SimpleCitationComponent(volume, "vol.", ", "));
-        setIssueName(new SimpleCitationComponent(issueName, "", ", "));
+        setVolume(new MlaVolume(volume));
+        setIssueName(new MlaIssueName(issueName));
         MlaCitationDate pubDate1 = new MlaCitationDate(pubDate);
         MlaAccessDate accessDate1 = new MlaAccessDate(accessDate);
         if (pubDate1.getDate() != null) {
             accessDate1.setMode(INACTIVE);
         }
         setPubDate(pubDate1);
-        setPublisher(new SimpleCitationComponent(publisher, "", ", "));
-        setLocation(new SimpleCitationComponent(location, "", ". "));
+        setPublisher(new MlaPublisher(publisher));
+        setLocation(new MlaLocation(location));
         setAccessDate(accessDate1);
     }
 

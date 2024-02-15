@@ -1,7 +1,6 @@
 package model.apa;
 
 import model.Citation;
-import model.SimpleCitationComponent;
 import util.BooleanUtils;
 
 import java.util.List;
@@ -23,7 +22,7 @@ public class ApaCitation extends Citation {
     };
 
     //[authorNames]. ([pubDate]). [title], [{[collection], [volume][IssueName]} if acdademicWork else [publisher]].
-    //              [{retrieved [accessDate] from ]} if subjectToChange&!academicWork][Location]
+    //              [{retrieved [accessDate] from]} if subjectToChange&!academicWork][Location]
 
     // String authorNames, String title, String collection, Integer volume,
     //                       String issueName, String pubDate, String publisher, String location, String accessDate
@@ -34,7 +33,7 @@ public class ApaCitation extends Citation {
     //          throws an IllegalArgumentException when the strings passed has < 11 strings
     public ApaCitation(List<String> param) throws IllegalArgumentException {
         if (param.size() < 11) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Needs at least 11 Strings(including null) to create a ApaCitation!");
         }
         setAuthorNames(new ApaAuthorNameList(param.get(0)));
         boolean acdemicWork = Boolean.TRUE.equals(BooleanUtils.fromString(param.get(2)));
@@ -48,11 +47,11 @@ public class ApaCitation extends Citation {
         } catch (NumberFormatException nfe) {
             volume = null;
         }
-        setVolume(new SimpleCitationComponent(volume, "", ""));
-        setIssueName(new SimpleCitationComponent(param.get(6), "(", "). "));
+        setVolume(new ApaVolume(volume));
+        setIssueName(new ApaIssueName(param.get(6)));
         setPubDate(new ApaCitationDate(param.get(7), acdemicWork));
-        setPublisher(new SimpleCitationComponent(param.get(8), "", ", "));
-        setLocation(new SimpleCitationComponent(param.get(9), "", ""));
+        setPublisher(new ApaPublisher(param.get(8)));
+        setLocation(new ApaLocation(param.get(9)));
         setAccessDate(new ApaAccessDate(param.get(10)));
     }
 
@@ -66,11 +65,11 @@ public class ApaCitation extends Citation {
         setTitle(new ApaCitationTitle(title, acdemicWork));
         setAcademicWork(acdemicWork, subjectToChange);
         setCollection(new ApaCitationCollection(collection));
-        setVolume(new SimpleCitationComponent(volume, "", ""));
-        setIssueName(new SimpleCitationComponent(issueName, "(", "). "));
+        setVolume(new ApaVolume(volume));
+        setIssueName(new ApaIssueName(issueName));
         setPubDate(new ApaCitationDate(pubDate, acdemicWork));
-        setPublisher(new SimpleCitationComponent(publisher, "", ", "));
-        setLocation(new SimpleCitationComponent(location, "", ""));
+        setPublisher(new ApaPublisher(publisher));
+        setLocation(new ApaLocation(location));
         setAccessDate(new ApaAccessDate(accessDate));
     }
 
