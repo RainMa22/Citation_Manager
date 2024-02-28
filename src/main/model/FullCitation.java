@@ -5,8 +5,8 @@ import java.util.TreeSet;
 
 // represent a full citation of a given citing format
 public abstract class FullCitation extends CitationComponent {
-    private static final int ACTIVE = 0;
-    private TreeSet<Citation> citations;
+    public static final int ACTIVE = 0;
+    protected TreeSet<Citation> citations;
 
     // Constructor for FullCitation
     // EFFECTS: Set Mode to ACTIVE and initialize the citations to sort citation by name in ascending order

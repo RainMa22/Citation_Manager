@@ -3,7 +3,6 @@
 ## A WIP
 
 A *TODO* list:
-- Update README file
 - ***DONE*** ~~Citation Template~~
     - ***DONE*** ~~MLA~~
     - ***DONE*** ~~APA~~
@@ -12,3 +11,7 @@ A *TODO* list:
 - ***DONE*** ~~Citation Selector~~
 - ***PAIN*** ~~Pain and Suffering~~
 - ~~use **bold** and *italic* fonts in the project description!~~
+- Change CommandLineUI so that it uses FullCitation instead of maintaining its own TreeSet.
+- Address the bug where two consecutive MLA citation of the same authors was not simplified in to "—" 
+in the author section
+- 
