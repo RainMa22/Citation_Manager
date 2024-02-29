@@ -2,15 +2,15 @@ package ui.cli;
 
 import model.BooleanCriteria;
 import model.Citation;
+import model.FullCitation;
 import model.IntegerCriteria;
 import model.apa.ApaCitation;
+import model.apa.ApaFullCitation;
 import model.mla.MlaCitation;
+import model.mla.MlaFullCitation;
 import util.BooleanUtils;
 
-import java.util.Comparator;
 import java.util.List;
-import java.util.TreeSet;
-import java.util.stream.Collectors;
 
 
 /*
@@ -32,19 +32,13 @@ public class CommandLineUI {
                     + "TIP: You can skip entering into a field by pressing Enter.\n\n"
                     + "Please choose a format(1 or 2): ";
     private CitationInquirable inquirer;
-    private TreeSet<Citation> sortedCitations;
+    private FullCitation sortedCitations;
     private int mode;
     private int format;
 
     //constructor for CommandLineUI
     // EFFECTS: creates a CommandLineUI with mode set to 0;
     CommandLineUI() {
-        this.sortedCitations = new TreeSet<Citation>(new Comparator<Citation>() {
-            @Override
-            public int compare(Citation o1, Citation o2) {
-                return o1.toString().compareTo(o2.toString());
-            }
-        });
         this.mode = 0;
     }
 
@@ -90,6 +84,7 @@ public class CommandLineUI {
                 format = Integer.parseInt(new Prompt(WELCOME_MSG, Prompt.REPEAT_ON_FAIL,
                         new IntegerCriteria(USE_MLA + 1, USE_APA + 1)).ask()) - 1;
                 inquirer = format == USE_MLA ? new MlaInquirer() : new ApaInquirer();
+                sortedCitations = format == USE_MLA ? new MlaFullCitation() : new ApaFullCitation();
                 mode = CREATE_CITATIONS;
                 break;
             case CREATE_CITATIONS:
@@ -103,8 +98,7 @@ public class CommandLineUI {
                 }
                 break;
             case EXPORT:
-                System.out.println(sortedCitations.stream().map((x) -> (x.toString()))
-                        .collect(Collectors.joining("\n")));
+                System.out.println(sortedCitations.toString());
                 setMode(EXIT);
                 break;
         }
