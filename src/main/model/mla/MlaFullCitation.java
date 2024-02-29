@@ -19,11 +19,19 @@ public class MlaFullCitation extends FullCitation {
     }
 
     // EFFECTS: returns the strings of all citations in citations, joined by newline;
+    //          set the authorName to ---. on the second(or more) consecutive citations with the same author
     @Override
     protected String createBody() {
         ArrayList<String> out = new ArrayList<>();
+        String prevAuthorNames = "\0";
         for (Citation c : citations) {
-            out.add(c.toString());
+            String citationString = c.toString();
+            if (citationString.startsWith(prevAuthorNames)) {
+                citationString = citationString.replaceFirst(prevAuthorNames, "---. ");
+            } else {
+                prevAuthorNames = c.getAuthorNames().toString();
+            }
+            out.add(citationString);
         }
         return String.join("\n", out);
     }

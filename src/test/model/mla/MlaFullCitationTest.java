@@ -29,29 +29,34 @@ public class MlaFullCitationTest {
 
     @Test
     public void testToStringOneItem() {
-        Citation testCitation = new MlaCitation("apple", "book", false,
-                null, null, null, null, null, null, null);
+        Citation testCitation = new MlaCitation("apple", "book", false, null, null, null, null, null, null, null);
         mlaFullCitation.add(testCitation);
-        assertEquals(String.join("\n", "<center>Work Cited</center>", testCitation.toString()),
-                mlaFullCitation.toString());
+        assertEquals(String.join("\n", "<center>Work Cited</center>", testCitation.toString()), mlaFullCitation.toString());
+    }
+
+    @Test
+    public void testToStringDuplicateAuthor() {
+        Citation testCitation = new MlaCitation("apple", "book", false, null, null, null, null, null, null, null);
+        Citation testCitation2 = new MlaCitation("apple", "another book", false, null, null, null, null, null, null, null);
+        mlaFullCitation.add(testCitation);
+        mlaFullCitation.add(testCitation2);
+        assertEquals(String.join("\n", "<center>Work Cited</center>",
+                testCitation2.toString(),
+                testCitation.toString().replaceFirst("apple. ", "---. ")), mlaFullCitation.toString());
     }
 
     @Test
     public void testToStringMoreThanOneItem() {
-        Citation testCitation = new MlaCitation("apple", "book", false,
-                null, null, null, null, null, null, null);
-        Citation testCitation2 = new MlaCitation("banana", "book", false,
-                null, null, null, null, null, null, null);
+        Citation testCitation = new MlaCitation("apple", "book", false, null, null, null, null, null, null, null);
+        Citation testCitation2 = new MlaCitation("banana", "book", false, null, null, null, null, null, null, null);
         mlaFullCitation.add(testCitation);
         mlaFullCitation.add(testCitation2);
-        assertEquals(String.join("\n", "<center>Work Cited</center>", testCitation.toString(),
-                testCitation2.toString()), mlaFullCitation.toString());
+        assertEquals(String.join("\n", "<center>Work Cited</center>", testCitation.toString(), testCitation2.toString()), mlaFullCitation.toString());
     }
 
     @Test
     public void testAddInvalid() {
-        Citation testCitation = new ApaCitation("apple", "book", false, false,
-                null, null, null, null, null, null, null);
+        Citation testCitation = new ApaCitation("apple", "book", false, false, null, null, null, null, null, null, null);
         try {
             mlaFullCitation.add(testCitation);
             fail();
