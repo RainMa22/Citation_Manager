@@ -1,5 +1,7 @@
 package model;
 
+import org.json.JSONObject;
+
 /*
  * An interface that represent a citable object, capable of converting filled-in
  * Field information in a citation String.
@@ -14,6 +16,26 @@ public abstract class Citation extends CitationComponent {
     protected SimpleCitationComponent publisher;
     protected CitationDate accessDate;
     protected SimpleCitationComponent location;
+
+
+    //EFFECTS: put head,tail,mode, and the JSONObject representations of authorNames,title, collection, volume,
+    //         issueName, pubDate, publisher, accessDate, and location in to a JSONObject and returns it.
+    @Override
+    public JSONObject asJson() {
+        JSONObject out = new JSONObject();
+        out.put("head", getHead());
+        out.put("tail", getTail());
+        out.put("mode", getMode());
+
+        String[] keys = ("authorNames, title, collection, volume, "
+                + "issueName, pubDate, publisher, accessDate, location").split(", ");
+        CitationComponent[] components = {authorNames, title, collection, volume, issueName,
+                pubDate, publisher, accessDate, location};
+        for (int i = 0; i < keys.length; i++) {
+            out.put(keys[i], components[i].asJson());
+        }
+        return out;
+    }
 
 
     public SimpleCitationComponent getVolume() {

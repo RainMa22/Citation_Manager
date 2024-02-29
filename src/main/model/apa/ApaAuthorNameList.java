@@ -2,7 +2,6 @@ package model.apa;
 
 import model.AuthorName;
 import model.AuthorNameList;
-import model.CitationComponent;
 import util.StringUtils;
 
 import java.util.ArrayList;
@@ -14,23 +13,16 @@ import java.util.stream.Stream;
  * List of AuthorNames under APA format
  */
 
-public class ApaAuthorNameList extends CitationComponent implements AuthorNameList {
+public class ApaAuthorNameList extends AuthorNameList {
     public static final int ONE_NAME = 0;
     public static final int MULTIPLE_NAME = 1;
     public static final int MORE_THAN_TWENTY_NAMES = 2;
-    private final List<AuthorName> names;
 
     //Constructor for ApaAuthorNameList
     public ApaAuthorNameList(String rawString) {
         super();
         names = parseString(rawString);
         this.setTail(" ");
-    }
-
-    //getter for names
-    @Override
-    public List<AuthorName> getNames() {
-        return names;
     }
 
     // EFFECTS: returns list of author name by splitting rawString by comma, create new AuthorName by each split String

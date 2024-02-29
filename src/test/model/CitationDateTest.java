@@ -1,5 +1,6 @@
 package model;
 
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -25,7 +26,7 @@ public class CitationDateTest {
     }
 
     @Test
-    public void testConstructorInvalid(){
+    public void testConstructorInvalid() {
         assertEquals(CitationDate.INACTIVE, invalid.getMode());
     }
 
@@ -66,11 +67,41 @@ public class CitationDateTest {
     }
 
     @Test
-    public void testToStringNoOutputTemplate(){
+    public void testToStringNoOutputTemplate() {
         assertEquals("", invalid.toString());
         assertEquals("", yearOnly.toString());
         assertEquals("", yearAndMonth.toString());
         assertEquals("", yearMonthAndDay.toString());
+    }
+
+    @Test
+    public void testAsJson() {
+        JSONObject yearOnlyOut = new JSONObject(
+                "{" +
+                        "\"head\": \"\"," +
+                        "\"tail\": \"\"," +
+                        "\"mode\": " + CitationDate.YEAR_ONLY + "," +
+                        "\"dateString\": \"2024\"" +
+                        "}");
+        JSONObject yearAndMonthOut = new JSONObject(
+                "{" +
+                        "\"head\": \"\"," +
+                        "\"tail\": \"\"," +
+                        "\"mode\": " + CitationDate.YEAR_AND_MONTH + "," +
+                        "\"dateString\": \"2024-03\"" +
+                        "}");
+        JSONObject yearMonthAndDayOut = new JSONObject(
+                "{" +
+                        "\"head\": \"\"," +
+                        "\"tail\": \"\"," +
+                        "\"mode\": " + CitationDate.YEAR_MONTH_AND_DAY + "," +
+                        "\"dateString\": \"2024-03-26\"" +
+                        "}"
+        );
+
+        assertEquals(yearOnlyOut.toString(), yearOnly.asJson().toString());
+        assertEquals(yearAndMonthOut.toString(), yearAndMonth.asJson().toString());
+        assertEquals(yearMonthAndDayOut.toString(), yearMonthAndDay.asJson().toString());
     }
 
     static class MockCitationDate extends CitationDate {

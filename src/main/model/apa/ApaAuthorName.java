@@ -13,33 +13,29 @@ public class ApaAuthorName extends AuthorName {
     public static final int LASTNAME_MIDDLENAME_AND_FIRSTNAME = 2;
     private static final String[] TEMPLATES = {
             "%3$s", //LASTNAME_ONLY
-            "%3$s, %1$c.", //LASTNAME_AND_FIRSTNAME
+            "%3$s, %1$s.", //LASTNAME_AND_FIRSTNAME
             "%3$s, %1$s. %2$s."// LASTNAME_MIDDLENAME_AND_FIRSTNAME
     };
 
-
-    private Character firstName;
-    private Character middleName;
-    private String lastName;
 
     // constructs the ApaAuthorName class
     // EFFECTS: creates a ApaAuthorName with the given String;
     public ApaAuthorName(String rawString) {
         super();
-        this.firstName = '\0';
-        this.middleName = '\0';
+        this.firstName = "";
+        this.middleName = "";
         this.lastName = "";
         processName(rawString);
     }
 
 
     // getter for firstName
-    public Character getFirstName() {
+    public String getFirstName() {
         return firstName;
     }
 
     //getter for middleName
-    public Character getMiddleName() {
+    public String getMiddleName() {
         return middleName;
     }
 
@@ -71,12 +67,12 @@ public class ApaAuthorName extends AuthorName {
         this.lastName = words.get(0);
         if (words.size() == 2) {
             setMode(LASTNAME_AND_FIRSTNAME);
-            this.firstName = words.get(0).toUpperCase().charAt(0);
+            this.firstName = words.get(0).toUpperCase().substring(0, 1);
             this.lastName = words.get(1);
         } else if (words.size() > 2) {
             setMode(LASTNAME_MIDDLENAME_AND_FIRSTNAME);
-            this.firstName = words.get(0).toUpperCase().charAt(0);
-            this.middleName = words.get(1).toUpperCase().charAt(0);
+            this.firstName = words.get(0).toUpperCase().substring(0, 1);
+            this.middleName = words.get(1).toUpperCase().substring(0, 1);
             this.lastName = words.get(words.size() - 1);
         }
     }

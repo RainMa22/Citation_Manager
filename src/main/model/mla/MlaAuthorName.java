@@ -1,6 +1,7 @@
 package model.mla;
 
 import model.AuthorName;
+import org.json.JSONObject;
 import util.StringUtils;
 
 import java.util.Arrays;
@@ -15,13 +16,10 @@ public class MlaAuthorName extends AuthorName {
     private static final String[][] FORMAT_FRAGMENTS = {
             new String[]{"%1$s"}, //FIRSTNAME_ONLY
             new String[]{"%1$s", "%3$s"}, //FIRSTNAME_AND_LASTNAME
-            new String[]{"%1$s %2$c.", "%3$s"} // FIRSTNAME_MIDDLENAME_AND_LASTNAME
+            new String[]{"%1$s %2$s.", "%3$s"} // FIRSTNAME_MIDDLENAME_AND_LASTNAME
     };
 
 
-    private String firstName;
-    private Character middleName;
-    private String lastName;
     private boolean inverted;
 
     // constructs the MlaAuthorName class
@@ -29,19 +27,20 @@ public class MlaAuthorName extends AuthorName {
     public MlaAuthorName(String rawString, boolean inverted) {
         super();
         this.firstName = "";
-        this.middleName = '\0';
+        this.middleName = "";
         this.lastName = "";
         processName(rawString);
-        this.inverted = inverted;
+        setInverted(inverted);
     }
 
-    public void setInverted(boolean inverted) {
-        this.inverted = inverted;
-    }
 
     // getter for inverted
     public boolean isInverted() {
         return inverted;
+    }
+
+    public void setInverted(boolean inverted) {
+        this.inverted = inverted;
     }
 
     // getter for firstName
@@ -50,7 +49,7 @@ public class MlaAuthorName extends AuthorName {
     }
 
     //getter for middleName
-    public Character getMiddleName() {
+    public String getMiddleName() {
         return middleName;
     }
 
@@ -94,8 +93,16 @@ public class MlaAuthorName extends AuthorName {
             this.lastName = words.get(1);
         } else if (words.size() > 2) {
             setMode(FIRSTNAME_MIDDLENAME_AND_LASTNAME);
-            this.middleName = words.get(1).toUpperCase().charAt(0);
+            this.middleName = words.get(1).toUpperCase().substring(0, 1);
             this.lastName = words.get(words.size() - 1);
         }
+    }
+
+    //EFFECTS: additionally stores inverted into super.asJson();
+    @Override
+    public JSONObject asJson() {
+        JSONObject out = super.asJson();
+        out.put("inverted", inverted);
+        return out;
     }
 }

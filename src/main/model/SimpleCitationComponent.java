@@ -1,12 +1,26 @@
 package model;
 
+import org.json.JSONObject;
+
 /*
  * A simple Citation component that joins head, tail with the toString function of the passed object
  * when toString is called.
  */
 public class SimpleCitationComponent extends CitationComponent {
-    private static final int ACTIVE = 0;
+    public static final int ACTIVE = 0;
     private Object body;
+
+    // constructor for SimpleCitationComponent
+    // EFFECTS: creates a SimpleCitationComponent with the given body, head and tail
+    public SimpleCitationComponent(Object body, String head, String tail) {
+        super();
+        this.setBody(body);
+        this.setHead(head);
+        this.setTail(tail);
+        if (body != null && !body.toString().isEmpty()) {
+            this.setMode(ACTIVE);
+        }
+    }
 
     public Object getBody() {
         return body;
@@ -16,22 +30,26 @@ public class SimpleCitationComponent extends CitationComponent {
         this.body = body;
     }
 
-    // constructor for SimpleCitationComponent
-    // EFFECTS: creates a SimpleCitationComponent with the given body, head and tail
-    public SimpleCitationComponent(Object body, String head, String tail) {
-        super();
-        if (body != null && !body.toString().isEmpty()) {
-            this.setBody(body);
-            this.setMode(ACTIVE);
-            this.setHead(head);
-            this.setTail(tail);
-        }
-    }
-
-
     // EFFECTS: returns body.toString();
     @Override
     protected String createBody() {
         return body.toString();
+    }
+
+    //EFFECTS: returns the JSONObject representation of self
+    //         stores head, tail, mode and body, which is needed to replicate the citation
+    //         if body is null, store the body as ""
+    @Override
+    public JSONObject asJson() {
+        JSONObject out = new JSONObject();
+        out.put("head", getHead());
+        out.put("tail", getTail());
+        out.put("mode", getMode());
+        if (getBody() == null) {
+            out.put("body", "");
+        } else {
+            out.put("body", getBody().toString());
+        }
+        return out;
     }
 }

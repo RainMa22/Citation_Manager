@@ -18,6 +18,7 @@ public class ApaAuthorNameTest {
         oneName = new ApaAuthorName("Joe");
         twoName = new ApaAuthorName("Stove  Jeebs");
         threeName = new ApaAuthorName("George r. Martin");
+        fourname = new ApaAuthorName("A B C D");
     }
 
     @Test
@@ -27,23 +28,21 @@ public class ApaAuthorNameTest {
 
     @Test
     public void testConstructorTwoName() {
-        assertEquals('S', twoName.getFirstName());
+        assertEquals("S", twoName.getFirstName());
         assertEquals("Jeebs", twoName.getLastName());
     }
 
     @Test
     public void testConstructorThreeName() {
-        assertEquals('G', threeName.getFirstName());
-        assertEquals('R', threeName.getMiddleName());
+        assertEquals("G", threeName.getFirstName());
+        assertEquals("R", threeName.getMiddleName());
         assertEquals("Martin", threeName.getLastName());
     }
 
     @Test
     public void testConstructorFourName() {
-        fourname = new ApaAuthorName("A B C D");
-
-        assertEquals('A', fourname.getFirstName());
-        assertEquals('B', fourname.getMiddleName());
+        assertEquals("A", fourname.getFirstName());
+        assertEquals("B", fourname.getMiddleName());
         assertEquals("D", fourname.getLastName());
     }
 

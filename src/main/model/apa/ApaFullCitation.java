@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 // a collection of citations in APA format
 public class ApaFullCitation extends FullCitation {
+    public static final String FORMAT = "APA";
 
     // constructor for ApaFullCitation
     // Effects: create an ApaFullCitation with head defined as "<center>References</center>\n" following APA format
@@ -38,6 +39,11 @@ public class ApaFullCitation extends FullCitation {
             throw new InvalidCitationError();
         }
         super.add(c);
+    }
+
+    @Override
+    public String getFormat() {
+        return FORMAT;
     }
 
 }

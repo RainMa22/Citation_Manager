@@ -1,10 +1,8 @@
 package model.mla;
 
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,54 +14,77 @@ public class MlaAuthorNameTest {
     MlaAuthorName fourname;
 
     @BeforeEach
-    public void setup(){
+    public void setup() {
         noName = new MlaAuthorName("", true);
         oneName = new MlaAuthorName("Joe", true);
         twoName = new MlaAuthorName("Stove  Jeebs", true);
         threeName = new MlaAuthorName("George r. Martin", false);
+        fourname = new MlaAuthorName("A B C D", false);
     }
+
     @Test
-    public void testConstructorOneName(){
+    public void testConstructorOneName() {
         assertEquals("Joe", oneName.getFirstName());
         assertTrue(oneName.isInverted());
     }
+
     @Test
-    public void testConstructorTwoName(){
+    public void testConstructorTwoName() {
         assertEquals("Stove", twoName.getFirstName());
         assertEquals("Jeebs", twoName.getLastName());
         assertTrue(twoName.isInverted());
     }
+
     @Test
-    public void testConstructorThreeName(){
+    public void testConstructorThreeName() {
         assertEquals("George", threeName.getFirstName());
-        assertEquals('R', threeName.getMiddleName());
+        assertEquals("R", threeName.getMiddleName());
         assertEquals("Martin", threeName.getLastName());
         assertFalse(threeName.isInverted());
     }
-    @Test
-    public void testConstructorFourName(){
-        fourname = new MlaAuthorName("A B C D", false);
 
+    @Test
+    public void testConstructorFourName() {
         assertEquals("A", fourname.getFirstName());
-        assertEquals('B', fourname.getMiddleName());
+        assertEquals("B", fourname.getMiddleName());
         assertEquals("D", fourname.getLastName());
     }
+
     @Test
-    public void testToStringOneName(){
+    public void testToStringOneName() {
         assertEquals("Joe", oneName.toString());
     }
+
     @Test
-    public void testToStringInverted(){
+    public void testToStringInverted() {
         threeName.setInverted(true);
         assertEquals("", noName.toString());
         assertEquals("Martin, George R.", threeName.toString());
         assertEquals("Jeebs, Stove", twoName.toString());
     }
+
     @Test
-    public void testToStringNormal(){
+    public void testToStringNormal() {
         twoName.setInverted(false);
 
         assertEquals("Stove Jeebs", twoName.toString());
         assertEquals("George R. Martin", threeName.toString());
     }
+
+    @Test
+    public void testAsJson() {
+        MlaAuthorName[] names = {noName, oneName, twoName, threeName, fourname};
+        for (MlaAuthorName name : names) {
+            JSONObject out = new JSONObject();
+            out.put("head", name.getHead());
+            out.put("tail", name.getTail());
+            out.put("mode", name.getMode());
+            out.put("firstName", name.getFirstName());
+            out.put("middleName", name.getMiddleName());
+            out.put("lastName", name.getLastName());
+            out.put("inverted", name.isInverted());
+            assertEquals(out.toString(), name.asJson().toString());
+        }
+    }
+
 }

@@ -15,7 +15,6 @@ public class MlaCitation extends Citation {
     public static final int MINOR = 0;
     public static final int MAJOR = 1;
     private static final String TEMPLATE = "%1$s%2$s%3$s%4$s%5$s%6$s%7$s%8$s%9$s";
-    private boolean minorWork;
 
     // Constructor for MlaCitation
     // EFFECTS: Alternate way to construct a MlaCitation using a list of Strings
@@ -72,17 +71,16 @@ public class MlaCitation extends Citation {
     }
 
     public boolean isMinorWork() {
-        return minorWork;
+        return mode == MINOR;
     }
 
     public void setMinorWork(boolean minorWork) {
-        this.minorWork = minorWork;
         if (minorWork) {
             setMode(MINOR);
         } else {
             setMode(MAJOR);
         }
-        this.setTitle(new MlaCitationTitle(this.getTitle().getTitle(), this.minorWork));
+        this.setTitle(new MlaCitationTitle(this.getTitle().getTitle(), minorWork));
     }
 
     //EFFECTS: generates MLA-formatted citation String based on defined variables.

@@ -1,6 +1,8 @@
 package model;
 
 import model.apa.ApaCitation;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -54,10 +56,30 @@ public class FullCitationTest {
         assertEquals(testCitation, mfc.getCitations().last());
     }
 
-    class MockFullCitation extends FullCitation {
+    @Test
+    public void testToJson(){
+        Citation testCitation = new ApaCitation("apple", "book", false, false,
+                null, null, null, null, null, null, null);
+        mfc.add(testCitation);
+        mfc.add(testCitation);
+        JSONObject out = new JSONObject();
+        out.put("head", mfc.getHead());
+        out.put("tail", mfc.getTail());
+        out.put("mode", mfc.getMode());
+        out.put("format", mfc.getFormat());
+        out.put("citations", new JSONArray(mfc.getCitations()));
+        assertEquals(out.toString(), mfc.asJson().toString());
+    }
+
+    static class MockFullCitation extends FullCitation {
         @Override
         protected String createBody() {
             return null;
+        }
+
+        @Override
+        public String getFormat() {
+            return "funni format";
         }
     }
 }

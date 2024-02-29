@@ -1,5 +1,6 @@
 package model;
 
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -28,7 +29,7 @@ public class CitationComponentTest {
     }
 
     static class MockComponent extends CitationComponent {
-        private String body;
+        private final String body;
 
         public MockComponent() {
             super();
@@ -47,5 +48,11 @@ public class CitationComponentTest {
         protected String createBody() {
             return body;
         }
+
+        @Override
+        public JSONObject asJson() {
+            return null;
+        }
+
     }
 }

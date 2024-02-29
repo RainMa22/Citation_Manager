@@ -2,7 +2,6 @@ package model.mla;
 
 import model.AuthorName;
 import model.AuthorNameList;
-import model.CitationComponent;
 import util.StringUtils;
 
 import java.util.ArrayList;
@@ -12,23 +11,16 @@ import java.util.List;
  * List of AuthorNames under MLA format
  */
 
-public class MlaAuthorNameList extends CitationComponent implements AuthorNameList {
+public class MlaAuthorNameList extends AuthorNameList {
     public static final int ONE_NAME = 0;
     public static final int TWO_NAME = 1;
     public static final int ET_AL = 2;
-    private List<AuthorName> names;
 
     //Constructor for Mla AuthorNameList
     public MlaAuthorNameList(String rawString) {
         super();
         names = parseString(rawString);
         super.setTail(". ");
-    }
-
-    //getter for names
-    @Override
-    public List<AuthorName> getNames() {
-        return names;
     }
 
     // EFFECTS: returns list of author name by splitting rawString by comma, create new AuthorName by each split String

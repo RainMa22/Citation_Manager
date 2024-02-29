@@ -1,5 +1,8 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.Comparator;
 import java.util.TreeSet;
 
@@ -29,5 +32,20 @@ public abstract class FullCitation extends CitationComponent {
     // EFFECTS: Add the citation to the citations treeSet, duplicate citations will be removed
     public void add(Citation c) {
         citations.add(c);
+    }
+
+    public abstract String getFormat();
+
+    // EFFECTS: returns a JSONObject representation of the FullCitation
+    //          stores head, tail, mode, format, citations as a JSONArray;
+    @Override
+    public JSONObject asJson() {
+        JSONObject out = new JSONObject();
+        out.put("head", getHead());
+        out.put("tail", getTail());
+        out.put("mode", getMode());
+        out.put("format", getFormat());
+        out.put("citations", new JSONArray(citations));
+        return out;
     }
 }

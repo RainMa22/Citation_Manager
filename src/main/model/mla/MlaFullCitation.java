@@ -10,6 +10,8 @@ import java.util.ArrayList;
 // a collection of citations in MLA format
 public class MlaFullCitation extends FullCitation {
 
+    public static final String FORMAT = "MLA";
+
     // constructor for MlaFullCitation
     // Effects: create an MlaFullCitation with head defined as "<center>References</center>\n" following Mla format
     public MlaFullCitation() {
@@ -46,6 +48,11 @@ public class MlaFullCitation extends FullCitation {
             throw new InvalidCitationError();
         }
         super.add(c);
+    }
+
+    @Override
+    public String getFormat() {
+        return FORMAT;
     }
 
 }

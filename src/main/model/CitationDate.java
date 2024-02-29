@@ -1,5 +1,7 @@
 package model;
 
+import org.json.JSONObject;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -48,11 +50,31 @@ public abstract class CitationDate extends CitationComponent {
     // EFFECTS: converts the Date to a citation String;
     @Override
     protected String createBody() {
+        if (mode == INACTIVE) {
+            return "";
+        }
         if (mode >= outputTemplate.length) {
             return "";
         } else {
             SimpleDateFormat dateFormat = new SimpleDateFormat(outputTemplate[mode], Locale.CANADA);
             return dateFormat.format(date);
         }
+    }
+
+    // returns JSONObject Representation of the AccessDate
+    //         store head, tail, mode, and dateString (Date as from the inputTemplate)
+    @Override
+    public JSONObject asJson() {
+        JSONObject out = new JSONObject();
+        out.put("head", getHead());
+        out.put("tail", getTail());
+        out.put("mode", getMode());
+
+        String[] temp = this.outputTemplate;
+        this.outputTemplate = this.inputTemplate;
+        out.put("dateString", createBody());
+        this.outputTemplate = temp;
+
+        return out;
     }
 }

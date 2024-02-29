@@ -75,4 +75,5 @@ public class MlaAuthorNameListTest {
     public void TestToStringPlantedEtAl() {
         assertEquals("Jeebs, Stove, et al. ", manl3.toString());
     }
+
 }
