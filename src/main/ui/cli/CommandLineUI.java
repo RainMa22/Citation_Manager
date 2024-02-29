@@ -70,8 +70,6 @@ public class CommandLineUI {
         return null;
     }
 
-
-    // REQUIRES: mode is one of the defined constants
     // MODIFIES: this
     // EFFECTS: if mode is SELECT_FORMAT, prompt user to select format
     //                  switch mode to CREATE_CITATIONS upon assigning format
@@ -81,26 +79,46 @@ public class CommandLineUI {
     public void update() {
         switch (mode) {
             case SELECT_FORMAT:
-                format = Integer.parseInt(new Prompt(WELCOME_MSG, Prompt.REPEAT_ON_FAIL,
-                        new IntegerCriteria(USE_MLA + 1, USE_APA + 1)).ask()) - 1;
-                inquirer = format == USE_MLA ? new MlaInquirer() : new ApaInquirer();
-                sortedCitations = format == USE_MLA ? new MlaFullCitation() : new ApaFullCitation();
-                mode = CREATE_CITATIONS;
+                setMode(selectFormat());
                 break;
             case CREATE_CITATIONS:
-                Citation citation = inquireAndGenerate();
-                sortedCitations.add(citation);
-                Boolean addMore = BooleanUtils.fromString(new Prompt("Done! Do you want to add more citations? "
-                        + "(yes/no)(1/0)(true/false)(t/f)(y/n):", Prompt.FALSE_STRING_ON_FAIL,
-                        new BooleanCriteria()).ask());
-                if (Boolean.FALSE.equals(addMore)) {
-                    setMode(EXPORT);
-                }
+                setMode(createCitations());
                 break;
             case EXPORT:
-                System.out.println(sortedCitations.toString());
-                setMode(EXIT);
+                setMode(export());
                 break;
         }
     }
+
+    // helper function for update()
+    // EFFECTS: prompt user to select format
+    //          return CREATE_CITATIONS upon assigning format
+    private int selectFormat() {
+        format = Integer.parseInt(new Prompt(WELCOME_MSG, Prompt.REPEAT_ON_FAIL,
+                new IntegerCriteria(USE_MLA + 1, USE_APA + 1)).ask()) - 1;
+        inquirer = format == USE_MLA ? new MlaInquirer() : new ApaInquirer();
+        sortedCitations = format == USE_MLA ? new MlaFullCitation() : new ApaFullCitation();
+        return CREATE_CITATIONS;
+    }
+
+    // helper function for update()
+    // EFFECTS: prompt user to create a citation of defined FORMAT
+    //          switch mode to EXPORT when user indicates done;
+    private int createCitations() {
+        Citation citation = inquireAndGenerate();
+        sortedCitations.add(citation);
+        Boolean addMore = BooleanUtils.fromString(new Prompt("Done! Do you want to add more citations? "
+                + "(yes/no)(1/0)(true/false)(t/f)(y/n):", Prompt.FALSE_STRING_ON_FAIL,
+                new BooleanCriteria()).ask());
+        if (Boolean.FALSE.equals(addMore)) {
+            return EXPORT;
+        }
+        return SELECT_FORMAT;
+    }
+
+    private int export() {
+        System.out.println(sortedCitations.toString());
+        return EXIT;
+    }
+
 }
