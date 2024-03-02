@@ -57,5 +57,11 @@ public abstract class CitationComponent {
     protected abstract String createBody();
 
     //EFFECTS: returns a JSONObject representation of self
-    public abstract JSONObject asJson();
+    public JSONObject asJson() {
+        JSONObject out = new JSONObject();
+        out.put("head", getHead());
+        out.put("tail", getTail());
+        out.put("mode", getMode());
+        return out;
+    }
 }

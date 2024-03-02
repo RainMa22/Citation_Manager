@@ -22,10 +22,7 @@ public abstract class AuthorNameList extends CitationComponent {
     //         stores head, tail, mode, names(as a JSONArray) into a JSONObject and return it;
     @Override
     public JSONObject asJson() {
-        JSONObject out = new JSONObject();
-        out.put("head", getHead());
-        out.put("tail", getTail());
-        out.put("mode", getMode());
+        JSONObject out = super.asJson();
 
         JSONArray nameArray = new JSONArray(getNames());
 

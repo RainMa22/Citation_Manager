@@ -23,8 +23,8 @@ A *TODO* list:
 ### phase 1
 - (Done) Be able to create one APA citation
 - (Done) Be able to create one MLA citation
-- (Done) Be able to create more than one APA citations during one session
-- (Done) Be able to create more than one MLA citations during one session
+- (Done) Ba able to add more than one author to a citation
+- (Done) Be able to view the added author
 
 ### phase 2
 - Be able to save the citations to JSON files

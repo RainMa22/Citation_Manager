@@ -7,6 +7,10 @@ public abstract class AuthorName extends CitationComponent {
     protected String middleName;
     protected String lastName;
 
+    public AuthorName() {
+        super();
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -31,10 +35,6 @@ public abstract class AuthorName extends CitationComponent {
         this.lastName = lastName;
     }
 
-    public AuthorName() {
-        super();
-    }
-
     // Requires: rawString contains more than just space
     // EFFECTS: process the given name, delimited by space, into a format according to the citation
     protected abstract void processName(String rawString);
@@ -43,10 +43,7 @@ public abstract class AuthorName extends CitationComponent {
     //         stores head, tail, mode, firstName, middleName, and lastName
     @Override
     public JSONObject asJson() {
-        JSONObject out = new JSONObject();
-        out.put("head", getHead());
-        out.put("tail", getTail());
-        out.put("mode", getMode());
+        JSONObject out = super.asJson();
         out.put("firstName", firstName);
         out.put("middleName", middleName);
         out.put("lastName", lastName);

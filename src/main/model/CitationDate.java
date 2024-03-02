@@ -65,10 +65,7 @@ public abstract class CitationDate extends CitationComponent {
     //         store head, tail, mode, and dateString (Date as from the inputTemplate)
     @Override
     public JSONObject asJson() {
-        JSONObject out = new JSONObject();
-        out.put("head", getHead());
-        out.put("tail", getTail());
-        out.put("mode", getMode());
+        JSONObject out = super.asJson();
 
         String[] temp = this.outputTemplate;
         this.outputTemplate = this.inputTemplate;

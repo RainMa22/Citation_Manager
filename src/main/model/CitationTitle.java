@@ -22,10 +22,7 @@ public abstract class CitationTitle extends CitationComponent {
     //         stores head, tail, mode, and title into a JSONObject and returns it;
     @Override
     public JSONObject asJson() {
-        JSONObject out = new JSONObject();
-        out.put("head", getHead());
-        out.put("tail", getTail());
-        out.put("mode", getMode());
+        JSONObject out = super.asJson();
         out.put("title", title);
         return out;
     }

@@ -40,10 +40,7 @@ public abstract class FullCitation extends CitationComponent {
     //          stores head, tail, mode, format, citations as a JSONArray;
     @Override
     public JSONObject asJson() {
-        JSONObject out = new JSONObject();
-        out.put("head", getHead());
-        out.put("tail", getTail());
-        out.put("mode", getMode());
+        JSONObject out = super.asJson();
         out.put("format", getFormat());
         out.put("citations", new JSONArray(citations));
         return out;

@@ -1,7 +1,5 @@
 package model;
 
-import org.json.JSONObject;
-
 /*
  * tests if a String can be converted into a CitationDate
  */
@@ -22,9 +20,5 @@ public class DateCriteria implements IsSatisfiable {
             super(dateString);
         }
 
-        @Override
-        public JSONObject asJson() {
-            return null;
-        }
     }
 }
