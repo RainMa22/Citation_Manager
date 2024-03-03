@@ -1,6 +1,7 @@
 package model.apa;
 
 import model.SimpleCitationComponent;
+import org.json.JSONObject;
 
 // represent the issue Name of a work in APA format
 public class ApaIssueName extends SimpleCitationComponent {
@@ -12,4 +13,10 @@ public class ApaIssueName extends SimpleCitationComponent {
         super(name, "(", "). ");
     }
 
+    // alt. constructor
+    // EFFECT: create a new ApaIssueName, with the given JSON object
+    public ApaIssueName(JSONObject json) {
+        super(json);
+    }
 }
+

@@ -1,6 +1,7 @@
 package model.mla;
 
 import model.CitationDate;
+import org.json.JSONObject;
 
 // Represents a citation date in MLA format
 public class MlaCitationDate extends CitationDate {
@@ -13,6 +14,12 @@ public class MlaCitationDate extends CitationDate {
             super.outputTemplate = new String[]{"yyyy", "MMM yyyy", "dd MMM yyyy"};
             super.tail = ", ";
         }
+    }
+
+    // alt. constructor for CitationDate
+    // EFFECTS: constructs a MlaCitationDate with the given JSONObject
+    public MlaCitationDate(JSONObject json) {
+        super(json);
     }
 
 

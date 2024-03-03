@@ -20,7 +20,17 @@ public class CitationTitleTest {
     }
 
     @Test
-    public void testAsJson(){
+    public void testConstructorJson() {
+        JSONObject json = new JSONObject();
+        json.put("head", ct.getHead());
+        json.put("tail", ct.getTail());
+        json.put("mode", ct.getMode());
+        json.put("title", ct.getTitle());
+        assertEquals(ct.asJson().toString(), json.toString());
+    }
+
+    @Test
+    public void testAsJson() {
         JSONObject out = new JSONObject();
         out.put("head", ct.getHead());
         out.put("tail", ct.getTail());

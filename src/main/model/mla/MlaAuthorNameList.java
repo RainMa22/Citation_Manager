@@ -2,6 +2,8 @@ package model.mla;
 
 import model.AuthorName;
 import model.AuthorNameList;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import util.StringUtils;
 
 import java.util.ArrayList;
@@ -16,11 +18,23 @@ public class MlaAuthorNameList extends AuthorNameList {
     public static final int TWO_NAME = 1;
     public static final int ET_AL = 2;
 
-    //Constructor for Mla AuthorNameList
+    // Constructor for Mla AuthorNameList
+    // EFFECTS: creates one MlaAuthorNameList from the given rawString
     public MlaAuthorNameList(String rawString) {
         super();
         names = parseString(rawString);
         super.setTail(". ");
+    }
+
+    // alt. Constructor for Mla AuthorNameList
+    // EFFECTS: creates one MlaAuthorNameList from the given JSONObject
+    public MlaAuthorNameList(JSONObject json) {
+        super(json);
+        JSONArray names = json.getJSONArray("names");
+        this.names = new ArrayList<>(names.length());
+        for (int i = 0; i < names.length(); i++) {
+            this.names.add(new MlaAuthorName(names.getJSONObject(i)));
+        }
     }
 
     // EFFECTS: returns list of author name by splitting rawString by comma, create new AuthorName by each split String
@@ -58,7 +72,7 @@ public class MlaAuthorNameList extends AuthorNameList {
     //          if no names stored, returns an empty String
     @Override
     protected String createBody() {
-        String out = "";
+        String out;
         switch (mode) {
             case ONE_NAME:
                 out = names.get(0).toString();

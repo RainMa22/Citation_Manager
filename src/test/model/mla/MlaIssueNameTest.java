@@ -19,4 +19,9 @@ public class MlaIssueNameTest {
         assertEquals("3s", issueName.getBody());
         assertEquals(", ", issueName.getTail());
     }
+
+    @Test
+    public void testConstructorJson() {
+        assertEquals(issueName.toString(), new MlaVolume(issueName.asJson()).toString());
+    }
 }

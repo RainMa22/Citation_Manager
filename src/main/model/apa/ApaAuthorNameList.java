@@ -2,6 +2,8 @@ package model.apa;
 
 import model.AuthorName;
 import model.AuthorNameList;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import util.StringUtils;
 
 import java.util.ArrayList;
@@ -18,11 +20,23 @@ public class ApaAuthorNameList extends AuthorNameList {
     public static final int MULTIPLE_NAME = 1;
     public static final int MORE_THAN_TWENTY_NAMES = 2;
 
-    //Constructor for ApaAuthorNameList
+    // Constructor for ApaAuthorNameList
+    // EFFECTS: create a new ApaAuthorNameList with the given name String;
     public ApaAuthorNameList(String rawString) {
         super();
         names = parseString(rawString);
         this.setTail(" ");
+    }
+
+    // Constructor for ApaAuthorNameList
+    // EFFECTS: create a new ApaAuthorNameList with the given JSONObject;
+    public ApaAuthorNameList(JSONObject json) {
+        super(json);
+        JSONArray names = json.getJSONArray("names");
+        this.names = new ArrayList<>(names.length());
+        for (int i = 0; i < names.length(); i++) {
+            this.names.add(new ApaAuthorName(names.getJSONObject(i)));
+        }
     }
 
     // EFFECTS: returns list of author name by splitting rawString by comma, create new AuthorName by each split String

@@ -17,17 +17,26 @@ public class SimpleCitationComponent extends CitationComponent {
         this.setBody(body);
         this.setHead(head);
         this.setTail(tail);
-        if (body != null && !body.toString().isEmpty()) {
+        if (!getBody().toString().isEmpty()) {
             this.setMode(ACTIVE);
         }
+    }
+
+    // alternate constructor for SimpleCitationComponent
+    // EFFECTS: creates a SimpleCitationComponent with the given body, head, mode and tail from a JSONObject
+    public SimpleCitationComponent(JSONObject json) {
+        super(json);
+        setBody(json.getString("body"));
     }
 
     public Object getBody() {
         return body;
     }
 
+    // MODIFIES: this
+    // EFFECT: sets the body to the given body, if body is null, set body to "";
     public void setBody(Object body) {
-        this.body = body;
+        this.body = body == null ? "" : body;
     }
 
     // EFFECTS: returns body.toString();
@@ -42,11 +51,7 @@ public class SimpleCitationComponent extends CitationComponent {
     @Override
     public JSONObject asJson() {
         JSONObject out = super.asJson();
-        if (getBody() == null) {
-            out.put("body", "");
-        } else {
-            out.put("body", getBody().toString());
-        }
+        out.put("body", getBody().toString());
         return out;
     }
 }

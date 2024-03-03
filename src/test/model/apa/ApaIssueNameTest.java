@@ -19,4 +19,10 @@ public class ApaIssueNameTest {
         assertEquals("3s", issueName.getBody());
         assertEquals("). ", issueName.getTail());
     }
+    @Test
+    public void testConstructorJson() {
+        assertEquals("(", issueName.getHead());
+        assertEquals("3s", issueName.getBody());
+        assertEquals("). ", issueName.getTail());
+    }
 }

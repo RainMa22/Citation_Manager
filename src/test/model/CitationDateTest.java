@@ -1,5 +1,7 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -67,6 +69,27 @@ public class CitationDateTest {
     }
 
     @Test
+    public void testConstructorJson() {
+        CitationDate[] dates = {invalid, yearOnly, yearAndMonth, yearMonthAndDay};
+        for (CitationDate date : dates) {
+            assertEquals(new MockCitationDate(date.asJson()).toString(), date.toString());
+        }
+    }
+
+    @Test
+    public void testConstructorBadJson() {
+        JSONObject json = yearOnly.asJson();
+        json.remove("dateString");
+        json.put("dateString", "invalid");
+        try {
+            new MockCitationDate(json);
+            fail();
+        } catch (JSONException pass) {
+            //expected
+        }
+    }
+
+    @Test
     public void testToStringNoOutputTemplate() {
         assertEquals("", invalid.toString());
         assertEquals("", yearOnly.toString());
@@ -76,38 +99,29 @@ public class CitationDateTest {
 
     @Test
     public void testAsJson() {
-        JSONObject yearOnlyOut = new JSONObject(
-                "{" +
-                        "\"head\": \"\"," +
-                        "\"tail\": \"\"," +
-                        "\"mode\": " + CitationDate.YEAR_ONLY + "," +
-                        "\"dateString\": \"2024\"" +
-                        "}");
-        JSONObject yearAndMonthOut = new JSONObject(
-                "{" +
-                        "\"head\": \"\"," +
-                        "\"tail\": \"\"," +
-                        "\"mode\": " + CitationDate.YEAR_AND_MONTH + "," +
-                        "\"dateString\": \"2024-03\"" +
-                        "}");
-        JSONObject yearMonthAndDayOut = new JSONObject(
-                "{" +
-                        "\"head\": \"\"," +
-                        "\"tail\": \"\"," +
-                        "\"mode\": " + CitationDate.YEAR_MONTH_AND_DAY + "," +
-                        "\"dateString\": \"2024-03-26\"" +
-                        "}"
-        );
-
-        assertEquals(yearOnlyOut.toString(), yearOnly.asJson().toString());
-        assertEquals(yearAndMonthOut.toString(), yearAndMonth.asJson().toString());
-        assertEquals(yearMonthAndDayOut.toString(), yearMonthAndDay.asJson().toString());
+        CitationDate[] dates = {invalid, yearOnly, yearAndMonth, yearMonthAndDay};
+        String[] dateStrings = {"", "2024", "2024-03", "2024-03-26"};
+        for (int i = 0; i < dates.length; i++) {
+            CitationDate date = dates[i];
+            JSONObject json = new JSONObject();
+            json.put("head", date.getHead());
+            json.put("tail", date.getTail());
+            json.put("mode", date.getMode());
+            json.put("dateString", dateStrings[i]);
+            json.put("outputTemplate", new JSONArray());
+            assertEquals(json.toString(), date.asJson().toString());
+        }
     }
 
     static class MockCitationDate extends CitationDate {
         public MockCitationDate(String dateString) {
             super(dateString);
         }
+
+        public MockCitationDate(JSONObject json) {
+            super(json);
+        }
+
 
     }
 

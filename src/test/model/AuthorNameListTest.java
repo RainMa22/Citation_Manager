@@ -19,7 +19,7 @@ public class AuthorNameListTest {
     }
 
     @Test
-    public void testToJson(){
+    public void testToJson() {
         JSONObject anlOut = new JSONObject();
         anlOut.put("head", anl.getHead());
         anlOut.put("tail", anl.getTail());
@@ -29,7 +29,7 @@ public class AuthorNameListTest {
     }
 
 
-    static class MockAuthorNameList extends AuthorNameList{
+    static class MockAuthorNameList extends AuthorNameList {
         public MockAuthorNameList(String str) {
             super();
             names = parseString(str);
@@ -39,7 +39,7 @@ public class AuthorNameListTest {
         protected List<AuthorName> parseString(String rawString) {
             List<AuthorName> out = new ArrayList<>();
             String[] nameStrings = rawString.split(",");
-            for(String nameString: nameStrings){
+            for (String nameString : nameStrings) {
                 out.add(new AuthorNameTest.MockAuthorName(nameString));
             }
             return out;
@@ -47,7 +47,7 @@ public class AuthorNameListTest {
 
         @Override
         protected String createBody() {
-            return null;
+            return "";
         }
 
     }

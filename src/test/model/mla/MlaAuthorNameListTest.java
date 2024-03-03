@@ -1,6 +1,7 @@
 package model.mla;
 
 import model.AuthorName;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -22,6 +23,19 @@ public class MlaAuthorNameListTest {
         manl3 = new MlaAuthorNameList("Stove Jeebs, et al.");
         manl4 = new MlaAuthorNameList("Four Three");
         manl5 = new MlaAuthorNameList("");
+    }
+
+    @Test
+    public void testConstructorJson() {
+        MlaAuthorNameList[] lists = {manl1, manl2, manl3, manl4, manl5};
+        for (MlaAuthorNameList list : lists) {
+            JSONObject json = new JSONObject();
+            json.put("head", list.getHead());
+            json.put("tail", list.getTail());
+            json.put("mode", list.getMode());
+            json.put("names", list.getNames());
+            assertEquals(list.asJson().toString(), json.toString());
+        }
     }
 
     @Test

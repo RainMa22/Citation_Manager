@@ -19,4 +19,9 @@ public class ApaLocationTest {
         assertEquals("3s", location.getBody());
         assertEquals("", location.getTail());
     }
+
+    @Test
+    public void testConstructorJson() {
+        assertEquals(location.toString(), new ApaLocation(location.asJson()).toString());
+    }
 }

@@ -35,6 +35,17 @@ public class SimpleCitationComponentTest {
     }
 
     @Test
+    public void testConstructorFromJson() {
+        SimpleCitationComponent[] components = {stringSCC, intSCC, inactiveSCC, nullSCC};
+        for (SimpleCitationComponent component : components) {
+            SimpleCitationComponent copy = new SimpleCitationComponent(component.asJson());
+            assertEquals(component.getBody().toString(), copy.getBody());
+            assertEquals(component.getHead(), copy.getHead());
+            assertEquals(component.getTail(), copy.getTail());
+        }
+    }
+
+    @Test
     public void testToString() {
         String stringSCCOut = String.join("ello", "h", ", world!");
         String intSCCOut = String.join(Integer.toString(0xFFFFFF), "the color is: ",
@@ -47,33 +58,33 @@ public class SimpleCitationComponentTest {
     }
 
     @Test
-    public void testStringToJson(){
+    public void testStringToJson() {
         JSONObject stringSCCOut = new JSONObject();
-        stringSCCOut.put("head","h");
+        stringSCCOut.put("head", "h");
         stringSCCOut.put("body", "ello");
         stringSCCOut.put("tail", ", world!");
         stringSCCOut.put("mode", SimpleCitationComponent.ACTIVE);
-        assertEquals(stringSCCOut.toString(),stringSCC.asJson().toString());
+        assertEquals(stringSCCOut.toString(), stringSCC.asJson().toString());
     }
 
     @Test
-    public void testIntToJson(){
+    public void testIntToJson() {
         JSONObject intSCCOut = new JSONObject();
         intSCCOut.put("head", intSCC.getHead());
         intSCCOut.put("body", intSCC.getBody().toString());
         intSCCOut.put("tail", intSCC.getTail());
         intSCCOut.put("mode", SimpleCitationComponent.ACTIVE);
-        assertEquals(intSCCOut.toString(),intSCC.asJson().toString());
+        assertEquals(intSCCOut.toString(), intSCC.asJson().toString());
     }
 
     @Test
-    public void testInACTIVEToJson(){
+    public void testInACTIVEToJson() {
         JSONObject inactiveSCCOut = new JSONObject();
-        inactiveSCCOut.put("head","whatever");
+        inactiveSCCOut.put("head", "whatever");
         inactiveSCCOut.put("body", "");
         inactiveSCCOut.put("tail", "whatever");
         inactiveSCCOut.put("mode", SimpleCitationComponent.INACTIVE);
-        assertEquals(inactiveSCCOut.toString(),inactiveSCC.asJson().toString());
-        assertEquals(inactiveSCCOut.toString(),nullSCC.asJson().toString());
+        assertEquals(inactiveSCCOut.toString(), inactiveSCC.asJson().toString());
+        assertEquals(inactiveSCCOut.toString(), nullSCC.asJson().toString());
     }
 }

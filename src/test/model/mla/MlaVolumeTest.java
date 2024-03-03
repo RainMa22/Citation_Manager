@@ -19,4 +19,9 @@ public class MlaVolumeTest {
         assertEquals(2, mv.getBody());
         assertEquals(", ", mv.getTail());
     }
+
+    @Test
+    public void testConstructorJson() {
+        assertEquals(mv.toString(), new MlaVolume(mv.asJson()).toString());
+    }
 }

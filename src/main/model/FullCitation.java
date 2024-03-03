@@ -23,6 +23,19 @@ public abstract class FullCitation extends CitationComponent {
         });
     }
 
+    // alt. Constructor for FullCitation
+    // EFFECTS: copies head, tail, and mode from the JSON object, and
+    //          initialize the citations to sort citation by name in ascending order
+    public FullCitation(JSONObject json) {
+        super(json);
+        citations = new TreeSet<>(new Comparator<>() {
+            @Override
+            public int compare(Citation o1, Citation o2) {
+                return o1.toString().compareTo(o2.toString());
+            }
+        });
+    }
+
     //getter for Citations
     public TreeSet<Citation> getCitations() {
         return citations;

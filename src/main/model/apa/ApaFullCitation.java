@@ -4,6 +4,8 @@ package model.apa;
 import model.Citation;
 import model.FullCitation;
 import model.InvalidCitationError;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -17,6 +19,17 @@ public class ApaFullCitation extends FullCitation {
         super();
         this.head = "<center>References</center>\n";
         this.tail = "";
+    }
+
+    // alt. constructor for ApaFullCitation
+    // REQUIRES: JSONObject.getString("format") is "APA"
+    // Effects: create an ApaFullCitation with given JSONObject
+    public ApaFullCitation(JSONObject json) {
+        super(json);
+        JSONArray citationArray = json.getJSONArray("citations");
+        for (int i = 0; i < citationArray.length(); i++) {
+            citations.add(new ApaCitation(citationArray.getJSONObject(i)));
+        }
     }
 
     // EFFECTS: returns the strings of all citations in citations, joined by newline;

@@ -4,6 +4,8 @@ package model.mla;
 import model.Citation;
 import model.FullCitation;
 import model.InvalidCitationError;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -18,6 +20,16 @@ public class MlaFullCitation extends FullCitation {
         super();
         this.head = "<center>Work Cited</center>\n";
         this.tail = "";
+    }
+
+    // alt. constructor for MlaFullCitation
+    // Effects: create an MlaFullCitation with the given JSONObject
+    public MlaFullCitation(JSONObject json) {
+        super(json);
+        JSONArray citationArray = json.getJSONArray("citations");
+        for (int i = 0; i < citationArray.length(); i++) {
+            citations.add(new MlaCitation(citationArray.getJSONObject(i)));
+        }
     }
 
     // EFFECTS: returns the strings of all citations in citations, joined by newline;

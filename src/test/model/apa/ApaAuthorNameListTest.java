@@ -1,6 +1,7 @@
 package model.apa;
 
 import model.AuthorName;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -25,6 +26,19 @@ public class ApaAuthorNameListTest {
                 "Frank Four, Fiona Five, Steven Six, Sophia Seven, Edgar Eight, Nina Nine, Trent Ten, " +
                 "Eliza Eleven, Thomas Twelve, Teresa Thirteen, Finn Fourteen, Foster Fifteen, Sonia Sixteen," +
                 "Soders Seventeen, Elijah Eighteen, Noelle Nineteen, Tammy Twenty, Trevor Twenty-one ");
+    }
+
+    @Test
+    public void testConstructorJson() {
+        ApaAuthorNameList[] lists = {oneName,twoNames,threeNames,twentyOneNames, inActive};
+        for (ApaAuthorNameList list: lists) {
+            JSONObject json = new JSONObject();
+            json.put("head", list.getHead());
+            json.put("tail", list.getTail());
+            json.put("mode", list.getMode());
+            json.put("names", list.getNames());
+            assertEquals(list.asJson().toString(), json.toString());
+        }
     }
 
     @Test

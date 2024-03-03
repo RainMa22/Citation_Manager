@@ -25,6 +25,36 @@ public class ApaCitationTitleTest {
     }
 
     @Test
+    public void testConstructorJson() {
+        ApaCitationTitle[] titles = {major, minor, inactive};
+        for (ApaCitationTitle title : titles) {
+            assertEquals(title.toString(), new ApaCitationTitle(title.asJson()).toString());
+        }
+    }
+
+    @Test
+    public void testSetMode() {
+        ApaCitationTitle[] titles = {major, minor, inactive};
+        for (ApaCitationTitle title : titles) {
+            title.setMode(ApaCitationTitle.ACADEMIC_WORK);
+            assertEquals("", title.getHead());
+            assertEquals(". ", title.getTail());
+
+            title.setMode(ApaCitationTitle.INACTIVE);
+            assertEquals("", title.getHead());
+            assertEquals(". ", title.getTail());
+
+            title.setMode(ApaCitationTitle.NON_ACADEMIC_WORK);
+            assertEquals("<i>", title.getHead());
+            assertEquals("</i>. ", title.getTail());
+
+            title.setMode(ApaCitationTitle.INACTIVE);
+            assertEquals("<i>", title.getHead());
+            assertEquals("</i>. ", title.getTail());
+        }
+    }
+
+    @Test
     public void testToStringMajor() {
         assertEquals("<i>asdda</i>. ", major.toString());
     }

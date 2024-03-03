@@ -8,6 +8,16 @@ import java.util.List;
 public abstract class AuthorNameList extends CitationComponent {
     protected List<AuthorName> names;
 
+    // EFFECTS: creates an empty authorNameList
+    public AuthorNameList() {
+        super();
+    }
+
+    // EFFECTS: creates an authorNameList with a JSONObject
+    public AuthorNameList(JSONObject json) {
+        super(json);
+    }
+
     // getter for names
     public List<AuthorName> getNames() {
         return names;

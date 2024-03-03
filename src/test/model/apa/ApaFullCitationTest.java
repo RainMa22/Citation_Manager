@@ -3,6 +3,8 @@ package model.apa;
 import model.Citation;
 import model.InvalidCitationError;
 import model.mla.MlaCitation;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,6 +22,19 @@ public class ApaFullCitationTest {
     @Test
     public void testConstructor() {
         assertEquals("<center>References</center>\n", apaFullCitation.getHead());
+    }
+
+    @Test
+    public void testConstructorJson() {
+        ApaFullCitation cite = apaFullCitation;
+        Object[] fields = {cite.getHead(), cite.getTail(), cite.getMode(), new JSONArray(cite.getCitations()),
+                ApaFullCitation.FORMAT};
+        String[] keys = {"head", "tail", "mode", "citations", "format"};
+        JSONObject json = new JSONObject();
+        for (int i = 0; i < keys.length; i++) {
+            json.put(keys[i], fields[i]);
+        }
+        assertEquals(cite.toString(), new ApaFullCitation(cite.asJson()).toString());
     }
 
     @Test

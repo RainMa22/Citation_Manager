@@ -19,4 +19,9 @@ public class ApaPublisherTest {
         assertEquals("3s", publisher.getBody());
         assertEquals(", ", publisher.getTail());
     }
+
+    @Test
+    public void testConstructorJson() {
+        assertEquals(publisher.toString(), new ApaLocation(publisher.asJson()).toString());
+    }
 }

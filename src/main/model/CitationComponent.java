@@ -20,6 +20,14 @@ public abstract class CitationComponent {
         tail = "";
     }
 
+    // alternate constructor for CitationComponent
+    // EFFECTS: receives head, tail and mode from passed JSONObject;
+    public CitationComponent(JSONObject json) {
+        mode = json.getInt("mode");
+        head = json.getString("head");
+        tail = json.getString("tail");
+    }
+
     public int getMode() {
         return mode;
     }

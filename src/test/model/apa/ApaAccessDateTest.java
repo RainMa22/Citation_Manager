@@ -20,6 +20,14 @@ public class ApaAccessDateTest {
     }
 
     @Test
+    public void testConstructorJson() {
+        ApaAccessDate[] dates = {invalid, yearOnly, yearMonth, yearMonthDay};
+        for(ApaAccessDate date:dates){
+            assertEquals(new ApaAccessDate(date.asJson()).toString(), date.toString());
+        }
+    }
+
+    @Test
     public void testToStringInvalid() {
         assertEquals("", invalid.toString());
     }

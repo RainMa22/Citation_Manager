@@ -7,9 +7,19 @@ public abstract class AuthorName extends CitationComponent {
     protected String middleName;
     protected String lastName;
 
+    // EFFECTS: creates an empty class of AuthorName
     public AuthorName() {
         super();
     }
+
+    // EFFECTS: creates AuthorName with firstName,middleName, lastName, head, body, and mode from a JSONObject
+    public AuthorName(JSONObject json) {
+        super(json);
+        setFirstName(json.getString("firstName"));
+        setMiddleName(json.getString("middleName"));
+        setLastName(json.getString("lastName"));
+    }
+
 
     public String getFirstName() {
         return firstName;

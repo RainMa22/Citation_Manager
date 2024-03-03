@@ -1,5 +1,6 @@
 package model.mla;
 
+import model.apa.ApaCitationCollection;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,5 +17,10 @@ public class MlaCitationCollectionTest {
     @Test
     public void testToStringMajor() {
         assertEquals("<i>asdda</i>, ", major.toString());
+    }
+
+    @Test
+    public void testConstructorJson() {
+        assertEquals(major.toString(), new ApaCitationCollection(major.asJson()).toString());
     }
 }

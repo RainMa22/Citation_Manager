@@ -11,7 +11,7 @@ public class MlaAuthorNameTest {
     MlaAuthorName oneName;
     MlaAuthorName twoName;
     MlaAuthorName threeName;
-    MlaAuthorName fourname;
+    MlaAuthorName fourName;
 
     @BeforeEach
     public void setup() {
@@ -19,7 +19,15 @@ public class MlaAuthorNameTest {
         oneName = new MlaAuthorName("Joe", true);
         twoName = new MlaAuthorName("Stove  Jeebs", true);
         threeName = new MlaAuthorName("George r. Martin", false);
-        fourname = new MlaAuthorName("A B C D", false);
+        fourName = new MlaAuthorName("A B C D", false);
+    }
+
+    @Test
+    public void testConstructorJson() {
+        MlaAuthorName[] names = {noName, oneName, twoName, threeName, fourName};
+        for (MlaAuthorName name : names) {
+            assertEquals(name.toString(), new MlaAuthorName(name.asJson()).toString());
+        }
     }
 
     @Test
@@ -45,9 +53,9 @@ public class MlaAuthorNameTest {
 
     @Test
     public void testConstructorFourName() {
-        assertEquals("A", fourname.getFirstName());
-        assertEquals("B", fourname.getMiddleName());
-        assertEquals("D", fourname.getLastName());
+        assertEquals("A", fourName.getFirstName());
+        assertEquals("B", fourName.getMiddleName());
+        assertEquals("D", fourName.getLastName());
     }
 
     @Test
@@ -73,7 +81,7 @@ public class MlaAuthorNameTest {
 
     @Test
     public void testAsJson() {
-        MlaAuthorName[] names = {noName, oneName, twoName, threeName, fourname};
+        MlaAuthorName[] names = {noName, oneName, twoName, threeName, fourName};
         for (MlaAuthorName name : names) {
             JSONObject out = new JSONObject();
             out.put("head", name.getHead());

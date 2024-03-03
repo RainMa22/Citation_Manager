@@ -18,6 +18,16 @@ public abstract class Citation extends CitationComponent {
     protected SimpleCitationComponent location;
 
 
+    //EFFECTS: creates an empty Citation
+    public Citation() {
+        super();
+    }
+
+    //EFFECTS: creates a Citation From the given JSONObject
+    public Citation(JSONObject json) {
+        super(json);
+    }
+
     //EFFECTS: put head,tail,mode, and the JSONObject representations of authorNames,title, collection, volume,
     //         issueName, pubDate, publisher, accessDate, and location in to a JSONObject and returns it.
     @Override

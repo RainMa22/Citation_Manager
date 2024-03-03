@@ -81,6 +81,14 @@ public class MlaCitationTest {
     }
 
     @Test
+    public void testConstructorJson() {
+        MlaCitation[] citations = {citationOmitALotList, citationOmitALot, citationFull, citationFullList,
+                citationMajorWork, citationMajorWorkList};
+        for (MlaCitation citation : citations)
+            assertEquals(citation.toString(), new MlaCitation(citation.asJson()).toString());
+    }
+
+    @Test
     public void TestConstructorFromListNormal() {
         assertTrue(citationFullList.isMinorWork());
         assertEquals(new MlaAuthorNameList("Gregor Kiczales, John Lamping, Anurag Mendhekar").toString(),
@@ -125,6 +133,19 @@ public class MlaCitationTest {
         } catch (Exception e) {
             assertInstanceOf(IllegalArgumentException.class, e);
         }
+    }
+
+    @Test
+    public void TestSetMinorWork() {
+        citationMajorWork.setMinorWork(true);
+        assertEquals(MlaCitation.MINOR, citationMajorWork.getMode());
+        assertEquals(MlaCitationTitle.MINOR, citationMajorWork.getTitle().getMode());
+
+
+        citationMajorWork.setMinorWork(false);
+        assertEquals(MlaCitation.MAJOR, citationMajorWork.getMode());
+        assertEquals(MlaCitationTitle.MAJOR, citationMajorWork.getTitle().getMode());
+
     }
 
     @Test

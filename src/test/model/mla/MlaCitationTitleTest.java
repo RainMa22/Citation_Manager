@@ -25,6 +25,36 @@ public class MlaCitationTitleTest {
     }
 
     @Test
+    public void testConstructorJson() {
+        MlaCitationTitle[] titles = {major, minor, inactive};
+        for (MlaCitationTitle title : titles) {
+            assertEquals(title.toString(), new MlaCitationTitle(title.asJson()).toString());
+        }
+    }
+
+    @Test
+    public void testSetMode() {
+        MlaCitationTitle[] titles = {major, minor, inactive};
+        for (MlaCitationTitle title : titles) {
+            title.setMode(MlaCitationTitle.MINOR);
+            assertEquals("\"", title.getHead());
+            assertEquals(".\" ", title.getTail());
+
+            title.setMode(MlaCitationTitle.INACTIVE);
+            assertEquals("\"", title.getHead());
+            assertEquals(".\" ", title.getTail());
+
+            title.setMode(MlaCitationTitle.MAJOR);
+            assertEquals("<i>", title.getHead());
+            assertEquals("</i>. ", title.getTail());
+
+            title.setMode(MlaCitationTitle.INACTIVE);
+            assertEquals("<i>", title.getHead());
+            assertEquals("</i>. ", title.getTail());
+        }
+    }
+
+    @Test
     public void testToStringMajor() {
         assertEquals("<i>asdda</i>. ", major.toString());
     }

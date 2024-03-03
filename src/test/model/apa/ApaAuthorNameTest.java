@@ -1,5 +1,6 @@
 package model.apa;
 
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -44,6 +45,21 @@ public class ApaAuthorNameTest {
         assertEquals("A", fourname.getFirstName());
         assertEquals("B", fourname.getMiddleName());
         assertEquals("D", fourname.getLastName());
+    }
+
+    @Test
+    public void testConstructorJson() {
+        ApaAuthorName[] names = {noName, oneName, twoName, threeName, fourname};
+        for (ApaAuthorName name : names) {
+            JSONObject json = new JSONObject();
+            json.put("head", name.getHead());
+            json.put("tail", name.getTail());
+            json.put("mode", name.getMode());
+            json.put("firstName", name.getFirstName());
+            json.put("middleName", name.getMiddleName());
+            json.put("lastName", name.getLastName());
+            assertEquals(name.asJson().toString(), json.toString());
+        }
     }
 
     @Test

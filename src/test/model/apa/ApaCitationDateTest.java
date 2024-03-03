@@ -1,5 +1,7 @@
 package model.apa;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -35,11 +37,35 @@ public class ApaCitationDateTest {
         assertEquals(ApaCitationDate.YEAR_AND_MONTH, yearMonth.getMode());
         assertEquals(ApaCitationDate.YEAR_MONTH_AND_DAY, yearMonthDay.getMode());
 
-
         assertEquals(ApaCitationDate.NO_DATE, academicInvalid.getMode());
         assertEquals(ApaCitationDate.YEAR_ONLY, academicYearOnly.getMode());
-        assertEquals(ApaCitationDate.YEAR_ONLY, academicYearMonth.getMode());
-        assertEquals(ApaCitationDate.YEAR_ONLY, academicYearMonthDay.getMode());
+        assertEquals(ApaCitationDate.YEAR_AND_MONTH, academicYearMonth.getMode());
+        assertEquals(ApaCitationDate.YEAR_MONTH_AND_DAY, academicYearMonthDay.getMode());
+    }
+
+    @Test
+    public void testConstructorJson() {
+        ApaCitationDate[] dates = {invalid, yearOnly, yearMonth, yearMonthDay, academicInvalid, academicYearOnly,
+                academicYearMonth, academicYearMonthDay};
+        for (ApaCitationDate date : dates) {
+            assertEquals(date.toString(), new ApaCitationDate(date.asJson()).toString());
+        }
+    }
+
+    @Test
+    public void testAsJson() {
+        ApaCitationDate[] dates = {invalid, yearOnly, yearMonth, yearMonthDay, academicInvalid, academicYearOnly,
+                academicYearMonth, academicYearMonthDay};
+        for (ApaCitationDate date : dates) {
+            Object[] fields = {date.getHead(), date.getTail(), date.getMode(), date.getDateString(),
+                    new JSONArray(date.getOutputTemplate()), date.isAcademicWork()};
+            String[] keys = {"head", "tail", "mode", "dateString", "outputTemplate", "academicWork"};
+            JSONObject json = new JSONObject();
+            for (int i = 0; i < keys.length; i++) {
+                json.put(keys[i], fields[i]);
+            }
+            assertEquals(date.asJson().toString(), json.toString());
+        }
     }
 
     @Test

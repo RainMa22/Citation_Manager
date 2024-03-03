@@ -33,6 +33,13 @@ public class MlaAuthorName extends AuthorName {
         setInverted(inverted);
     }
 
+    // alt. constructor for the MlaAuthorName class
+    // EFFECTS: creates a MlaAuthorName with the given JSONObject;
+    public MlaAuthorName(JSONObject json) {
+        super(json);
+        setInverted(json.getBoolean("inverted"));
+    }
+
 
     // getter for inverted
     public boolean isInverted() {

@@ -1,6 +1,7 @@
 package model.apa;
 
 import model.AuthorName;
+import org.json.JSONObject;
 import util.StringUtils;
 
 import java.util.Arrays;
@@ -26,6 +27,12 @@ public class ApaAuthorName extends AuthorName {
         this.middleName = "";
         this.lastName = "";
         processName(rawString);
+    }
+
+    // alternate constructor for the ApaAuthorName class
+    // EFFECTS: creates a ApaAuthorName with the given JSONObject;
+    public ApaAuthorName(JSONObject json) {
+        super(json);
     }
 
 

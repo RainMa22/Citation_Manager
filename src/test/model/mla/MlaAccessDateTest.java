@@ -20,6 +20,14 @@ public class MlaAccessDateTest {
     }
 
     @Test
+    public void testConstructorJson() {
+        MlaAccessDate[] dates = {invalid, yearOnly, yearMonth, yearMonthDay};
+        for (MlaAccessDate date : dates) {
+            assertEquals(date.toString(), new MlaAccessDate(date.asJson()).toString());
+        }
+    }
+
+    @Test
     public void testToStringInvalid() {
         assertEquals("", invalid.toString());
     }

@@ -1,6 +1,7 @@
 package model.mla;
 
 import model.Citation;
+import org.json.JSONObject;
 import util.BooleanUtils;
 
 import java.util.List;
@@ -32,7 +33,7 @@ public class MlaCitation extends Citation {
         try {
             setVolume(new MlaVolume(Integer.valueOf(param.get(4))));
         } catch (NumberFormatException nfe) {
-            setVolume(new MlaVolume(null));
+            setVolume(new MlaVolume((Integer) null));
         }
         setIssueName(new MlaIssueName(param.get(5)));
 
@@ -70,10 +71,30 @@ public class MlaCitation extends Citation {
         setAccessDate(accessDate1);
     }
 
+    // alt. Constructor for MlaCitation
+    // EFFECTS: Alternate way to construct a MlaCitation using a JSONObject
+    //          set head,tail, mode, authorNames, title, collection, volume, issueName, pubDate, publisher, location,
+    //          and accessDate according to the given JSONObject
+    public MlaCitation(JSONObject json) {
+        super(json);
+        setAuthorNames(new MlaAuthorNameList(json.getJSONObject("authorNames")));
+        setTitle(new MlaCitationTitle(json.getJSONObject("title")));
+        setCollection(new MlaCitationCollection(json.getJSONObject("collection")));
+        setVolume(new MlaVolume(json.getJSONObject("volume")));
+        setIssueName(new MlaIssueName(json.getJSONObject("issueName")));
+        setPubDate(new MlaCitationDate(json.getJSONObject("pubDate")));
+        setPublisher(new MlaPublisher(json.getJSONObject("publisher")));
+        setLocation(new MlaLocation(json.getJSONObject("location")));
+        setAccessDate(new MlaAccessDate(json.getJSONObject("accessDate")));
+    }
+
+    // EFFECTS: returns true if mode is MINOR;
     public boolean isMinorWork() {
         return mode == MINOR;
     }
 
+    // MODIFIES: this
+    // EFFECTS: set mode to MINOR if minorWork else MAJOR, adjust title to fit the be MINOR or MAJOR as well
     public void setMinorWork(boolean minorWork) {
         if (minorWork) {
             setMode(MINOR);

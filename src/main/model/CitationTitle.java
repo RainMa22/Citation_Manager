@@ -11,7 +11,14 @@ public abstract class CitationTitle extends CitationComponent {
     // EFFECTS: creates CitationTitle with the given title
     public CitationTitle(String title) {
         super();
-        this.title = title;
+        this.title = (title == null ? "" : title);
+    }
+
+    // alt. constuctor for CitationTitle
+    // EFFECTS: creates CitationTitle with the given JSONObject
+    public CitationTitle(JSONObject json) {
+        super(json);
+        this.title = json.getString("title");
     }
 
     public String getTitle() {

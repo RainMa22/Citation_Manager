@@ -19,4 +19,9 @@ public class MlaPublisherTest {
         assertEquals("3s", publisher.getBody());
         assertEquals(", ", publisher.getTail());
     }
+
+    @Test
+    public void testConstructorJson() {
+        assertEquals(publisher.toString(), new MlaVolume(publisher.asJson()).toString());
+    }
 }

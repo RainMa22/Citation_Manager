@@ -14,7 +14,17 @@ public class ApaCitationCollectionTest {
     }
 
     @Test
-    public void testToStringMajor() {
+    public void testConstructor() {
+        assertEquals("asdda", major.getTitle());
+    }
+
+    @Test
+    public void testConstructorJson() {
+        assertEquals(major.toString(), new ApaCitationCollection(major.asJson()).toString());
+    }
+
+    @Test
+    public void testToString() {
         assertEquals("<i>asdda</i>, ", major.toString());
     }
 }

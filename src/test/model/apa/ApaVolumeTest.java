@@ -19,4 +19,10 @@ public class ApaVolumeTest {
         assertEquals(2, mv.getBody());
         assertEquals("", mv.getTail());
     }
+    @Test
+    public void testConstructorJson() {
+        assertEquals("", mv.getHead());
+        assertEquals(2, mv.getBody());
+        assertEquals("", mv.getTail());
+    }
 }

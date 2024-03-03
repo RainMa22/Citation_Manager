@@ -23,6 +23,11 @@ public class MlaFullCitationTest {
     }
 
     @Test
+    public void testConstructorJson() {
+        assertEquals(mlaFullCitation.toString(), new MlaFullCitation(mlaFullCitation.asJson()).toString());
+    }
+
+    @Test
     public void testToStringNoItem() {
         assertEquals("<center>Work Cited</center>\n", mlaFullCitation.toString());
     }

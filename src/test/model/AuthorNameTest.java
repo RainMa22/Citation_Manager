@@ -26,11 +26,21 @@ public class AuthorNameTest {
         assertEquals(anOut.toString(), an.asJson().toString());
     }
 
+    @Test
+    public void testConstructorToJson() {
+        AuthorName copy = new MockAuthorName(an.asJson());
+        assertEquals(copy.toString(), an.toString());
+    }
+
 
     static class MockAuthorName extends AuthorName {
         public MockAuthorName(String str) {
             super();
             processName(str);
+        }
+
+        public MockAuthorName(JSONObject json) {
+            super(json);
         }
 
         @Override
@@ -43,7 +53,7 @@ public class AuthorNameTest {
 
         @Override
         protected String createBody() {
-            return null;
+            return "";
         }
     }
 }

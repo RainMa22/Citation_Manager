@@ -1,6 +1,7 @@
 package model.apa;
 
 import model.Citation;
+import org.json.JSONObject;
 import util.BooleanUtils;
 
 import java.util.List;
@@ -54,6 +55,25 @@ public class ApaCitation extends Citation {
         setLocation(new ApaLocation(param.get(9)));
         setAccessDate(new ApaAccessDate(param.get(10)));
     }
+    // String authorNames, String title, String collection, Integer volume,
+    //                       String issueName, String pubDate, String publisher, String location, String accessDate
+
+    // Constructor for ApaCitation
+    // EFFECTS: Alternate way to construct a ApaCitation using a JSONObject
+    //          set head,tail, mode, authorNames, title, collection, volume, issueName, pubDate, publisher, location,
+    //          and accessDate according to the given JSONObject
+    public ApaCitation(JSONObject json) {
+        super(json);
+        setAuthorNames(new ApaAuthorNameList(json.getJSONObject("authorNames")));
+        setTitle(new ApaCitationTitle(json.getJSONObject("title")));
+        setCollection(new ApaCitationCollection(json.getJSONObject("collection")));
+        setVolume(new ApaVolume(json.getJSONObject("volume")));
+        setIssueName(new ApaIssueName(json.getJSONObject("issueName")));
+        setPubDate(new ApaCitationDate(json.getJSONObject("pubDate")));
+        setPublisher(new ApaPublisher(json.getJSONObject("publisher")));
+        setLocation(new ApaLocation(json.getJSONObject("location")));
+        setAccessDate(new ApaAccessDate(json.getJSONObject("accessDate")));
+    }
 
     // Constructor for ApaCitation
     // EFFECTS: Constructs a ApaCitation with given authorName, title, collection name, volume, issueName, pubDate,
@@ -77,6 +97,9 @@ public class ApaCitation extends Citation {
         return mode == ACADEMIC_WORK;
     }
 
+    // MODIFIES: this
+    // EFFECTS: if academicWork set mode to academic work
+    //          otherwise set it to webpage(subject to change) if subjectToChange, or webpage otherwise;
     public void setAcademicWork(boolean academicWork, boolean subjectToChange) {
         if (academicWork) {
             setMode(ACADEMIC_WORK);

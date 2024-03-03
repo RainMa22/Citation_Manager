@@ -1,5 +1,7 @@
 package model.mla;
 
+import org.json.JSONObject;
+
 // Represent a collection name in MLA format
 public class MlaCitationCollection extends MlaCitationTitle {
 
@@ -10,5 +12,10 @@ public class MlaCitationCollection extends MlaCitationTitle {
         setTail("</i>, ");
     }
 
+    // alt. constructor for MlaCitation
+    // EFFECTS: creates a MlaCitationTitle with given JSONObject
+    public MlaCitationCollection(JSONObject json) {
+        super(json);
+    }
 
 }

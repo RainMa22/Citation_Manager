@@ -84,6 +84,16 @@ public class ApaCitationTest {
     }
 
     @Test
+    public void testConstructorJson() {
+        ApaCitation[] citations = {citationFull, citationFullList, citationOmitALot, citationOmitALotList,
+                citationMajorWork, citationMajorWorkList};
+
+        for (ApaCitation citation : citations) {
+            assertEquals(citation.toString(), new ApaCitation(citation.asJson()).toString());
+        }
+    }
+
+    @Test
     public void TestConstructorFromListNormal() {
         assertTrue(citationFullList.isAcademicWork());
         assertEquals(new ApaAuthorNameList("Gregor Kiczales, John Irwin, John Lamping, " +
@@ -125,8 +135,9 @@ public class ApaCitationTest {
     public void TestConstructorFromListException() {
         try {
             ApaCitation badCitation = new ApaCitation(new ArrayList<String>());
-        } catch (Exception e) {
-            assertInstanceOf(IllegalArgumentException.class, e);
+            fail();
+        } catch (IllegalArgumentException ie){
+            //continue
         }
     }
 
