@@ -25,6 +25,11 @@ public class MlaFullCitationTest {
     @Test
     public void testConstructorJson() {
         assertEquals(mlaFullCitation.toString(), new MlaFullCitation(mlaFullCitation.asJson()).toString());
+        Citation testCitation = new MlaCitation("apple", "book", false, null, null, null, null, null, null, null);
+        Citation testCitation2 = new MlaCitation("banana", "book", false, null, null, null, null, null, null, null);
+        mlaFullCitation.add(testCitation);
+        mlaFullCitation.add(testCitation2);
+        assertEquals(mlaFullCitation.toString(), new MlaFullCitation(mlaFullCitation.asJson()).toString());
     }
 
     @Test
