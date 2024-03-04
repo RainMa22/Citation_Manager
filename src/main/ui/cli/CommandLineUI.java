@@ -20,6 +20,13 @@ public class CommandLineUI {
     public static final int SELECT_FORMAT = 0;
     public static final int CREATE_CITATIONS = 1;
     public static final int EXPORT = 2;
+    //TODO
+    // public static final int LOAD_CITATION;
+    // public static final int MODIFY_CITATION;
+    // public static final int TO_FILE;
+
+
+
     public static final int EXIT = -1;
     public static final int USE_MLA = 0;
     public static final int USE_APA = 1;
