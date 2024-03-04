@@ -2,11 +2,12 @@ package model;
 
 
 import org.json.JSONObject;
+import persistence.AsJsonable;
 
 /*
  * the ultimate super class for all citation-related classes
  */
-public abstract class CitationComponent {
+public abstract class CitationComponent implements AsJsonable {
     public static final int INACTIVE = -1;
     protected int mode;
     protected String head;
@@ -65,6 +66,7 @@ public abstract class CitationComponent {
     protected abstract String createBody();
 
     //EFFECTS: returns a JSONObject representation of self
+    @Override
     public JSONObject asJson() {
         JSONObject out = new JSONObject();
         out.put("head", getHead());
