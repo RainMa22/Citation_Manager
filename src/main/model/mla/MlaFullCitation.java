@@ -23,6 +23,7 @@ public class MlaFullCitation extends FullCitation {
     }
 
     // alt. constructor for MlaFullCitation
+    // REQUIRES: json.getString("format").equals("MLA")
     // Effects: create an MlaFullCitation with the given JSONObject
     public MlaFullCitation(JSONObject json) {
         super(json);
