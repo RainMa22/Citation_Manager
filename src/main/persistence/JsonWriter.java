@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+// Writer for Json files
 public class JsonWriter {
     private final String destination;
 

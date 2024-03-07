@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.stream.Stream;
 
+// Reader for Json files
 public class JsonReader {
 
     private final String filePath;
