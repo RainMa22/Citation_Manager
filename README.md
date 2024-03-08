@@ -28,4 +28,4 @@ A *TODO* list:
 
 ### phase 2
 - Be able to save the citations to JSON files
-- Be able to load and add onto the citations stored in aforementioned JSON files
+- Be able to load and add onto the citations stored in aforementioned JSON files(if user wants)

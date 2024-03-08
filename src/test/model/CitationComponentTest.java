@@ -17,14 +17,29 @@ public class CitationComponentTest {
     }
 
     @Test
-    public void testConstructor(){
+    public void testConstructor() {
         assertEquals(CitationComponent.INACTIVE, comp2.getMode());
         assertEquals("", comp2.getHead());
         assertEquals("", comp2.getTail());
     }
 
     @Test
-    public void testToString(){
+    public void testAsJson() {
+        JSONObject json = new JSONObject();
+        json.put("head", "a");
+        json.put("tail", "c");
+        json.put("body", "b");
+        json.put("mode", 1);
+        assertEquals(json.toString(), comp1.asJson().toString());
+    }
+
+    @Test
+    public void testFromJson() {
+        assertEquals(comp1.toString(), new MockComponent(comp1.asJson()).toString());
+    }
+
+    @Test
+    public void testToString() {
         assertEquals("abc", comp1.toString());
     }
 
@@ -34,6 +49,11 @@ public class CitationComponentTest {
         public MockComponent() {
             super();
             body = "";
+        }
+
+        public MockComponent(JSONObject json) {
+            super(json);
+            body = json.getString("body");
         }
 
         public MockComponent(String head, String body, String tail) {
@@ -51,8 +71,9 @@ public class CitationComponentTest {
 
         @Override
         public JSONObject asJson() {
-            return null;
+            JSONObject out = super.asJson();
+            out.put("body", body);
+            return out;
         }
-
     }
 }
