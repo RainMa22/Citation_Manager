@@ -19,7 +19,7 @@ public class JsonWriter {
     public JsonWriter(String dest) throws IOException {
         this.destination = dest;
         try {
-            Files.createDirectory(Paths.get(dest).getParent());
+            Files.createDirectory(Paths.get(dest).toAbsolutePath().getParent());
         } catch (FileAlreadyExistsException acceptable) {
             //acceptable outcome
         }
@@ -36,6 +36,7 @@ public class JsonWriter {
             Files.writeString(Path.of(destination), json.toString());
             return true;
         } catch (IOException ioException) {
+            //ioException.printStackTrace();
             return false;
         }
     }

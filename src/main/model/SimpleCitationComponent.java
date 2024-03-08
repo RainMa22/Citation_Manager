@@ -26,7 +26,7 @@ public class SimpleCitationComponent extends CitationComponent {
     // EFFECTS: creates a SimpleCitationComponent with the given body, head, mode and tail from a JSONObject
     public SimpleCitationComponent(JSONObject json) {
         super(json);
-        setBody(json.getString("body"));
+        setBody(json.get("body"));
     }
 
     public Object getBody() {

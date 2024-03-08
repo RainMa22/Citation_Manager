@@ -215,22 +215,19 @@ public class CommandLineUI {
         } catch (IOException e) {
             throw new RuntimeException("unexpected IOException! ", e);
         }
-
-        boolean firstAttempt = true;
+        boolean firstTry = true;
         do {
-            String output = promptForOutput.ask();
-            if (firstAttempt) {
-                firstAttempt = false;
-            } else {
+            if (!firstTry) {
                 System.out.println("bad Path Name! Please try again");
             }
-
+            firstTry = false;
+            String output = promptForOutput.ask();
             try {
                 writer = new JsonWriter(output);
             } catch (IOException e) {
                 //continue
             }
-        } while (writer.writeJson(sortedCitations.asJson()));
+        } while (!writer.writeJson(sortedCitations.asJson()));
         System.out.println("Finished saving! Exiting...");
         return EXIT;
     }
