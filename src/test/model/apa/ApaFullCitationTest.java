@@ -1,7 +1,7 @@
 package model.apa;
 
 import model.Citation;
-import model.InvalidCitationError;
+import model.error.InvalidCitationError;
 import model.mla.MlaCitation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

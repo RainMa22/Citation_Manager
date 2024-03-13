@@ -3,7 +3,7 @@ package model.mla;
 
 import model.Citation;
 import model.FullCitation;
-import model.InvalidCitationError;
+import model.error.InvalidCitationError;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
