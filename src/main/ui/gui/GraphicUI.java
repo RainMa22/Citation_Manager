@@ -25,22 +25,19 @@ public class GraphicUI extends JFrame implements ActionListener {
         setPreferredSize(new Dimension(800, 600));
         ((JPanel) getContentPane()).setBorder(new EmptyBorder(13, 13, 13, 13));
         JSplitPane splitPane = new JSplitPane();
-        citationInquiries = new GridPanel(1, 1);
-        citationInquiries.setSize(800, 500);
+
         JLabel dummy = new JLabel("dsad");
         dummy.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        citationInquiries.add(dummy);
         confirm = new JButton("Confirm");
         confirm.setAlignmentX(RIGHT_ALIGNMENT);
         confirm.setAlignmentY(BOTTOM_ALIGNMENT);
 
         confirm.setActionCommand(COMMAND_CONFIRM);
         confirm.addActionListener(this);
-        List<JComponent> main = new ArrayList<>();
-        main.add(citationInquiries);
-        main.add(confirm);
-        MainCitationPanel mainPanel = new MainCitationPanel(main);
-        splitPane.setLeftComponent(mainPanel);
+        citationInquiries = new JPanel();
+        citationInquiries.add(dummy);
+        citationInquiries.add(confirm);
+        splitPane.setLeftComponent(citationInquiries);
         CitationListPanel citationList = new CitationListPanel();
         splitPane.setRightComponent(citationList);
         add(splitPane);
