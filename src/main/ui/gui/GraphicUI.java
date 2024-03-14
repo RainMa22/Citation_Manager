@@ -5,41 +5,50 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 /*
  * Class representing the GUI Frame of the Citation Generator
  * */
 public class GraphicUI extends JFrame implements ActionListener {
     private static final String TITLE = "Citation Generator";
-    private static final String COMMAND_SUBMIT = "submit";
+    private static final String COMMAND_CONFIRM = "submit";
     private final JPanel citationInquiries;
-    private final JButton submit;
+    private final JButton confirm;
 
     //Constructor
     // EFFECTS: constructs the GUI for citation generation
     public GraphicUI() {
         super(TITLE);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(800, 600);
-        //setPreferredSize(new Dimension(800, 600));
+        setPreferredSize(new Dimension(800, 600));
         ((JPanel) getContentPane()).setBorder(new EmptyBorder(13, 13, 13, 13));
-        setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+        JSplitPane splitPane = new JSplitPane();
         citationInquiries = new GridPanel(1, 1);
         citationInquiries.setSize(800, 500);
         JLabel dummy = new JLabel("dsad");
-        dummy.setSize(800, 500);
+        dummy.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         citationInquiries.add(dummy);
-        submit = new JButton("Submit");
-        submit.setAlignmentY(BOTTOM_ALIGNMENT);
-        submit.setAlignmentX(Component.RIGHT_ALIGNMENT);
-        submit.setActionCommand(COMMAND_SUBMIT);
-        submit.addActionListener(this); // Sets "this" object as an action listener for btn
-        add(citationInquiries);
-        add(submit);
-        //pack();
+        confirm = new JButton("Confirm");
+        confirm.setAlignmentX(RIGHT_ALIGNMENT);
+        confirm.setAlignmentY(BOTTOM_ALIGNMENT);
+
+        confirm.setActionCommand(COMMAND_CONFIRM);
+        confirm.addActionListener(this);
+        List<JComponent> main = new ArrayList<>();
+        main.add(citationInquiries);
+        main.add(confirm);
+        MainCitationPanel mainPanel = new MainCitationPanel(main);
+        splitPane.setLeftComponent(mainPanel);
+        CitationListPanel citationList = new CitationListPanel();
+        splitPane.setRightComponent(citationList);
+        add(splitPane);
+        pack();
+        splitPane.setDividerLocation(.8);
         setLocationRelativeTo(null);
         setVisible(true);
-        setResizable(false);
+        setResizable(true);
     }
 
     public static void main(String[] args) {
@@ -48,7 +57,7 @@ public class GraphicUI extends JFrame implements ActionListener {
 
     //This is the method that is called when the the JButton btn is clicked
     public void actionPerformed(ActionEvent e) {
-        if (e.getActionCommand().equals(COMMAND_SUBMIT)) {
+        if (e.getActionCommand().equals(COMMAND_CONFIRM)) {
             //TODO
         }
     }
