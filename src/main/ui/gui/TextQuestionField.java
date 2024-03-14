@@ -10,7 +10,6 @@ import java.awt.event.KeyListener;
 
 //Represents a question field that takes String as input;
 public class TextQuestionField extends QuestionField implements KeyListener {
-    private final JLabel label;
     private final JTextField field;
     private final IsSatisfiable criteria;
     private final JLabel error;
@@ -18,14 +17,14 @@ public class TextQuestionField extends QuestionField implements KeyListener {
     // Constructor
     // EFFECTS: constructs a TextQuestionField with given label and criteria, and 1x3 GridLayout;
     public TextQuestionField(String label, IsSatisfiable criteria) {
-        super(1, 3);
-        this.label = new JLabel(label);
-        this.label.setAlignmentX(LEFT_ALIGNMENT);
+        super(3, 1);
+        JLabel label1 = new JLabel(label);
+        label1.setAlignmentX(LEFT_ALIGNMENT);
         this.field = new JTextField(1);
         this.criteria = criteria;
         this.error = new JLabel();
         error.setForeground(Color.RED);
-        add(this.label);
+        add(label1);
         add(this.field);
         add(this.error);
         addKeyListener(this);
@@ -33,7 +32,7 @@ public class TextQuestionField extends QuestionField implements KeyListener {
 
     // EFFECTS: returns user's input from field;
     @Override
-    String getStringVal() {
+    protected String stringValue() {
         return field.getText();
     }
 
