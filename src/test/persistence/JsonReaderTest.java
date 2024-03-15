@@ -1,6 +1,7 @@
 package persistence;
 
 import org.json.JSONObject;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -52,5 +53,14 @@ public class JsonReaderTest {
     @Test
     public void testReadFile() {
         assertEquals(json.toString(), jr.readJson().toString());
+    }
+
+    @AfterEach
+    public void cleanUp() {
+        try {
+            Files.deleteIfExists(Path.of(in));
+        } catch (IOException ioe) {
+            fail(ioe);
+        }
     }
 }

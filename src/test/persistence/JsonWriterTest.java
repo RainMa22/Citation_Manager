@@ -1,6 +1,7 @@
 package persistence;
 
 import org.json.JSONObject;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -71,6 +72,14 @@ public class JsonWriterTest {
         JSONObject json = new JSONObject();
         json.put("hello", "world");
         assertFalse(jw.writeJson(json));
+    }
 
+    @AfterEach
+    public void cleanUp() {
+        try {
+            Files.deleteIfExists(Path.of(out));
+        } catch (IOException ioe) {
+            fail(ioe);
+        }
     }
 }
