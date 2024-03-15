@@ -20,5 +20,8 @@ public class DateCriteriaTest {
         assertTrue(dc.isSatisfiedBy("2024-01"));
         assertTrue(dc.isSatisfiedBy("2024-01-21"));
         assertFalse(dc.isSatisfiedBy("random date"));
+        assertFalse(dc.isSatisfiedBy("20"));
+        assertFalse(dc.isSatisfiedBy("2"));
+        assertFalse(dc.isSatisfiedBy("222"));
     }
 }
