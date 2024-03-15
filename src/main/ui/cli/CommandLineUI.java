@@ -182,7 +182,7 @@ public class CommandLineUI {
         if (Boolean.FALSE.equals(addMore)) {
             return EXPORT;
         }
-        return SELECT_FORMAT;
+        return CREATE_CITATIONS;
     }
 
     // helper function for update()
