@@ -18,13 +18,14 @@ public abstract class CitationInquiryPanel extends GridPanel {
             "Format", "Author Name", "Title", INSERT_BOOLEAN_HERE, "Collection", "volume", "Issue Name",
             "Publish Date(yyyy[-mm[-dd]])", "Publisher", "Access Date(yyyy[-mm[-dd]])", "Location(URL, DOI, etc.)"
     };
+    protected MultipleChoiceQuestionField formatSelector;
 
     // Constructor
     // Creates a CitationInquiryPanel based on the given available formats
     public CitationInquiryPanel() {
         super(4, 3);
-
-        add(new MultipleChoiceQuestionField(PARAMETERS[0],formats));
+        formatSelector = new MultipleChoiceQuestionField(PARAMETERS[0], formats);
+        add(formatSelector);
         for (int i = 1; i < PARAMETERS.length; i++) {
             String parameter = PARAMETERS[i];
             if (parameter.equals(INSERT_BOOLEAN_HERE)) {
@@ -33,6 +34,7 @@ public abstract class CitationInquiryPanel extends GridPanel {
             }
             add(new TextQuestionField(parameter, CRITERIAS[i]));
         }
+
     }
 
     protected abstract MultiQuestionField getMultiBooleanField();

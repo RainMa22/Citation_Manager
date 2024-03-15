@@ -6,6 +6,10 @@ import javax.swing.*;
 public class MultipleChoiceQuestionField extends QuestionField {
     private final JComboBox<String> comboBox;
 
+    public JComboBox<String> getComboBox() {
+        return comboBox;
+    }
+
     //constructor
     // EFFECTS: creates a multiple choice Question Field with the given label and options;
     //          if options is empty... //TODO

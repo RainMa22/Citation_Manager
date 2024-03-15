@@ -27,7 +27,7 @@ public class TextQuestionField extends QuestionField implements KeyListener {
         add(label1);
         add(this.field);
         add(this.error);
-        addKeyListener(this);
+        field.addKeyListener(this);
     }
 
     // EFFECTS: returns user's input from field;

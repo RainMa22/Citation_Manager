@@ -25,17 +25,13 @@ public class GraphicUI extends JFrame implements ActionListener {
         setPreferredSize(new Dimension(800, 600));
         ((JPanel) getContentPane()).setBorder(new EmptyBorder(13, 13, 13, 13));
         JSplitPane splitPane = new JSplitPane();
-
-        JLabel dummy = new JLabel("dsad");
-        dummy.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        citationInquiries = new MlaInquiryPanel();
         confirm = new JButton("Confirm");
         confirm.setAlignmentX(RIGHT_ALIGNMENT);
         confirm.setAlignmentY(BOTTOM_ALIGNMENT);
 
         confirm.setActionCommand(COMMAND_CONFIRM);
         confirm.addActionListener(this);
-        citationInquiries = new GridPanel(4, 3);
-        citationInquiries.add(dummy);
         citationInquiries.add(confirm);
         splitPane.setLeftComponent(citationInquiries);
         CitationListPanel citationList = new CitationListPanel();

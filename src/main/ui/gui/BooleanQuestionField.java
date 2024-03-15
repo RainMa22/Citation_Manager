@@ -12,7 +12,8 @@ public class BooleanQuestionField extends QuestionField {
     public BooleanQuestionField(String label) {
         super(1, 1);
         this.field = new JCheckBox(label, false);
-        field.setHorizontalTextPosition(SwingConstants.TOP);
+        field.setHorizontalTextPosition(SwingConstants.CENTER);
+        field.setVerticalTextPosition(SwingConstants.TOP);
         setAlignmentX(CENTER_ALIGNMENT);
         add(this.field);
     }

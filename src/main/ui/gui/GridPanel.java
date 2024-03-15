@@ -7,7 +7,6 @@ import java.util.List;
 
 // represents a JPanel with gridLayout
 public class GridPanel extends JPanel {
-    protected List<Component> children;
     protected int maxLimit;
 
     // Constructor
@@ -15,7 +14,6 @@ public class GridPanel extends JPanel {
     public GridPanel(int rows, int columns) {
         super();
         maxLimit = rows * columns;
-        children = new LinkedList<>();
         setLayout(new GridLayout(rows, columns));
     }
 
@@ -32,14 +30,6 @@ public class GridPanel extends JPanel {
     //          if children exceeds max limit, do not add the item and returns null
     @Override
     public Component add(Component field, int index) {
-        if (children.size() + 1 == maxLimit) {
-            return null;
-        }
-        if (index != -1) {
-            children.add(index, field);
-        } else {
-            children.add(children.size(), field);
-        }
         return super.add(field, index);
     }
 }
