@@ -35,7 +35,11 @@ public class GridPanel extends JPanel {
         if (children.size() + 1 == maxLimit) {
             return null;
         }
-        children.add(index, field);
+        if (index != -1) {
+            children.add(index, field);
+        } else {
+            children.add(children.size(), field);
+        }
         return super.add(field, index);
     }
 }
