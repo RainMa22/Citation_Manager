@@ -34,7 +34,7 @@ public class GraphicUI extends JFrame implements ActionListener {
 
         confirm.setActionCommand(COMMAND_CONFIRM);
         confirm.addActionListener(this);
-        citationInquiries = new GridPanel(4,3);
+        citationInquiries = new GridPanel(4, 3);
         citationInquiries.add(dummy);
         citationInquiries.add(confirm);
         splitPane.setLeftComponent(citationInquiries);

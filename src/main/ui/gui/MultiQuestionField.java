@@ -8,6 +8,12 @@ import java.util.List;
 public class MultiQuestionField extends QuestionField {
 
     // constructor
+    // EFFECTS: creates a multi question field with a given dimension(and therefore a set number of allowed components);
+    public MultiQuestionField(int rows, int columns) {
+        super(rows, columns);
+    }
+
+    // alt. constructor
     // EFFECTS: creates a multi question field such that it can store multiple questions in an Area;
     public MultiQuestionField(QuestionField[] questionFields) {
         super(questionFields.length, 1);

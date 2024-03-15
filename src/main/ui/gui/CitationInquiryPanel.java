@@ -7,6 +7,7 @@ import model.IsSatisfiable;
 
 //represents a panel for citation-based Inquiries
 public abstract class CitationInquiryPanel extends GridPanel {
+    protected static final String[] formats = {"MLA", "APA"};
     protected static final IsSatisfiable[] CRITERIAS = {
             new DummyCriteria(), new DummyCriteria(), new DummyCriteria(), new DummyCriteria(), new DummyCriteria(),
             new IntegerCriteria(), new DummyCriteria(), new DateCriteria(), new DummyCriteria(), new DateCriteria(),
@@ -20,10 +21,10 @@ public abstract class CitationInquiryPanel extends GridPanel {
 
     // Constructor
     // Creates a CitationInquiryPanel based on the given available formats
-    public CitationInquiryPanel(String[] formats) {
+    public CitationInquiryPanel() {
         super(4, 3);
 
-        add(new MultipleChoiceQuestionField(PARAMETERS[0], formats));
+        add(new MultipleChoiceQuestionField(PARAMETERS[0],formats));
         for (int i = 1; i < PARAMETERS.length; i++) {
             String parameter = PARAMETERS[i];
             if (parameter.equals(INSERT_BOOLEAN_HERE)) {
