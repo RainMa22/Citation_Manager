@@ -16,6 +16,7 @@ public class CitationListPanel extends JScrollPane {
     public CitationListPanel() {
         super();
         setMinimumSize(new Dimension(100, 100));
+        setLayout(new ScrollPaneLayout());
         this.citation = null;
         setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_NEVER);
         setVerticalScrollBarPolicy(VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -41,9 +42,10 @@ public class CitationListPanel extends JScrollPane {
 
     // helper function for update
     // EFFECTS: adds the citation as a JLabel to the Citation
-    private void addCitation(Citation citation) {
-        JLabel label = new JLabel(citation.toString());
-        label.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        add(label);
+    public void addCitation(Citation citation) {
+        JButton btn = new JButton(citation.toString());
+        add(btn);
+        this.citation.add(citation);
+        revalidate();
     }
 }

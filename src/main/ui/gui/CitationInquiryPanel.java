@@ -6,7 +6,7 @@ import model.IntegerCriteria;
 import model.IsSatisfiable;
 
 //represents a panel for citation-based Inquiries
-public abstract class CitationInquiryPanel extends GridPanel {
+public abstract class CitationInquiryPanel extends MultiQuestionField {
     protected static final String[] formats = {"MLA", "APA"};
     protected static final IsSatisfiable[] CRITERIAS = {
             new DummyCriteria(), new DummyCriteria(), new DummyCriteria(), new DummyCriteria(), new DummyCriteria(),
@@ -34,7 +34,10 @@ public abstract class CitationInquiryPanel extends GridPanel {
             }
             add(new TextQuestionField(parameter, CRITERIAS[i]));
         }
+    }
 
+    public MultipleChoiceQuestionField getFormatSelector() {
+        return formatSelector;
     }
 
     protected abstract MultiQuestionField getMultiBooleanField();

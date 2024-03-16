@@ -21,7 +21,7 @@ public class BooleanQuestionField extends QuestionField {
     // EFFECTS: returns user's input from field;
     @Override
     protected String stringValue() {
-        return field.getText();
+        return String.valueOf(field.isSelected());
     }
 
 }
