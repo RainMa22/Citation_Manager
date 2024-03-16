@@ -36,16 +36,10 @@ public class TextQuestionField extends QuestionField implements KeyListener {
         return field.getText();
     }
 
-    // EFFECTS: on key typed, evaluate whether the user input is valid,
-    // if invalid, set text of error label to "Invalid Input!"
-    // otherwise, clear the error label
+    // EFFECTS: nothing
     @Override
     public void keyTyped(KeyEvent e) {
-        if (!criteria.isSatisfiedBy(getStringVal())) {
-            this.error.setText("Invalid Input!");
-        } else {
-            this.error.setText("");
-        }
+        //nothing
     }
 
     // EFFECTS: nothing
@@ -54,9 +48,15 @@ public class TextQuestionField extends QuestionField implements KeyListener {
         //nothing
     }
 
-    // EFFECTS: nothing
+    // EFFECTS: on key typed, evaluate whether the user input is valid,
+    // if invalid, set text of error label to "Invalid Input!"
+    // otherwise, clear the error label
     @Override
     public void keyReleased(KeyEvent e) {
-        //nothing
+        if (!criteria.isSatisfiedBy(stringValue())) {
+            this.error.setText("Invalid Input!");
+        } else {
+            this.error.setText("");
+        }
     }
 }
