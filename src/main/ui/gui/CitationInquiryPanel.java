@@ -10,13 +10,13 @@ public abstract class CitationInquiryPanel extends MultiQuestionField {
     protected static final String[] formats = {"MLA", "APA"};
     protected static final IsSatisfiable[] CRITERIAS = {
             new DummyCriteria(), new DummyCriteria(), new DummyCriteria(), new DummyCriteria(), new DummyCriteria(),
-            new IntegerCriteria(), new DummyCriteria(), new DateCriteria(), new DummyCriteria(), new DateCriteria(),
-            new DummyCriteria(),
+            new IntegerCriteria(), new DummyCriteria(), new DateCriteria(), new DummyCriteria(), new DummyCriteria(),
+            new DateCriteria()
     };
     private static final String INSERT_BOOLEAN_HERE = "THIS SHOULD NOT BE DISPLAYED!";
     protected static final String[] PARAMETERS = {
             "Format", "Author Name", "Title", INSERT_BOOLEAN_HERE, "Collection", "volume", "Issue Name",
-            "Publish Date(yyyy[-mm[-dd]])", "Publisher", "Access Date(yyyy[-mm[-dd]])", "Location(URL, DOI, etc.)"
+            "Publish Date(yyyy[-mm[-dd]])", "Publisher", "Location(URL, DOI, etc.)", "Access Date(yyyy[-mm[-dd]])"
     };
     protected MultipleChoiceQuestionField formatSelector;
 

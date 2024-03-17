@@ -72,6 +72,7 @@ public class GraphicUI extends JFrame implements ActionListener, ItemListener {
         citationInquiries.add(confirm);
         setCitationInquiries(citationInquiries);
         citationList.setFullCitation(fullCitation);
+        splitPane.setRightComponent(citationList);
     }
 
     // EFFECTS: removes the old citation inquire panel and add the new one;
@@ -89,7 +90,6 @@ public class GraphicUI extends JFrame implements ActionListener, ItemListener {
                 param = param.subList(1, param.size());
                 System.out.println(param);
                 citationList.addCitation(mode == USE_MLA ? new MlaCitation(param) : new ApaCitation(param));
-                citationList.update();
                 break;
         }
     }

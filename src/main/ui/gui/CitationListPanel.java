@@ -8,19 +8,24 @@ import java.awt.*;
 import java.util.Set;
 
 //represents the GUI visualization of FullCitaiton
-public class CitationListPanel extends JScrollPane {
-    FullCitation citation;
+public class CitationListPanel extends GridPanel {
+    private FullCitation citation;
+    private JScrollPane scrollPane;
 
     // Constructor
     // EFFECTS: constructs an empty citation list panel
     public CitationListPanel() {
-        super();
-        setMinimumSize(new Dimension(100, 100));
-        setLayout(new ScrollPaneLayout());
+        super(0, 1);
+        scrollPane = new JScrollPane();
+        setMinimumSize(new Dimension(100, 200));
+        //setLayout(new ScrollPaneLayout());
         this.citation = null;
-        setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_NEVER);
-        setVerticalScrollBarPolicy(VERTICAL_SCROLLBAR_AS_NEEDED);
+        //scrollPane.setSize(getWidth(),getHeight());
+        add(scrollPane);
+//      setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_NEVER);
+//      setVerticalScrollBarPolicy(VERTICAL_SCROLLBAR_ALWAYS);
     }
+
 
     // EFFECTS: removes all children, sets citation as given FullCitaiton,
     //          and adds citations as outlined label items into the ListPanel
@@ -33,19 +38,23 @@ public class CitationListPanel extends JScrollPane {
     public void update() {
         removeAll();
         Set<Citation> citations = citation.getCitations();
+//s        setSize(getWidth(), 100 * citations.size());
         for (Citation c : citations) {
-            addCitation(c);
+            JButton btn = new JButton(c.toString());
+            btn.setPreferredSize(new Dimension(getWidth(), 100));
+            add(btn);
+//            scrollPane.add(btn);
         }
-        setMinimumSize(new Dimension(100, 200));
+        revalidate();
+//        scrollPane.revalidate();
     }
 
 
     // helper function for update
     // EFFECTS: adds the citation as a JLabel to the Citation
     public void addCitation(Citation citation) {
-        JButton btn = new JButton(citation.toString());
-        add(btn);
         this.citation.add(citation);
-        revalidate();
+        System.out.println(this.citation);
+        update();
     }
 }
