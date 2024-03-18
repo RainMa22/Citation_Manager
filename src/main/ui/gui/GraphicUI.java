@@ -29,24 +29,26 @@ public class GraphicUI extends JFrame implements ActionListener, ItemListener {
 
     private CitationInquiryPanel citationInquiries;
     private JSplitPane splitPane;
-    private CitationListPanel citationList;
+    private CitationControlPanel controlPanel;
     private int mode;
+    private CitationButton selected;
 
     //Constructor
     // EFFECTS: constructs the GUI for citation generation
     public GraphicUI() {
         super(TITLE);
-
+        selected = null;
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(800, 600));
         ((JPanel) getContentPane()).setBorder(new EmptyBorder(13, 13, 13, 13));
         splitPane = new JSplitPane();
-        citationList = new CitationListPanel();
-        splitPane.setRightComponent(citationList);
+        controlPanel = new CitationControlPanel();
+        splitPane.setRightComponent(controlPanel);
         add(splitPane);
         pack();
         splitPane.setDividerLocation(.8);
         setMode(USE_MLA);
+        controlPanel.addActionListener(this);
         setLocationRelativeTo(null);
         setVisible(true);
         setResizable(true);
@@ -60,19 +62,12 @@ public class GraphicUI extends JFrame implements ActionListener, ItemListener {
     // EFFECTS: set the current mode to the given mode
     public void setMode(int mode) {
         this.mode = mode;
-        citationInquiries = mode == USE_MLA ? new MlaInquiryPanel() : new ApaInquiryPanel();
+        resetInquiry();
+
         FullCitation fullCitation = mode == USE_MLA ? new MlaFullCitation() : new ApaFullCitation();
-
-        confirm = new JButton("Confirm");
-        confirm.setAlignmentX(RIGHT_ALIGNMENT);
-        confirm.setAlignmentY(BOTTOM_ALIGNMENT);
-        confirm.setActionCommand(COMMAND_CONFIRM);
-        confirm.addActionListener(this);
-
-        citationInquiries.add(confirm);
         setCitationInquiries(citationInquiries);
-        citationList.setFullCitation(fullCitation);
-        splitPane.setRightComponent(citationList);
+        controlPanel.setFullCitation(fullCitation);
+        splitPane.setRightComponent(controlPanel);
     }
 
     // EFFECTS: removes the old citation inquire panel and add the new one;
@@ -88,10 +83,49 @@ public class GraphicUI extends JFrame implements ActionListener, ItemListener {
             case COMMAND_CONFIRM:
                 List<String> param = citationInquiries.getStringListVal();
                 param = param.subList(1, param.size());
-                System.out.println(param);
-                citationList.addCitation(mode == USE_MLA ? new MlaCitation(param) : new ApaCitation(param));
+                controlPanel.addCitation(mode == USE_MLA ? new MlaCitation(param) : new ApaCitation(param));
+                resetInquiry();
+                break;
+            case AddRemovePanel.ADD_NEW:
+                clearSelection();
+                resetInquiry();
+                break;
+            case AddRemovePanel.REMOVE_SELECTED:
+                //TODO
+                break;
+            case CitationButton.SELECT_CITATION:
+                setSelected((CitationButton) e.getSource());
                 break;
         }
+    }
+
+    //EFFECTS: clear the current selections
+    public void clearSelection() {
+        if (selected != null) {
+            selected.deselect();
+        }
+        selected = null;
+    }
+
+    // EFFECTS: selects the given button
+    public void setSelected(CitationButton toSelect) {
+        if (selected != null) {
+            clearSelection();
+        }
+        selected = toSelect;
+        selected.select();
+    }
+
+    //EFFECTS: resets the current inquiry panel
+    public void resetInquiry() {
+        citationInquiries = mode == USE_MLA ? new MlaInquiryPanel() : new ApaInquiryPanel();
+        confirm = new JButton("Confirm");
+        confirm.setAlignmentX(RIGHT_ALIGNMENT);
+        confirm.setAlignmentY(BOTTOM_ALIGNMENT);
+        confirm.setActionCommand(COMMAND_CONFIRM);
+        confirm.addActionListener(this);
+
+        citationInquiries.add(confirm);
     }
 
     @Override

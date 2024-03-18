@@ -19,4 +19,7 @@ public abstract class QuestionField extends GridPanel implements HasStringValue 
     }
 
     protected abstract String stringValue();
+
+    // EFFECTS: sets field from String Value
+    public abstract void fromStringValue(String string);
 }

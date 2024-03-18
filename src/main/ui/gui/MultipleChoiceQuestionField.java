@@ -21,9 +21,16 @@ public class MultipleChoiceQuestionField extends QuestionField {
         return comboBox;
     }
 
+    // EFFECTS: returns the selected String of comboBox
     @Override
     protected String stringValue() {
         return String.valueOf(comboBox.getSelectedItem());
+    }
+
+    // EFFECTS: sets field from String Value
+    @Override
+    public void fromStringValue(String string) {
+        comboBox.setSelectedItem(string);
     }
 
     public void addItemListener(ItemListener listener) {

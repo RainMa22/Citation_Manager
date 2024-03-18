@@ -5,27 +5,25 @@ import model.FullCitation;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.Set;
 
 //represents the GUI visualization of FullCitaiton
 public class CitationListPanel extends GridPanel {
     private FullCitation citation;
-    private JScrollPane scrollPane;
+    private ActionListener listener;
 
     // Constructor
     // EFFECTS: constructs an empty citation list panel
     public CitationListPanel() {
         super(0, 1);
-        scrollPane = new JScrollPane();
         setMinimumSize(new Dimension(100, 200));
-        //setLayout(new ScrollPaneLayout());
         this.citation = null;
-        //scrollPane.setSize(getWidth(),getHeight());
-        add(scrollPane);
-//      setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_NEVER);
-//      setVerticalScrollBarPolicy(VERTICAL_SCROLLBAR_ALWAYS);
     }
 
+    public FullCitation getCitation() {
+        return citation;
+    }
 
     // EFFECTS: removes all children, sets citation as given FullCitaiton,
     //          and adds citations as outlined label items into the ListPanel
@@ -38,15 +36,14 @@ public class CitationListPanel extends GridPanel {
     public void update() {
         removeAll();
         Set<Citation> citations = citation.getCitations();
-//s        setSize(getWidth(), 100 * citations.size());
         for (Citation c : citations) {
-            JButton btn = new JButton(c.toString());
-            btn.setPreferredSize(new Dimension(getWidth(), 100));
+            JButton btn = new CitationButton(c);
+            if (listener != null) {
+                btn.addActionListener(listener);
+            }
             add(btn);
-//            scrollPane.add(btn);
         }
         revalidate();
-//        scrollPane.revalidate();
     }
 
 
@@ -54,7 +51,10 @@ public class CitationListPanel extends GridPanel {
     // EFFECTS: adds the citation as a JLabel to the Citation
     public void addCitation(Citation citation) {
         this.citation.add(citation);
-        System.out.println(this.citation);
         update();
+    }
+
+    public void setListener(ActionListener listener) {
+        this.listener = listener;
     }
 }

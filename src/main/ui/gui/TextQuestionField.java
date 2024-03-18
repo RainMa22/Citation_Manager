@@ -36,6 +36,12 @@ public class TextQuestionField extends QuestionField implements KeyListener {
         return field.getText();
     }
 
+    // EFFECTS: sets field from String Value
+    @Override
+    public void fromStringValue(String string) {
+        field.setText(string);
+    }
+
     // EFFECTS: nothing
     @Override
     public void keyTyped(KeyEvent e) {

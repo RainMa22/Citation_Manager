@@ -24,4 +24,10 @@ public class BooleanQuestionField extends QuestionField {
         return String.valueOf(field.isSelected());
     }
 
+    // EFFECTS: sets field from String Value
+    @Override
+    public void fromStringValue(String string) {
+        field.setSelected(Boolean.parseBoolean(string));
+    }
+
 }
