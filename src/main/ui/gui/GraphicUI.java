@@ -5,6 +5,8 @@ import model.apa.ApaCitation;
 import model.apa.ApaFullCitation;
 import model.mla.MlaCitation;
 import model.mla.MlaFullCitation;
+import org.json.JSONObject;
+import persistence.JsonReader;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -15,6 +17,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -114,17 +117,54 @@ public class GraphicUI extends JFrame implements ActionListener, ItemListener {
             case CitationMenuBar.EXPORT_CITATION:
                 exportCitation();
                 break;
+            case CitationMenuBar.LOAD_CITATION:
+                loadCitation(fileChooser,JSON_SUFFIX);
         }
     }
 
-    //EFFECTS: save a citation to the user-inputted file
+    // EFFECTS: save a citation to the user-inputted file
     public void saveCitation() {
         writeToFile(fileChooser, "Save", controlPanel.getCitation(), HTML_SUFFIX);
     }
 
-    //EFFECTS: exports a citation to a user-inputted JSON file
+    // EFFECTS: exports a citation to a user-inputted JSON file
     public void exportCitation() {
         writeToFile(fileChooser, "Export", controlPanel.getCitation().asJson(), JSON_SUFFIX);
+    }
+
+    // EFFECTS: loads a citation from a user-inputted JSONfile
+    public void loadCitation(JFileChooser fileChooser, String suffix) {
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(suffix.toUpperCase() + " File", suffix);
+        while (true) {
+            fileChooser.addChoosableFileFilter(filter);
+            //fileChooser.setFileFilter(filter);
+            fileChooser.setAcceptAllFileFilterUsed(false);
+            int status = fileChooser.showOpenDialog(this);
+            if (status == JFileChooser.APPROVE_OPTION) {
+                try {
+                    JsonReader reader = new JsonReader(fileChooser.getSelectedFile().getAbsolutePath());
+                    JSONObject json = reader.readJson();
+                    if (json == null) {
+                        throw new IOException();
+                    }
+                    setMode(json.getString("format").equals("MLA") ? USE_MLA : USE_APA);
+                    controlPanel.setFullCitation(
+                            mode == USE_MLA ? new MlaFullCitation(json) : new ApaFullCitation(json));
+                    break;
+                } catch (FileNotFoundException fnfe) {
+                    displayWarning("File Not Found! Please try again!");
+                } catch (IOException e) {
+                    displayWarning("Exception Occurred when reading!! Please try again!");
+                }
+            }
+        }
+    }
+
+    // EFFECTS: Display a warning message with the given message;
+    public void displayWarning(String msg) {
+        JOptionPane.showMessageDialog(this, msg,
+                "WARNING", JOptionPane.WARNING_MESSAGE);
+
     }
 
     // EFFECTS: writes the given Object to the file chosen by user with the given approveOption, and file Filter
@@ -141,13 +181,11 @@ public class GraphicUI extends JFrame implements ActionListener, ItemListener {
                     f = new File(String.join(".", f.getAbsolutePath(), suffix));
                 }
                 try {
-                    boolean b = f.createNewFile();
                     Path output = Path.of(f.getAbsolutePath());
                     Files.writeString(output, toWrite.toString());
                     break;
                 } catch (IOException e) {
-                    JOptionPane.showMessageDialog(this, "Exception when writing file! Please try again!",
-                            "WARNING", JOptionPane.WARNING_MESSAGE);
+                    displayWarning("Exception when writing file! Please try again!");
                 }
             }
         }
