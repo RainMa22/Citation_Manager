@@ -33,6 +33,18 @@ public class FullCitationTest {
     }
 
     @Test
+    public void testRemove() {
+        Citation testCitation = new ApaCitation("apple", "book", false, false,
+                null, null, null, null, null, null, null);
+        mfc.add(testCitation);
+        assertEquals(1, mfc.getCitations().size());
+        assertEquals(testCitation, mfc.getCitations().first());
+        assertEquals(testCitation, mfc.getCitations().last());
+        mfc.remove(testCitation);
+        assertEquals(0, mfc.getCitations().size());
+    }
+
+    @Test
     public void testAddMoreThanOneItem() {
         Citation testCitation = new ApaCitation("apple", "book", false, false,
                 null, null, null, null, null, null, null);

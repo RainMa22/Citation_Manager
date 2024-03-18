@@ -33,9 +33,16 @@ public class CitationControlPanel extends JPanel {
         listPanel.setFullCitation(fullCitation);
     }
 
+    // MODIFIES: this
     // EFFECTS: adds the given Citation to listPanel;
     public void addCitation(Citation citation) {
         listPanel.addCitation(citation);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: removes the citation from the FullCitation
+    public void removeCitation(Citation citation) {
+        listPanel.removeCitation(citation);
     }
 
     // EFFECTS: adds the given action listener to both panels;

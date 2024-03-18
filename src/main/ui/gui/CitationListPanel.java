@@ -44,15 +44,23 @@ public class CitationListPanel extends GridPanel {
             add(btn);
         }
         revalidate();
+        repaint();
     }
 
-
-    // helper function for update
-    // EFFECTS: adds the citation as a JLabel to the Citation
+    // MODIFIES: this
+    // EFFECTS: adds the citation to the FullCitation
     public void addCitation(Citation citation) {
         this.citation.add(citation);
         update();
     }
+
+    // MODIFIES: this
+    // EFFECTS: removes the citation from the FullCitation
+    public void removeCitation(Citation citation) {
+        this.citation.remove(citation);
+        update();
+    }
+
 
     public void setListener(ActionListener listener) {
         this.listener = listener;

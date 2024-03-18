@@ -83,6 +83,8 @@ public class GraphicUI extends JFrame implements ActionListener, ItemListener {
             case COMMAND_CONFIRM:
                 List<String> param = citationInquiries.getStringListVal();
                 param = param.subList(1, param.size());
+                System.out.println(param);
+                removeSelected();
                 controlPanel.addCitation(mode == USE_MLA ? new MlaCitation(param) : new ApaCitation(param));
                 resetInquiry();
                 break;
@@ -91,7 +93,7 @@ public class GraphicUI extends JFrame implements ActionListener, ItemListener {
                 resetInquiry();
                 break;
             case AddRemovePanel.REMOVE_SELECTED:
-                //TODO
+                removeSelected();
                 break;
             case CitationButton.SELECT_CITATION:
                 setSelected((CitationButton) e.getSource());
@@ -116,6 +118,15 @@ public class GraphicUI extends JFrame implements ActionListener, ItemListener {
         selected.select();
     }
 
+    // EFFECTS: removes the selected citation from the control panel, and clear selection as well
+    public void removeSelected() {
+        if (selected != null) {
+            controlPanel.removeCitation(selected.getCitation());
+            clearSelection();
+        }
+    }
+
+
     //EFFECTS: resets the current inquiry panel
     public void resetInquiry() {
         citationInquiries = mode == USE_MLA ? new MlaInquiryPanel() : new ApaInquiryPanel();
@@ -124,8 +135,8 @@ public class GraphicUI extends JFrame implements ActionListener, ItemListener {
         confirm.setAlignmentY(BOTTOM_ALIGNMENT);
         confirm.setActionCommand(COMMAND_CONFIRM);
         confirm.addActionListener(this);
-
         citationInquiries.add(confirm);
+        splitPane.setLeftComponent(citationInquiries);
     }
 
     @Override

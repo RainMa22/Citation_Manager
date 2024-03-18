@@ -47,6 +47,12 @@ public abstract class FullCitation extends CitationComponent {
         citations.add(c);
     }
 
+    // MODIFIES: this
+    // EFFECTS: remove the citation from the citations treeSet.
+    public void remove(Citation c) {
+        citations.remove(c);
+    }
+
     public abstract String getFormat();
 
     // EFFECTS: returns a JSONObject representation of the FullCitation
