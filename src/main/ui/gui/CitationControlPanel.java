@@ -15,9 +15,9 @@ public class CitationControlPanel extends JPanel {
     //EFFECTS: creates a new Citation control panel
     public CitationControlPanel() {
         addRemovePanel = new AddRemovePanel();
-        addRemovePanel.setPreferredSize(new Dimension(getWidth(), getHeight() / 10));
+        setMinimumSize(new Dimension(200,100));
         listPanel = new CitationListPanel();
-        listPanel.setPreferredSize(new Dimension(getWidth(), getHeight() * 9 / 10));
+
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         add(addRemovePanel);
         add(listPanel);

@@ -17,6 +17,7 @@ public class CitationButton extends JButton {
 
         this.citation = citation;
         setActionCommand(SELECT_CITATION);
+        setMinimumSize(new Dimension(200,50));
         setPreferredSize(new Dimension(getWidth(), 100));
     }
 

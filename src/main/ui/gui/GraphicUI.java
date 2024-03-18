@@ -8,11 +8,16 @@ import model.mla.MlaFullCitation;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 
 /*
@@ -22,6 +27,8 @@ public class GraphicUI extends JFrame implements ActionListener, ItemListener {
     private static final String[] formats = {"MLA", "APA"};
     private static final String TITLE = "Citation Generator";
     private static final String COMMAND_CONFIRM = "submit";
+    private static final String HTML_SUFFIX = "html";
+    private static final String JSON_SUFFIX = "json";
     private static final int USE_MLA = 0;
     private static final int USE_APA = 1;
 
@@ -32,11 +39,13 @@ public class GraphicUI extends JFrame implements ActionListener, ItemListener {
     private CitationControlPanel controlPanel;
     private int mode;
     private CitationButton selected;
+    private JFileChooser fileChooser;
 
     //Constructor
     // EFFECTS: constructs the GUI for citation generation
     public GraphicUI() {
         super(TITLE);
+        CitationMenuBar menuBar = new CitationMenuBar();
         selected = null;
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(800, 600));
@@ -44,11 +53,17 @@ public class GraphicUI extends JFrame implements ActionListener, ItemListener {
         splitPane = new JSplitPane();
         controlPanel = new CitationControlPanel();
         splitPane.setRightComponent(controlPanel);
+        fileChooser = new JFileChooser(Path.of("").toAbsolutePath().toFile());
+
+        setJMenuBar(menuBar);
         add(splitPane);
         pack();
         splitPane.setDividerLocation(.8);
         setMode(USE_MLA);
+
         controlPanel.addActionListener(this);
+        menuBar.addActionListener(this);
+
         setLocationRelativeTo(null);
         setVisible(true);
         setResizable(true);
@@ -65,28 +80,23 @@ public class GraphicUI extends JFrame implements ActionListener, ItemListener {
         resetInquiry();
 
         FullCitation fullCitation = mode == USE_MLA ? new MlaFullCitation() : new ApaFullCitation();
-        setCitationInquiries(citationInquiries);
         controlPanel.setFullCitation(fullCitation);
         splitPane.setRightComponent(controlPanel);
     }
 
-    // EFFECTS: removes the old citation inquire panel and add the new one;
-    private void setCitationInquiries(CitationInquiryPanel panel) {
-        panel.getFormatSelector().addItemListener(this);
-        panel.add(confirm);
-        splitPane.setLeftComponent(panel);
+    //EFFECTS: set mode to the changed state
+    @Override
+    public void itemStateChanged(ItemEvent e) {
+        setMode(e.getItem().equals(formats[0]) ? USE_MLA : USE_APA);
     }
 
+
     // EFFECT: This is the method that is called when the JButton btn is clicked
+    @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
             case COMMAND_CONFIRM:
-                List<String> param = citationInquiries.getStringListVal();
-                param = param.subList(1, param.size());
-                System.out.println(param);
-                removeSelected();
-                controlPanel.addCitation(mode == USE_MLA ? new MlaCitation(param) : new ApaCitation(param));
-                resetInquiry();
+                confirmCommand();
                 break;
             case AddRemovePanel.ADD_NEW:
                 clearSelection();
@@ -98,8 +108,60 @@ public class GraphicUI extends JFrame implements ActionListener, ItemListener {
             case CitationButton.SELECT_CITATION:
                 setSelected((CitationButton) e.getSource());
                 break;
+            case CitationMenuBar.SAVE_CITATION:
+                saveCitation();
+                break;
+            case CitationMenuBar.EXPORT_CITATION:
+                exportCitation();
+                break;
         }
     }
+
+    //EFFECTS: save a citation to the user-inputted file
+    public void saveCitation() {
+        writeToFile(fileChooser, "Save", controlPanel.getCitation(), HTML_SUFFIX);
+    }
+
+    //EFFECTS: exports a citation to a user-inputted JSON file
+    public void exportCitation() {
+        writeToFile(fileChooser, "Export", controlPanel.getCitation().asJson(), JSON_SUFFIX);
+    }
+
+    // EFFECTS: writes the given Object to the file chosen by user with the given approveOption, and file Filter
+    public void writeToFile(JFileChooser fileChooser, String approveOption, Object toWrite, String suffix) {
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(suffix.toUpperCase() + " File", suffix);
+        while (true) {
+            fileChooser.addChoosableFileFilter(filter);
+            fileChooser.setFileFilter(filter);
+            fileChooser.setAcceptAllFileFilterUsed(false);
+            int status = fileChooser.showDialog(this, approveOption);
+            if (status == JFileChooser.APPROVE_OPTION) {
+                File f = fileChooser.getSelectedFile();
+                if (!filter.accept(f)) {
+                    f = new File(String.join(".", f.getAbsolutePath(), suffix));
+                }
+                try {
+                    boolean b = f.createNewFile();
+                    Path output = Path.of(f.getAbsolutePath());
+                    Files.writeString(output, toWrite.toString());
+                    break;
+                } catch (IOException e) {
+                    JOptionPane.showMessageDialog(this, "Exception when writing file! Please try again!",
+                            "WARNING", JOptionPane.WARNING_MESSAGE);
+                }
+            }
+        }
+    }
+
+    // EFFECTS: create a new Citation from user input and put it to the control panel, resets the inquiry.
+    public void confirmCommand() {
+        List<String> param = citationInquiries.getStringListVal();
+        param = param.subList(1, param.size());
+        removeSelected();
+        controlPanel.addCitation(mode == USE_MLA ? new MlaCitation(param) : new ApaCitation(param));
+        resetInquiry();
+    }
+
 
     //EFFECTS: clear the current selections
     public void clearSelection() {
@@ -135,12 +197,10 @@ public class GraphicUI extends JFrame implements ActionListener, ItemListener {
         confirm.setAlignmentY(BOTTOM_ALIGNMENT);
         confirm.setActionCommand(COMMAND_CONFIRM);
         confirm.addActionListener(this);
+        citationInquiries.getFormatSelector().addItemListener(this);
         citationInquiries.add(confirm);
         splitPane.setLeftComponent(citationInquiries);
     }
 
-    @Override
-    public void itemStateChanged(ItemEvent e) {
-        setMode(e.getItem().equals(formats[0]) ? USE_MLA : USE_APA);
-    }
+
 }

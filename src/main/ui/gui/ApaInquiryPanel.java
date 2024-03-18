@@ -4,8 +4,8 @@ package ui.gui;
  * represents a MLA inquiry panel*/
 public class ApaInquiryPanel extends CitationInquiryPanel {
     private static final BooleanQuestionField[] QUESTION_FIELDS = {
-            new BooleanQuestionField("Academic Work"),
-            new BooleanQuestionField("Subject To Change?")
+            new BooleanQuestionField("Academic?"),
+            new BooleanQuestionField("Will Change?")
     };
 
     // Constructor
