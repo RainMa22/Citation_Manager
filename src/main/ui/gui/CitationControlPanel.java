@@ -1,7 +1,6 @@
 package ui.gui;
 
 import model.Citation;
-import model.FullCitation;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,12 +23,12 @@ public class CitationControlPanel extends JPanel {
     }
 
     // EFFECTS: returns the citation from listPanel
-    public FullCitation getCitation() {
+    public FullGuiCitation getCitation() {
         return listPanel.getCitation();
     }
 
     // EFFECTS: sets the full citation of the listPanel
-    public void setFullCitation(FullCitation fullCitation) {
+    public void setFullGuiCitation(FullGuiCitation fullCitation) {
         listPanel.setFullCitation(fullCitation);
     }
 
@@ -41,7 +40,7 @@ public class CitationControlPanel extends JPanel {
 
     // MODIFIES: this
     // EFFECTS: removes the citation from the FullCitation
-    public void removeCitation(Citation citation) {
+    public void removeCitation(GuiCitation citation) {
         listPanel.removeCitation(citation);
     }
 

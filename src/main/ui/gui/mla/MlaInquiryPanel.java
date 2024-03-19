@@ -1,4 +1,8 @@
-package ui.gui;
+package ui.gui.mla;
+
+import ui.gui.BooleanQuestionField;
+import ui.gui.CitationInquiryPanel;
+import ui.gui.MultiQuestionField;
 
 /*
  * represents a MLA inquiry panel*/

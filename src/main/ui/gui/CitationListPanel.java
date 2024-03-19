@@ -1,7 +1,6 @@
 package ui.gui;
 
 import model.Citation;
-import model.FullCitation;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,7 +9,7 @@ import java.util.Set;
 
 //represents the GUI visualization of FullCitaiton
 public class CitationListPanel extends GridPanel {
-    private FullCitation citation;
+    private FullGuiCitation citation;
     private ActionListener listener;
 
     // Constructor
@@ -21,13 +20,13 @@ public class CitationListPanel extends GridPanel {
         this.citation = null;
     }
 
-    public FullCitation getCitation() {
+    public FullGuiCitation getCitation() {
         return citation;
     }
 
     // EFFECTS: removes all children, sets citation as given FullCitaiton,
     //          and adds citations as outlined label items into the ListPanel
-    public void setFullCitation(FullCitation citation) {
+    public void setFullCitation(FullGuiCitation citation) {
         this.citation = citation;
         update();
     }
@@ -37,11 +36,13 @@ public class CitationListPanel extends GridPanel {
         removeAll();
         Set<Citation> citations = citation.getCitations();
         for (Citation c : citations) {
-            JButton btn = new CitationButton(c);
-            if (listener != null) {
-                btn.addActionListener(listener);
+            if (c instanceof GuiCitation) {
+                JButton btn = new CitationButton((GuiCitation) c);
+                if (listener != null) {
+                    btn.addActionListener(listener);
+                }
+                add(btn);
             }
-            add(btn);
         }
         revalidate();
         repaint();
@@ -56,8 +57,8 @@ public class CitationListPanel extends GridPanel {
 
     // MODIFIES: this
     // EFFECTS: removes the citation from the FullCitation
-    public void removeCitation(Citation citation) {
-        this.citation.remove(citation);
+    public void removeCitation(GuiCitation citation) {
+        this.citation.remove((Citation) citation);
         update();
     }
 

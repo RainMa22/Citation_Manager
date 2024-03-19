@@ -41,4 +41,5 @@ public abstract class CitationInquiryPanel extends MultiQuestionField {
     }
 
     protected abstract MultiQuestionField getMultiBooleanField();
+
 }

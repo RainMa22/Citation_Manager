@@ -1,12 +1,13 @@
 package ui.gui;
 
-import model.FullCitation;
-import model.apa.ApaCitation;
-import model.apa.ApaFullCitation;
-import model.mla.MlaCitation;
-import model.mla.MlaFullCitation;
 import org.json.JSONObject;
 import persistence.JsonReader;
+import ui.gui.apa.ApaFullGuiCitation;
+import ui.gui.apa.ApaGuiCitation;
+import ui.gui.apa.ApaInquiryPanel;
+import ui.gui.mla.MlaFullGuiCitation;
+import ui.gui.mla.MlaGuiCitation;
+import ui.gui.mla.MlaInquiryPanel;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -82,8 +83,8 @@ public class GraphicUI extends JFrame implements ActionListener, ItemListener {
         this.mode = mode;
         resetInquiry();
 
-        FullCitation fullCitation = mode == USE_MLA ? new MlaFullCitation() : new ApaFullCitation();
-        controlPanel.setFullCitation(fullCitation);
+        FullGuiCitation fullCitation = mode == USE_MLA ? new MlaFullGuiCitation() : new ApaFullGuiCitation();
+        controlPanel.setFullGuiCitation(fullCitation);
         splitPane.setRightComponent(controlPanel);
     }
 
@@ -118,7 +119,7 @@ public class GraphicUI extends JFrame implements ActionListener, ItemListener {
                 exportCitation();
                 break;
             case CitationMenuBar.LOAD_CITATION:
-                loadCitation(fileChooser,JSON_SUFFIX);
+                loadCitation(fileChooser, JSON_SUFFIX);
         }
     }
 
@@ -148,8 +149,8 @@ public class GraphicUI extends JFrame implements ActionListener, ItemListener {
                         throw new IOException();
                     }
                     setMode(json.getString("format").equals("MLA") ? USE_MLA : USE_APA);
-                    controlPanel.setFullCitation(
-                            mode == USE_MLA ? new MlaFullCitation(json) : new ApaFullCitation(json));
+                    controlPanel.setFullGuiCitation(
+                            mode == USE_MLA ? new MlaFullGuiCitation(json) : new ApaFullGuiCitation(json));
                     break;
                 } catch (FileNotFoundException fnfe) {
                     displayWarning("File Not Found! Please try again!");
@@ -196,7 +197,7 @@ public class GraphicUI extends JFrame implements ActionListener, ItemListener {
         List<String> param = citationInquiries.getStringListVal();
         param = param.subList(1, param.size());
         removeSelected();
-        controlPanel.addCitation(mode == USE_MLA ? new MlaCitation(param) : new ApaCitation(param));
+        controlPanel.addCitation(mode == USE_MLA ? new MlaGuiCitation(param) : new ApaGuiCitation(param));
         resetInquiry();
     }
 
@@ -216,12 +217,14 @@ public class GraphicUI extends JFrame implements ActionListener, ItemListener {
         }
         selected = toSelect;
         selected.select();
+        citationInquiries.fromStringListVal(toSelect.getCitation().getUserInput());
     }
 
     // EFFECTS: removes the selected citation from the control panel, and clear selection as well
     public void removeSelected() {
         if (selected != null) {
             controlPanel.removeCitation(selected.getCitation());
+            resetInquiry();
             clearSelection();
         }
     }

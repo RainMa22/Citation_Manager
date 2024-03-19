@@ -35,12 +35,20 @@ public class MultiQuestionField extends QuestionField {
         fromStringListVal(List.of(string.split(",")));
     }
 
-    // EFFECTS: loop over the added QuestionField, calls fromStringValue with
+    // EFFECTS: calls fromStringListValue every MultiQuestionField child
+    //          falls back to fromStringValue for every QuestionField child
     public void fromStringListVal(List<String> strings) {
         int j = 0;
         for (int i = 0; i <= getComponents().length; i++) {
             Component field = getComponent(i);
-            if (field instanceof QuestionField) {
+            if (field instanceof MultiQuestionField) {
+                MultiQuestionField multiQuestionField = (MultiQuestionField) field;
+                int size = multiQuestionField.getStringListVal().size();
+                System.out.println(strings);
+                System.out.println(strings.subList(j, j + size));
+                multiQuestionField.fromStringListVal(strings.subList(j, j + size));
+                j += size;
+            } else if (field instanceof QuestionField) {
                 QuestionField questionField = (QuestionField) field;
                 questionField.fromStringValue(strings.get(j));
                 j++;
