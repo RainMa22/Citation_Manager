@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class JsonWriterTest {
     JsonWriter jw;
 
-    String out = "savedCitations/hehe.json";
+    String out = "data/hehe.json";
 
     @BeforeEach
     public void setUp() {

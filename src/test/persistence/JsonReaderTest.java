@@ -21,7 +21,7 @@ public class JsonReaderTest {
 
     @BeforeEach
     public void setUp() {
-        in = "hehe.json";
+        in = "data/hehe.json";
         json = new JSONObject("{\"hello\": \"world\"}");
         try {
             Files.writeString(Path.of(in), json.toString());
@@ -42,7 +42,7 @@ public class JsonReaderTest {
 
     @Test
     public void testConsturctorFileNotFound() {
-        Path nonExistent = Path.of("dsa.taksd");
+        Path nonExistent = Path.of("data/dsa.taksd");
         try {
             new JsonReader(nonExistent.toString());
             fail();
