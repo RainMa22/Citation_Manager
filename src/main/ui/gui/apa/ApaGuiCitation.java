@@ -1,6 +1,7 @@
 package ui.gui.apa;
 
 import model.apa.ApaCitation;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import ui.gui.GuiCitation;
@@ -24,6 +25,7 @@ public class ApaGuiCitation extends ApaCitation implements GuiCitation {
     public ApaGuiCitation(JSONObject json) {
         super(json);
         try {
+            System.out.println(json.getJSONArray("param"));
             userInput = json.getJSONArray("param").toList().stream().map(Object::toString)
                     .collect(Collectors.toList());
         } catch (JSONException je) {
@@ -34,7 +36,7 @@ public class ApaGuiCitation extends ApaCitation implements GuiCitation {
     @Override
     public JSONObject asJson() {
         JSONObject out = super.asJson();
-        out.put("param", userInput);
+        out.put("param", new JSONArray(userInput));
         return out;
     }
 

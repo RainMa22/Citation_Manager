@@ -61,7 +61,7 @@ public abstract class FullCitation extends CitationComponent {
     public JSONObject asJson() {
         JSONObject out = super.asJson();
         out.put("format", getFormat());
-        out.put("citations", new JSONArray(citations));
+        out.put("citations", new JSONArray(citations.stream().map(Citation::asJson).toArray()));
         return out;
     }
 }

@@ -1,6 +1,7 @@
 package ui.gui.mla;
 
 import model.mla.MlaCitation;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import ui.gui.GuiCitation;
@@ -34,7 +35,7 @@ public class MlaGuiCitation extends MlaCitation implements GuiCitation {
     @Override
     public JSONObject asJson() {
         JSONObject out = super.asJson();
-        out.put("param", userInput);
+        out.put("param", new JSONArray(userInput));
         return out;
     }
 
