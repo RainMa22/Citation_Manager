@@ -73,13 +73,12 @@ public class FullCitationTest {
         Citation testCitation = new ApaCitation("apple", "book", false, false,
                 null, null, null, null, null, null, null);
         mfc.add(testCitation);
-        mfc.add(testCitation);
         JSONObject out = new JSONObject();
         out.put("head", mfc.getHead());
         out.put("tail", mfc.getTail());
         out.put("mode", mfc.getMode());
         out.put("format", mfc.getFormat());
-        out.put("citations", new JSONArray(mfc.getCitations()));
+        out.put("citations", new JSONArray(mfc.getCitations().stream().map(Citation::asJson).toArray()));
         assertEquals(out.toString(), mfc.asJson().toString());
     }
 
