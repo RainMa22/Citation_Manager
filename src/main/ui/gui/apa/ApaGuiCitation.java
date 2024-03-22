@@ -25,7 +25,6 @@ public class ApaGuiCitation extends ApaCitation implements GuiCitation {
     public ApaGuiCitation(JSONObject json) {
         super(json);
         try {
-            System.out.println(json.getJSONArray("param"));
             userInput = json.getJSONArray("param").toList().stream().map(Object::toString)
                     .collect(Collectors.toList());
         } catch (JSONException je) {
