@@ -33,6 +33,7 @@ public class GraphicUI extends JFrame implements ActionListener, ItemListener {
     private static final String COMMAND_CONFIRM = "submit";
     private static final String HTML_SUFFIX = "html";
     private static final String JSON_SUFFIX = "json";
+    private static final String LOGO_PATH = "/resources/LOGO.png";
     private static final int USE_MLA = 0;
     private static final int USE_APA = 1;
 
@@ -49,6 +50,9 @@ public class GraphicUI extends JFrame implements ActionListener, ItemListener {
     // EFFECTS: constructs the GUI for citation generation
     public GraphicUI() {
         super(TITLE);
+        Image logo = Toolkit.getDefaultToolkit().getImage(getClass().getResource(LOGO_PATH));
+        prepareImage(logo, this);
+        setIconImage(logo);
         CitationMenuBar menuBar = new CitationMenuBar();
         selected = null;
         setDefaultCloseOperation(EXIT_ON_CLOSE);
