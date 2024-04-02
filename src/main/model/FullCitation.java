@@ -17,6 +17,7 @@ public abstract class FullCitation extends CitationComponent {
     // Constructor for FullCitation
     // EFFECTS: Set Mode to ACTIVE and initialize the citations to sort citation by name in ascending order
     public FullCitation() {
+        super();
         this.mode = ACTIVE;
         citations = new TreeSet<>(new Comparator<>() {
             @Override
@@ -31,6 +32,7 @@ public abstract class FullCitation extends CitationComponent {
     //          initialize the citations to sort citation by name in ascending order
     public FullCitation(JSONObject json) {
         super(json);
+        log = EventLog.getInstance();
         citations = new TreeSet<>(new Comparator<>() {
             @Override
             public int compare(Citation o1, Citation o2) {
@@ -58,7 +60,7 @@ public abstract class FullCitation extends CitationComponent {
     // EFFECTS: logs the added citation to the event log
     public CitationAddedEvent logAddition(Citation c) {
         CitationAddedEvent addedEvent = new CitationAddedEvent(this, c);
-        EventLog.getInstance().logEvent(addedEvent);
+        log.logEvent(addedEvent);
         return addedEvent;
     }
 
@@ -66,7 +68,7 @@ public abstract class FullCitation extends CitationComponent {
     // EFFECTS: logs the added citation to the event log
     public CitationRemovedEvent logRemoval(Citation c) {
         CitationRemovedEvent removedEvent = new CitationRemovedEvent(this, c);
-        EventLog.getInstance().logEvent(removedEvent);
+        log.logEvent(removedEvent);
         return removedEvent;
     }
 

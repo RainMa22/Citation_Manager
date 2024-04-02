@@ -29,6 +29,7 @@ public abstract class Citation extends CitationComponent implements InputPersist
     //EFFECTS: creates an empty Citation
     public Citation() {
         super();
+        log = EventLog.getInstance();
         logCreation();
     }
 
@@ -41,13 +42,14 @@ public abstract class Citation extends CitationComponent implements InputPersist
         } catch (JSONException | NullPointerException je) {
             userInput = null;
         }
+        log = EventLog.getInstance();
         logCreation();
     }
 
     //EFFECTS: log the creation of self to eventLog
     public CitationCreatedEvent logCreation() {
         CitationCreatedEvent createdEvent = new CitationCreatedEvent(this);
-        EventLog.getInstance().logEvent(createdEvent);
+        log.logEvent(createdEvent);
         return createdEvent;
     }
 
