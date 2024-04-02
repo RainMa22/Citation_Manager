@@ -44,8 +44,6 @@ public class MultiQuestionField extends QuestionField {
             if (field instanceof MultiQuestionField) {
                 MultiQuestionField multiQuestionField = (MultiQuestionField) field;
                 int size = multiQuestionField.getStringListVal().size();
-                System.out.println(strings);
-                System.out.println(strings.subList(j, j + size));
                 multiQuestionField.fromStringListVal(strings.subList(j, j + size));
                 j += size;
             } else if (field instanceof QuestionField) {

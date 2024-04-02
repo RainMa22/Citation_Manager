@@ -9,7 +9,7 @@ import java.util.Scanner;
  * represents a question that the programs asks for getting information */
 public class Prompt {
     public static final int REPEAT_ON_FAIL = 0;
-    public static final int NULL_ON_FAIL = 1;
+    public static final int EMPTY_STRING_ON_FAIL = 1;
     public static final int FALSE_STRING_ON_FAIL = 2;
     private final IsSatisfiable criteria;
     private final int strategyOnFail;
@@ -41,9 +41,9 @@ public class Prompt {
             String answer = scanner.nextLine().trim();
             if (criteria.isSatisfiedBy(answer)) {
                 return answer;
-            } else if (strategyOnFail == NULL_ON_FAIL) {
+            } else if (strategyOnFail == EMPTY_STRING_ON_FAIL) {
                 System.out.println("\nInvalid Input! Skipping!");
-                return null;
+                return "";
             } else if (strategyOnFail == FALSE_STRING_ON_FAIL) {
                 System.out.println("\nInvalid Input! Skipping!");
                 return "false";

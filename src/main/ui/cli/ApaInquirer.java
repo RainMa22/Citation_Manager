@@ -15,9 +15,9 @@ import java.util.List;
 public class ApaInquirer implements CitationInquirable {
     private static final Prompt[] PROMPTS = new Prompt[]{
             new Prompt("Please Enter the Author Names, with proper capitalization, "
-                    + "separated by \',\': ", Prompt.NULL_ON_FAIL, new DummyCriteria()),
+                    + "separated by \',\': ", Prompt.EMPTY_STRING_ON_FAIL, new DummyCriteria()),
             new Prompt("Please Enter the Title of the work, with proper capitalization: ",
-                    Prompt.NULL_ON_FAIL, new DummyCriteria()),
+                    Prompt.EMPTY_STRING_ON_FAIL, new DummyCriteria()),
             new Prompt("Is the work an Academic work(i.e. a paper)? "
                     + "(yes/no)(1/0)(true/false)(t/f)(y/n): ", Prompt.FALSE_STRING_ON_FAIL,
                     new BooleanCriteria()),
@@ -25,21 +25,21 @@ public class ApaInquirer implements CitationInquirable {
                     + "(yes/no)(1/0)(true/false)(t/f)(y/n): ", Prompt.FALSE_STRING_ON_FAIL,
                     new BooleanCriteria()),
             new Prompt("Please Enter the Collection this work belongs to: ",
-                    Prompt.NULL_ON_FAIL, new DummyCriteria()),
+                    Prompt.EMPTY_STRING_ON_FAIL, new DummyCriteria()),
             new Prompt("Please Enter the Volume the work belongs to (integer): ",
-                    Prompt.NULL_ON_FAIL, new IntegerCriteria()),
+                    Prompt.EMPTY_STRING_ON_FAIL, new IntegerCriteria()),
             new Prompt("Please Enter the name of the issue: ",
-                    Prompt.NULL_ON_FAIL, new DummyCriteria()),
+                    Prompt.EMPTY_STRING_ON_FAIL, new DummyCriteria()),
             new Prompt("Please enter the publish date {yyyy[-mm(-dd)}"
                     + "(e.g 2024 or 2024-01 or 2024-01-21): ",
-                    Prompt.NULL_ON_FAIL, new DateCriteria()),
+                    Prompt.EMPTY_STRING_ON_FAIL, new DateCriteria()),
             new Prompt("Please enter the name of publisher with proper capitalization: ",
-                    Prompt.NULL_ON_FAIL, new DummyCriteria()),
+                    Prompt.EMPTY_STRING_ON_FAIL, new DummyCriteria()),
             new Prompt("Please enter the URL/DOI/location of the work: ",
-                    Prompt.NULL_ON_FAIL, new DummyCriteria()),
+                    Prompt.EMPTY_STRING_ON_FAIL, new DummyCriteria()),
             new Prompt("Please enter the access date {yyyy[-mm(-dd)}"
                     + "(e.g 2024 or 2024-01 or 2024-01-21): ",
-                    Prompt.NULL_ON_FAIL, new DateCriteria())};
+                    Prompt.EMPTY_STRING_ON_FAIL, new DateCriteria())};
 
     @Override
     public List<String> inquire() {

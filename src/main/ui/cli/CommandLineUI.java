@@ -3,6 +3,7 @@ package ui.cli;
 import model.*;
 import model.apa.ApaCitation;
 import model.apa.ApaFullCitation;
+import model.eventlogger.EventLog;
 import model.mla.MlaCitation;
 import model.mla.MlaFullCitation;
 import org.json.JSONObject;
@@ -56,6 +57,7 @@ public class CommandLineUI {
         while (ui.getMode() != EXIT) {
             ui.update();
         }
+        EventLog.getInstance().forEach(System.out::println);
     }
 
     public int getMode() {
@@ -139,7 +141,7 @@ public class CommandLineUI {
     //                      else, proceed to EXPORT.
     //              if file does not exist, print out an error message and EXIT;
     private int loadCitation() {
-        Prompt p = new Prompt("Please specify a path for your saved citation JSON file: ", Prompt.NULL_ON_FAIL,
+        Prompt p = new Prompt("Please specify a path for your saved citation JSON file: ", Prompt.EMPTY_STRING_ON_FAIL,
                 new DummyCriteria());
         String str = p.ask();
         JsonReader reader;
@@ -207,7 +209,7 @@ public class CommandLineUI {
     private int saveCitation() {
         JsonWriter writer;
 
-        Prompt promptForOutput = new Prompt("Please enter the path of the output file: ", Prompt.NULL_ON_FAIL,
+        Prompt promptForOutput = new Prompt("Please enter the path of the output file: ", Prompt.EMPTY_STRING_ON_FAIL,
                 new DummyCriteria());
 
         try {

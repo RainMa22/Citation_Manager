@@ -46,8 +46,12 @@ public abstract class FullCitation extends CitationComponent {
 
     // MODIFIES: this
     // EFFECTS: Add the citation to the citations treeSet, duplicate citations will be removed
+    //          logs the addition to the log if successful
     public void add(Citation c) {
-        citations.add(c);
+        if (!citations.contains(c)) {
+            citations.add(c);
+            logAddition(c);
+        }
     }
 
     // REQUIRES: citation has been added to the list of citations
@@ -68,8 +72,12 @@ public abstract class FullCitation extends CitationComponent {
 
     // MODIFIES: this
     // EFFECTS: remove the citation from the citations treeSet.
+    //          logs the removal if successful.
     public void remove(Citation c) {
-        citations.remove(c);
+        if (citations.contains(c)) {
+            citations.remove(c);
+            logRemoval(c);
+        }
     }
 
     public abstract String getFormat();

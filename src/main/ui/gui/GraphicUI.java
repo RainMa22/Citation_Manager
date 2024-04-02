@@ -1,5 +1,6 @@
 package ui.gui;
 
+import model.eventlogger.EventLog;
 import org.json.JSONObject;
 import persistence.JsonReader;
 import ui.gui.apa.ApaFullGuiCitation;
@@ -13,10 +14,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import java.awt.event.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -27,7 +25,7 @@ import java.util.List;
 /*
  * Class representing the GUI Frame of the Citation Generator
  * */
-public class GraphicUI extends JFrame implements ActionListener, ItemListener {
+public class GraphicUI extends JFrame implements ActionListener, ItemListener, WindowListener {
     private static final String[] formats = {"MLA", "APA"};
     private static final String TITLE = "Citation Generator";
     private static final String COMMAND_CONFIRM = "submit";
@@ -51,7 +49,6 @@ public class GraphicUI extends JFrame implements ActionListener, ItemListener {
     public GraphicUI() {
         super(TITLE);
         Image logo = Toolkit.getDefaultToolkit().getImage(getClass().getResource(LOGO_PATH));
-        prepareImage(logo, this);
         setIconImage(logo);
         CitationMenuBar menuBar = new CitationMenuBar();
         selected = null;
@@ -71,6 +68,7 @@ public class GraphicUI extends JFrame implements ActionListener, ItemListener {
 
         controlPanel.addActionListener(this);
         menuBar.addActionListener(this);
+        addWindowListener(this);
 
         setLocationRelativeTo(null);
         setVisible(true);
@@ -247,5 +245,45 @@ public class GraphicUI extends JFrame implements ActionListener, ItemListener {
         splitPane.setLeftComponent(citationInquiries);
     }
 
+    //EFFECTS: nothing
+    @Override
+    public void windowOpened(WindowEvent e) {
 
+    }
+
+    //EFFECTS: print events to console on window closing
+    @Override
+    public void windowClosing(WindowEvent e) {
+        EventLog.getInstance().forEach(System.out::println);
+    }
+
+    //EFFECTS: nothing
+    @Override
+    public void windowClosed(WindowEvent e) {
+
+    }
+
+    //EFFECTS: nothing
+    @Override
+    public void windowIconified(WindowEvent e) {
+
+    }
+
+    //EFFECTS: nothing
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+
+    }
+
+    //EFFECTS: nothing
+    @Override
+    public void windowActivated(WindowEvent e) {
+
+    }
+
+    //EFFECTS: nothing
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+
+    }
 }
