@@ -1,5 +1,8 @@
 package model;
 
+import model.eventlogger.CitationAddedEvent;
+import model.eventlogger.CitationRemovedEvent;
+import model.eventlogger.EventLog;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -45,6 +48,22 @@ public abstract class FullCitation extends CitationComponent {
     // EFFECTS: Add the citation to the citations treeSet, duplicate citations will be removed
     public void add(Citation c) {
         citations.add(c);
+    }
+
+    // REQUIRES: citation has been added to the list of citations
+    // EFFECTS: logs the added citation to the event log
+    public CitationAddedEvent logAddition(Citation c) {
+        CitationAddedEvent addedEvent = new CitationAddedEvent(this, c);
+        EventLog.getInstance().logEvent(addedEvent);
+        return addedEvent;
+    }
+
+    // REQUIRES: citation c has been removed from the list of citations
+    // EFFECTS: logs the added citation to the event log
+    public CitationRemovedEvent logRemoval(Citation c) {
+        CitationRemovedEvent removedEvent = new CitationRemovedEvent(this, c);
+        EventLog.getInstance().logEvent(removedEvent);
+        return removedEvent;
     }
 
     // MODIFIES: this

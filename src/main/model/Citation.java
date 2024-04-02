@@ -1,5 +1,7 @@
 package model;
 
+import model.eventlogger.CitationCreatedEvent;
+import model.eventlogger.EventLog;
 import org.json.JSONObject;
 
 /*
@@ -21,11 +23,20 @@ public abstract class Citation extends CitationComponent {
     //EFFECTS: creates an empty Citation
     public Citation() {
         super();
+        logCreation();
     }
 
     //EFFECTS: creates a Citation From the given JSONObject
     public Citation(JSONObject json) {
         super(json);
+        logCreation();
+    }
+
+    //EFFECTS: log the creation of self to eventLog
+    public CitationCreatedEvent logCreation() {
+        CitationCreatedEvent createdEvent = new CitationCreatedEvent(this);
+        EventLog.getInstance().logEvent(createdEvent);
+        return createdEvent;
     }
 
     //EFFECTS: put head,tail,mode, and the JSONObject representations of authorNames,title, collection, volume,

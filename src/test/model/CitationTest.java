@@ -1,11 +1,14 @@
 package model;
 
 
+import model.eventlogger.CitationCreatedEvent;
+import model.eventlogger.Event;
+import model.eventlogger.EventLog;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CitationTest {
 
@@ -16,6 +19,21 @@ public class CitationTest {
         c1 = new MockCitation("abc", "def", "ghi", 22, "jkl", "mno",
                 "pqr", "stu", "vwxyz");
     }
+
+    @Test
+    public void testLogCreation(){
+        CitationCreatedEvent createdEvent = c1.logCreation();
+        assertNotNull(createdEvent);
+        boolean containsEvent = false;
+        for (Event event: EventLog.getInstance()){
+            containsEvent = (event.equals(createdEvent));
+            if (containsEvent){
+                break;
+            }
+        }
+        assertTrue(containsEvent);
+    }
+
 
     @Test
     public void testAsJson() {
