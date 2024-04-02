@@ -4,6 +4,7 @@ import model.Citation;
 import org.json.JSONObject;
 import util.BooleanUtils;
 
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -25,10 +26,10 @@ public class MlaCitation extends Citation {
         if (param.size() < 10) {
             throw new IllegalArgumentException("Needs at least 10 Strings(including null) to create a MlaCitation!");
         }
+        userInput = param;
         setAuthorNames(new MlaAuthorNameList(param.get(0)));
-        boolean minorWork = Boolean.TRUE.equals(BooleanUtils.fromString(param.get(2)));
-        setTitle(new MlaCitationTitle(param.get(1), minorWork));
-        setMinorWork(minorWork);
+        setTitle(new MlaCitationTitle(param.get(1), Boolean.TRUE.equals(BooleanUtils.fromString(param.get(2)))));
+        setMinorWork(Boolean.TRUE.equals(BooleanUtils.fromString(param.get(2))));
         setCollection(new MlaCitationCollection(param.get(3)));
         try {
             setVolume(new MlaVolume(Integer.valueOf(param.get(4))));
@@ -54,6 +55,8 @@ public class MlaCitation extends Citation {
     //          publisher, location, and access date
     public MlaCitation(String authorNames, String title, boolean minorWork, String collection, Integer volume,
                        String issueName, String pubDate, String publisher, String location, String accessDate) {
+        userInput = Arrays.asList(authorNames,title,String.valueOf(minorWork),collection, String.valueOf(volume),
+                issueName, pubDate, publisher,location,accessDate);
         setAuthorNames(new MlaAuthorNameList(authorNames));
         setTitle(new MlaCitationTitle(title, minorWork));
         setMinorWork(minorWork);

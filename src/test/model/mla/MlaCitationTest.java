@@ -19,6 +19,7 @@ public class MlaCitationTest {
 
     @BeforeEach
     public void setup() {
+
         citationFull = new MlaCitation("Gregor Kiczales, John Lamping, Anurag Mendhekar",
                 "Aspect-Oriented Programming", true, "ACM Computing Surveys",
                 28, "4es", "1996-12-01",

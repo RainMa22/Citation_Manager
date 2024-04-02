@@ -2,13 +2,18 @@ package model;
 
 import model.eventlogger.CitationCreatedEvent;
 import model.eventlogger.EventLog;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /*
  * An interface that represent a citable object, capable of converting filled-in
  * Field information in a citation String.
  */
-public abstract class Citation extends CitationComponent {
+public abstract class Citation extends CitationComponent implements InputPersistence {
     protected AuthorNameList authorNames;
     protected CitationTitle title;
     protected CitationTitle collection;
@@ -18,6 +23,7 @@ public abstract class Citation extends CitationComponent {
     protected SimpleCitationComponent publisher;
     protected CitationDate accessDate;
     protected SimpleCitationComponent location;
+    protected List<String> userInput;
 
 
     //EFFECTS: creates an empty Citation
@@ -29,6 +35,12 @@ public abstract class Citation extends CitationComponent {
     //EFFECTS: creates a Citation From the given JSONObject
     public Citation(JSONObject json) {
         super(json);
+        try {
+            userInput = json.getJSONArray("param").toList().stream().map(Object::toString)
+                    .collect(Collectors.toList());
+        } catch (JSONException | NullPointerException je) {
+            userInput = null;
+        }
         logCreation();
     }
 
@@ -48,10 +60,11 @@ public abstract class Citation extends CitationComponent {
         String[] keys = ("authorNames, title, collection, volume, "
                 + "issueName, pubDate, publisher, accessDate, location").split(", ");
         CitationComponent[] components = {authorNames, title, collection, volume, issueName,
-                pubDate, publisher, accessDate, location};
+                pubDate, publisher, accessDate, location,};
         for (int i = 0; i < keys.length; i++) {
             out.put(keys[i], components[i].asJson());
         }
+        out.put("param", new JSONArray(userInput));
         return out;
     }
 
@@ -126,5 +139,10 @@ public abstract class Citation extends CitationComponent {
 
     public void setLocation(SimpleCitationComponent location) {
         this.location = location;
+    }
+
+    @Override
+    public List<String> getUserInput() {
+        return userInput;
     }
 }

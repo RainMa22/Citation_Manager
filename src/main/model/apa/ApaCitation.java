@@ -4,6 +4,7 @@ import model.Citation;
 import org.json.JSONObject;
 import util.BooleanUtils;
 
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -36,6 +37,7 @@ public class ApaCitation extends Citation {
         if (param.size() < 11) {
             throw new IllegalArgumentException("Needs at least 11 Strings(including null) to create a ApaCitation!");
         }
+        userInput = param;
         setAuthorNames(new ApaAuthorNameList(param.get(0)));
         boolean acdemicWork = Boolean.TRUE.equals(BooleanUtils.fromString(param.get(2)));
         boolean subjectToChange = Boolean.TRUE.equals(BooleanUtils.fromString(param.get(3)));
@@ -81,6 +83,8 @@ public class ApaCitation extends Citation {
     public ApaCitation(String authorNames, String title, boolean acdemicWork, boolean subjectToChange,
                        String collection, Integer volume,
                        String issueName, String pubDate, String publisher, String location, String accessDate) {
+        userInput = Arrays.asList(authorNames, title, String.valueOf(acdemicWork), String.valueOf(subjectToChange),
+                collection, String.valueOf(volume), issueName, pubDate, publisher, location, accessDate);
         setAuthorNames(new ApaAuthorNameList(authorNames));
         setTitle(new ApaCitationTitle(title, acdemicWork));
         setAcademicWork(acdemicWork, subjectToChange);

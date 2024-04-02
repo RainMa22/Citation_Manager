@@ -1,6 +1,8 @@
 package ui.gui;
 
 import model.Citation;
+import model.FullCitation;
+import model.InputPersistence;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,7 +11,7 @@ import java.util.Set;
 
 //represents the GUI visualization of FullCitaiton
 public class CitationListPanel extends GridPanel {
-    private FullGuiCitation citation;
+    private FullCitation citation;
     private ActionListener listener;
 
     // Constructor
@@ -20,13 +22,13 @@ public class CitationListPanel extends GridPanel {
         this.citation = null;
     }
 
-    public FullGuiCitation getCitation() {
+    public FullCitation getCitation() {
         return citation;
     }
 
     // EFFECTS: removes all children, sets citation as given FullCitaiton,
     //          and adds citations as outlined label items into the ListPanel
-    public void setFullCitation(FullGuiCitation citation) {
+    public void setFullCitation(FullCitation citation) {
         this.citation = citation;
         update();
     }
@@ -36,8 +38,8 @@ public class CitationListPanel extends GridPanel {
         removeAll();
         Set<Citation> citations = citation.getCitations();
         for (Citation c : citations) {
-            if (c instanceof GuiCitation) {
-                JButton btn = new CitationButton((GuiCitation) c);
+            if (c != null) {
+                JButton btn = new CitationButton(c);
                 if (listener != null) {
                     btn.addActionListener(listener);
                 }
@@ -57,7 +59,7 @@ public class CitationListPanel extends GridPanel {
 
     // MODIFIES: this
     // EFFECTS: removes the citation from the FullCitation
-    public void removeCitation(GuiCitation citation) {
+    public void removeCitation(InputPersistence citation) {
         this.citation.remove((Citation) citation);
         update();
     }

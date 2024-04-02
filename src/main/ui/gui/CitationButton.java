@@ -1,15 +1,17 @@
 package ui.gui;
 
+import model.InputPersistence;
+
 import javax.swing.*;
 import java.awt.*;
 
 // represents a Button, which represents a CitationButton
 public class CitationButton extends JButton {
     public static final String SELECT_CITATION = "select citation";
-    private final GuiCitation citation;
+    private final InputPersistence citation;
 
     //EFFECTS: creates a citation button with the given citation
-    public CitationButton(GuiCitation citation) {
+    public CitationButton(InputPersistence citation) {
         super(citation.toString());
         setBackground(null);
 
@@ -19,7 +21,7 @@ public class CitationButton extends JButton {
         setPreferredSize(new Dimension(getWidth(), 100));
     }
 
-    public GuiCitation getCitation() {
+    public InputPersistence getCitation() {
         return citation;
     }
 

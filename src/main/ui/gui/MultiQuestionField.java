@@ -39,6 +39,8 @@ public class MultiQuestionField extends QuestionField {
     //          falls back to fromStringValue for every QuestionField child
     public void fromStringListVal(List<String> strings) {
         int j = 0;
+
+
         for (int i = 0; i <= getComponents().length; i++) {
             Component field = getComponent(i);
             if (field instanceof MultiQuestionField) {
