@@ -13,6 +13,7 @@ public class Event {
     private String description;
 
     /**
+     * EFFECTS:
      * Creates an event with the given description
      * and the current date/time stamp.
      *
@@ -24,6 +25,7 @@ public class Event {
     }
 
     /**
+     * EFFECTS:
      * Gets the date of this event (includes time).
      *
      * @return the date of the event
@@ -33,6 +35,7 @@ public class Event {
     }
 
     /**
+     * EFFECTS:
      * Gets the description of this event.
      *
      * @return the description of the event
@@ -55,6 +58,7 @@ public class Event {
                 && this.description.equals(otherEvent.description));
     }
 
+    // EFFECTS: returns hash constant multiply by the hashcode of date logged and added by description
     @Override
     public int hashCode() {
         return (HASH_CONSTANT * dateLogged.hashCode() + description.hashCode());
