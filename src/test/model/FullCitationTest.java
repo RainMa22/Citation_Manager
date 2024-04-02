@@ -46,6 +46,8 @@ public class FullCitationTest {
         assertEquals(testCitation, mfc.getCitations().last());
         mfc.remove(testCitation);
         assertEquals(0, mfc.getCitations().size());
+        mfc.remove(testCitation);
+        assertEquals(0, mfc.getCitations().size());
     }
 
     @Test
@@ -55,8 +57,8 @@ public class FullCitationTest {
         mfc.add(testCitation);
         CitationAddedEvent addedEvent = mfc.logAddition(testCitation);
         assertNotNull(addedEvent);
-        for (Event event: EventLog.getInstance()) {
-            if (event.equals(addedEvent)){
+        for (Event event : EventLog.getInstance()) {
+            if (event.equals(addedEvent)) {
                 return;
             }
         }
@@ -69,8 +71,8 @@ public class FullCitationTest {
                 null, null, null, null, null, null, null);
         CitationRemovedEvent removedEvent = mfc.logRemoval(testCitation);
         assertNotNull(removedEvent);
-        for (Event event: EventLog.getInstance()) {
-            if (event.equals(removedEvent)){
+        for (Event event : EventLog.getInstance()) {
+            if (event.equals(removedEvent)) {
                 return;
             }
         }
@@ -102,7 +104,7 @@ public class FullCitationTest {
     }
 
     @Test
-    public void testToJson(){
+    public void testToJson() {
         Citation testCitation = new ApaCitation("apple", "book", false, false,
                 null, null, null, null, null, null, null);
         mfc.add(testCitation);
