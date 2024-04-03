@@ -2,7 +2,6 @@ package ui.gui;
 
 import model.Citation;
 import model.FullCitation;
-import model.InputPersistence;
 
 import javax.swing.*;
 import java.awt.*;
@@ -59,8 +58,8 @@ public class CitationListPanel extends GridPanel {
 
     // MODIFIES: this
     // EFFECTS: removes the citation from the FullCitation
-    public void removeCitation(InputPersistence citation) {
-        this.citation.remove((Citation) citation);
+    public void removeCitation(Citation citation) {
+        this.citation.remove(citation);
         update();
     }
 
