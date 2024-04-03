@@ -46,7 +46,7 @@ public class GraphicUI extends JFrame implements ActionListener, ItemListener, W
     private CitationButton selected;
     private JFileChooser fileChooser;
 
-    //Constructor
+    // Constructor
     // EFFECTS: constructs the GUI for citation generation
     public GraphicUI() {
         super(TITLE);
