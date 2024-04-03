@@ -16,9 +16,9 @@ public class CitationMenuBar extends JMenuBar {
     // EFFECTS: construct a new Citation menu bar
     public CitationMenuBar() {
         file = new JMenu("File");
-        save = new JMenuItem("Save as HTML");
+        save = new JMenuItem("Export as HTML");
         save.setActionCommand(SAVE_CITATION);
-        export = new JMenuItem("Export to JSON");
+        export = new JMenuItem("Save to JSON");
         export.setActionCommand(EXPORT_CITATION);
         load = new JMenuItem("Load from JSON");
         load.setActionCommand(LOAD_CITATION);
