@@ -5,7 +5,7 @@ import model.Citation;
 import javax.swing.*;
 import java.awt.*;
 
-// represents a Button, which represents a CitationButton
+// represents a Button, which has a reference to a Citation
 public class CitationButton extends JButton {
     public static final String SELECT_CITATION = "select citation";
     private final Citation citation;
