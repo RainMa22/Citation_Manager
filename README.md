@@ -1,40 +1,23 @@
-# Citation Generator!!!!
+# Citation Generator
 
-## A WIP
+## A Citation Generator supporting MLA, APA, and Chicago formats, written in Java and Java Swing.
 
-A *TODO* list:
+> This is an UBC CPSC 210 project
+ 
+### *TODO* list:
 
-- ***DONE*** ~~Citation Template~~
-    - ***DONE*** ~~MLA~~
-    - ***DONE*** ~~APA~~
-- ***DONE*** ~~User Input(CUI)!!~~
-    - ~~*Can be done after implementing one format*~~
-- ***DONE*** ~~Citation Selector~~
-- ***PAIN*** ~~Pain and Suffering~~
-- ~~use **bold** and *italic* fonts in the project description!~~
+- [x] ~~Citation Template~~
+    - [x] ~~MLA~~
+    - [x] ~~APA~~
+- [x] ~~User Input(CUI)~~
+- [x] ~~Citation Selector~~
 
-- ***DONE*** ~~Change CommandLineUI so that it uses FullCitation instead of maintaining its own TreeSet.~~
-- ***DONE*** ~~Address the bug where two consecutive MLA citation of the same authors was not simplified in to "—"
+- [x] ~~Change CommandLineUI so that it uses FullCitation instead of maintaining its own TreeSet.~~
+- [x] ~~Address the bug where two consecutive MLA citation of the same authors was not simplified in to "—"
   in the author section~~
-- change MlaTitle such that MINOR or MAJOR work is defined as a mode constant instead of stored as a boolean.
-  - Likewise for ApaCitationTitle.academicArticle;
+- [x] ~~change MlaTitle such that MINOR or MAJOR work is defined as a mode constant instead of stored as a boolean.~~
+- [ ] Switch Gradle/Maven for more compatible compilation and running.
 
-## USER STORIES
-### phase 1
-- (Done) Be able to create one APA citation
-- (Done) Be able to create one MLA citation
-- (Done) Ba able to add more than one author to a citation
-- (Done) Be able to view the added author
-
-### phase 2
-- (Done)Be able to save the citations to JSON files
-- Be able to load and add onto the citations stored in aforementioned JSON files(if user wants)
-
-### phase 3
-- (Done)Be able to add Citation to a collection of citation via GUI
-- (Done)Be able to load and add onto the citations stored in JSON files(if user wants) via GUI
-
-### phase 4; task 2
-- Log when a citation is created
-- Log when a citation is added to a FullCitation
-- Log when a citation is removed from a FullCitation
+# Compilation and running 
+1. clone the project using IntelliJ
+2. click run.
